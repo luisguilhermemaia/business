@@ -6,6 +6,12 @@ const teal = {
   medium: '#3D5A5A',
 } as const;
 
+const brown = {
+  dark: '#593c2c',
+  medium: '#a77e5d',
+  light: '#c4a082',
+} as const;
+
 const taupe = {
   main: '#9A816C',
   light: '#C4B5A5',
@@ -51,6 +57,8 @@ export const karinneTheme = createBrandTheme({
     gradientCard: `linear-gradient(180deg, ${cream.surface} 0%, ${cream.dark} 100%)`,
     tealDark: teal.dark,
     tealDarkContrast: cream.main,
+    brownDark: brown.dark,
+    brownMedium: brown.medium,
   },
   typography: {
     fonts: {

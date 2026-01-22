@@ -4,7 +4,7 @@ export const karinneContent: BrandContent = {
   doctor: {
     name: 'Dra. Karinne Azin',
     specialty: 'Ginecologia',
-    registrationLabel: 'CRM 000000 - Registro profissional',
+    registrationLabel: 'CRM 10236 - CE',
     bio: 'Ginecologista dedicada ao cuidado integral da mulher, combinando ciência, ética e acolhimento em cada consulta.',
     headshot:
       'https://s3-sa-east-1.amazonaws.com/doctoralia.com.br/doctor/04015c/04015c1b5a5b4bc60398b20d5590c191_large.jpg',
@@ -16,6 +16,7 @@ export const karinneContent: BrandContent = {
       'O cuidado ginecológico pode ser o seu espaço seguro para entender o que está acontecendo e receber um plano claro de tratamento. Atendo presencialmente e online para todo o Brasil — com acolhimento, escuta ativa e condutas baseadas em evidências científicas.',
     ctaLabel: 'Agendar consulta',
     secondaryCtaLabel: 'Conhecer especialidades',
+    backgroundImage: undefined, // Optional: URL for blurred background image
   },
   services: [
     {
@@ -100,19 +101,19 @@ export const karinneContent: BrandContent = {
     ],
   },
   location: {
-    addressLine: 'Av. Referência, 123',
-    neighborhood: 'Bairro Central',
-    city: 'Cidade',
-    state: 'UF',
+    addressLine: 'Rua Coronel Linhares, 950 - 12º andar',
+    neighborhood: 'Aldeota',
+    city: 'Fortaleza',
+    state: 'CE',
     mapEmbedUrl:
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.000000!2d-46.658000!3d-23.561000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0:0x0!2zMjPCsDMzJzM5LjYiUyA0NsKwMzknMjguOCJX!5e0!3m2!1spt-BR!2sbr!4v0000000000000',
-    mapsLink: 'https://maps.google.com/?q=Av.+Refer%C3%AAncia%2C+123',
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.273!2d-38.524!3d-3.732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf4a92d2e9c33177e!2sDra.%20Karinne%20Azin!5e0!3m2!1spt-BR!2sbr!4v1690000000000!5m2!1spt-BR!2sbr',
+    mapsLink: 'https://www.google.com/maps/place/Dra.+Karinne+Azin/data=!4m2!3m1!1s0x0:0xf4a92d2e9c33177e?sa=X&ved=1t:2428&ictx=111',
     openingHours: ['Seg a Sex • 8h às 19h', 'Sáb • 9h às 13h'],
   },
   contact: {
     email: 'contato@karinneazin.com',
-    phone: '+55 (11) 4000-0000',
-    whatsapp: '+55 (11) 98888-8888',
+    phone: '+55 (85) 4000-0000',
+    whatsapp: '+55 (85) 98888-8888',
   },
   booking: {
     mode: 'whatsapp',

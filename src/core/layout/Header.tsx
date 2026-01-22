@@ -124,14 +124,15 @@ const NavLink = styled(Link)<
   ${({ $active, theme }) =>
     $active &&
     `
-    background: ${theme.colors.primary};
-    color: ${theme.colors.primaryContrast};
+    background: ${hexToRgba(theme.colors.primary, 0.1)};
+    color: ${theme.colors.text};
+    border: 1px solid ${hexToRgba(theme.colors.primary, 0.3)};
   `}
 
   &:hover {
-    color: ${({ $active, theme }) => ($active ? theme.colors.primaryContrast : theme.colors.primary)};
+    color: ${({ $active, theme }) => ($active ? theme.colors.text : theme.colors.primary)};
     background: ${({ $active, theme }) =>
-      $active ? theme.colors.primaryStrong : hexToRgba(theme.colors.primary, 0.06)};
+      $active ? hexToRgba(theme.colors.primary, 0.12) : hexToRgba(theme.colors.primary, 0.06)};
   }
 
   &:focus-visible {
@@ -144,9 +145,11 @@ const NavLink = styled(Link)<
     font-size: ${({ theme }) => theme.typography.sizes.lg};
     border-radius: ${({ theme }) => theme.radii.lg};
     background: ${({ $active, theme }) =>
-      $active ? theme.colors.primary : 'transparent'};
+      $active ? hexToRgba(theme.colors.primary, 0.1) : 'transparent'};
     color: ${({ $active, theme }) =>
-      $active ? theme.colors.primaryContrast : theme.colors.text};
+      $active ? theme.colors.text : theme.colors.text};
+    border: ${({ $active, theme }) =>
+      $active ? `1px solid ${hexToRgba(theme.colors.primary, 0.3)}` : '1px solid transparent'};
   }
 `;
 
@@ -291,6 +294,24 @@ const MobileNavLink = styled(NavLink)`
 `;
 
 const MainCTA = styled(LinkButton)`
+  background: transparent !important;
+  color: ${({ theme }) => theme.colors.text} !important;
+  border: 1.5px solid ${({ theme }) => hexToRgba(theme.colors.primary, 0.4)} !important;
+  box-shadow: none !important;
+  font-weight: ${({ theme }) => theme.typography.weights.medium} !important;
+
+  &:hover:not(:disabled) {
+    background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.08)} !important;
+    color: ${({ theme }) => theme.colors.text} !important;
+    border-color: ${({ theme }) => hexToRgba(theme.colors.primary, 0.6)} !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     display: none;
   }

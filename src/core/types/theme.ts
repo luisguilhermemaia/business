@@ -23,6 +23,8 @@ export interface AppTheme {
     gradientCard: string;
     tealDark?: string;
     tealDarkContrast?: string;
+    brownDark?: string;
+    brownMedium?: string;
   };
   typography: {
     fonts: {

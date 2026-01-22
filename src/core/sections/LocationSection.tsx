@@ -25,8 +25,14 @@ const MapFrame = styled.iframe`
   width: 100%;
   border: none;
   border-radius: ${({ theme }) => theme.radii.lg};
-  height: 360px;
+  height: 450px;
+  min-height: 400px;
   box-shadow: ${({ theme }) => theme.shadows.md || theme.shadows.medium};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    height: 350px;
+    min-height: 300px;
+  }
 `;
 
 export const LocationSection = () => {
@@ -76,9 +82,14 @@ export const LocationSection = () => {
             </Card>
           </Reveal>
           <Reveal delay={0.1}>
-            <Card>
+            <Card style={{ padding: 0, overflow: 'hidden' }}>
               {content.location.mapEmbedUrl ? (
-                <MapFrame src={content.location.mapEmbedUrl} loading="lazy" />
+                <MapFrame
+                  src={content.location.mapEmbedUrl}
+                  loading="lazy"
+                  allowFullScreen
+                  title="Localização do consultório"
+                />
               ) : null}
             </Card>
           </Reveal>

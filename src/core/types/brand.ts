@@ -56,6 +56,7 @@ export interface BrandContent {
     subheadline: string;
     ctaLabel: string;
     secondaryCtaLabel: string;
+    backgroundImage?: string;
   };
   services: Service[];
   steps: {

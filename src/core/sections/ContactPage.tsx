@@ -124,7 +124,7 @@ export const ContactPage = () => {
                     fontSize: '0.95rem',
                   }}
                 >
-                  <Icon name="check" size={18} /> {content.contact.email}
+                  <Icon name="mail" size={18} /> {content.contact.email}
                 </div>
               </Stack>
             </Stack>
