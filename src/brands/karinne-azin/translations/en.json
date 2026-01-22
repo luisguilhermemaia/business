@@ -1,0 +1,100 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "location": "Location",
+    "blog": "Insights",
+    "contact": "Contact"
+  },
+  "actions": {
+    "book": "Book now",
+    "contact": "Contact",
+    "viewServices": "View services",
+    "send": "Send",
+    "back": "Back"
+  },
+  "hero": {
+    "location": "Location",
+    "hours": "Hours",
+    "contact": "Contact"
+  },
+  "services": {
+    "title": "You might be here because",
+    "headline": "Your symptoms deserve specialist care",
+    "subtitle": "Care for every stage of a woman’s life with active listening, science, and safe decisions.",
+    "ctaBlurb": "Want clarity about your case? Let’s talk."
+  },
+  "steps": {
+    "title": "How we work"
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "headline": "Real stories from women who felt cared for"
+  },
+  "location": {
+    "title": "Where to find us",
+    "headline": "A calm, central space",
+    "description": "Easy access, ample hours, and an environment designed to welcome you.",
+    "openMaps": "Open in Google Maps"
+  },
+  "blog": {
+    "title": "Articles",
+    "headline": "Concise, reliable reads",
+    "subtitle": "Short pieces to guide everyday health decisions.",
+    "minRead": "min read",
+    "readMore": "Read article",
+    "viewAll": "View all articles",
+    "searchPlaceholder": "Search articles",
+    "filterTags": "Filter by topic",
+    "noResults": "No articles found"
+  },
+  "cta": {
+    "title": "Ready for calm, attentive care?",
+    "subtitle": "Send your preferred time or talk directly on WhatsApp."
+  },
+  "footer": {
+    "quickLinks": "Navigate",
+    "contact": "Contact",
+    "location": "Address",
+    "map": "View map",
+    "rights": "All rights reserved to {name}.",
+    "madeWithCare": "Care starts here."
+  },
+  "about": {
+    "title": "About Dr. Karinne Azin",
+    "intro": "A medical practice centered on listening, clarity, and continuous follow-up.",
+    "pillars": ["Detailed attention", "Transparent communication", "Feasible plans"],
+    "approachTitle": "Care philosophy",
+    "approach": "Each consultation is a space to understand what matters to you. Using evidence-based protocols, we define priorities, exams, and practical steps together. We follow up closely, adjust when needed, and stay available for questions."
+  },
+  "contact": {
+    "title": "Get in touch",
+    "subtitle": "Send your question or request. We will get back shortly.",
+    "contact": "Contact",
+    "email": "Email",
+    "phone": "Phone",
+    "whatsapp": "WhatsApp",
+    "formTitle": "Send a message",
+    "success": "Message sent. We will respond soon."
+  },
+  "booking": {
+    "title": "Book your visit",
+    "subtitle": "Share your preferred date and time. We will confirm via WhatsApp or email.",
+    "fullName": "Full name",
+    "emailOrPhone": "Email or phone",
+    "preferredDate": "Preferred date",
+    "preferredTimeWindow": "Time of day",
+    "morning": "Morning",
+    "afternoon": "Afternoon",
+    "evening": "Evening",
+    "message": "Notes",
+    "submit": "Send request",
+    "success": "Request received. We will contact you to confirm.",
+    "openWhatsApp": "Open WhatsApp"
+  },
+  "forms": {
+    "required": "Required field",
+    "invalid": "Invalid information"
+  }
+}

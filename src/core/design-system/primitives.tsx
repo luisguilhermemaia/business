@@ -1,0 +1,167 @@
+import styled, { css } from 'styled-components';
+
+export const Container = styled.div<{ width?: 'narrow' | 'regular' | 'wide' }>`
+  width: 100%;
+  margin: 0 auto;
+  max-width: ${({ theme, width = 'regular' }) => theme.containerWidth[width]};
+  padding: 0 ${({ theme }) => theme.spacing.md}px;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: 0 ${({ theme }) => theme.spacing.lg}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    padding: 0 ${({ theme }) => theme.spacing.xl}px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    padding: 0 ${({ theme }) => theme.spacing.md}px;
+  }
+`;
+
+export const Section = styled.section<{ 
+  background?: 'default' | 'muted' | 'card';
+  padding?: 'sm' | 'md' | 'lg' | 'xl';
+}>`
+  padding: ${({ theme, padding = 'lg' }) => {
+    const paddingMap = {
+      sm: theme.spacing.lg,
+      md: theme.spacing.xl,
+      lg: theme.spacing.xxl,
+      xl: theme.spacing.hero
+    };
+    return `${paddingMap[padding]}px 0`;
+  }};
+  background: ${({ background, theme }) => {
+    if (background === 'muted') return theme.colors.surfaceMuted;
+    if (background === 'card') return theme.colors.gradientCard;
+    return 'transparent';
+  }};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    padding: ${({ theme, padding = 'lg' }) => {
+      const paddingMap = {
+        sm: theme.spacing.md,
+        md: theme.spacing.lg,
+        lg: theme.spacing.xl,
+        xl: theme.spacing.xxl
+      };
+      return `${paddingMap[padding]}px 0`;
+    }};
+  }
+`;
+
+export const Stack = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['gap', 'align', 'justify', 'direction'].includes(prop),
+})<{ 
+  gap?: number | 'xs' | 'sm' | 'md' | 'lg' | 'xl'; 
+  align?: string; 
+  justify?: string; 
+  direction?: 'row' | 'column';
+}>`
+  display: flex;
+  flex-direction: ${({ direction = 'column' }) => direction};
+  gap: ${({ gap = 'md', theme }) => {
+    if (typeof gap === 'number') return `${gap}px`;
+    const gapMap = {
+      xs: theme.spacing.xs,
+      sm: theme.spacing.sm,
+      md: theme.spacing.md,
+      lg: theme.spacing.lg,
+      xl: theme.spacing.xl
+    };
+    return `${gapMap[gap]}px`;
+  }};
+  align-items: ${({ align }) => align || 'stretch'};
+  justify-content: ${({ justify }) => justify || 'flex-start'};
+`;
+
+export const Grid = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['columns', 'min', 'gap'].includes(prop),
+})<{
+  columns?: number;
+  min?: string;
+  gap?: number | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+}>`
+  display: grid;
+  gap: ${({ gap = 'md', theme }) => {
+    if (typeof gap === 'number') return `${gap}px`;
+    const gapMap = {
+      xs: theme.spacing.xs,
+      sm: theme.spacing.sm,
+      md: theme.spacing.md,
+      lg: theme.spacing.lg,
+      xl: theme.spacing.xl
+    };
+    return `${gapMap[gap]}px`;
+  }};
+  grid-template-columns: repeat(auto-fit, minmax(${({ min = '280px' }) => min}, 1fr));
+
+  ${({ columns }) =>
+    columns &&
+    css`
+      grid-template-columns: repeat(${columns}, minmax(0, 1fr));
+      @media (max-width: ${props => props.theme.breakpoints.md}) {
+        grid-template-columns: 1fr;
+      }
+    `}
+`;
+
+export const Card = styled.div<{ 
+  interactive?: boolean;
+  elevation?: 'sm' | 'md' | 'lg';
+}>`
+  position: relative;
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid rgba(184, 87, 122, 0.1);
+  border-radius: ${({ theme }) => theme.radii.xl || theme.radii.lg};
+  padding: ${({ theme }) => theme.spacing.xl}px;
+  box-shadow: ${({ theme, elevation = 'sm' }) => {
+    const shadowMap = {
+      sm: '0 2px 12px rgba(184, 87, 122, 0.08), 0 0 0 1px rgba(184, 87, 122, 0.04)',
+      md: '0 4px 20px rgba(184, 87, 122, 0.12), 0 0 0 1px rgba(184, 87, 122, 0.06)',
+      lg: '0 8px 32px rgba(184, 87, 122, 0.16), 0 0 0 1px rgba(184, 87, 122, 0.08)'
+    };
+    return shadowMap[elevation];
+  }};
+  overflow: hidden;
+  transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 50%);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  ${({ interactive }) => interactive && css`
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 32px rgba(184, 87, 122, 0.16), 0 0 0 1px rgba(184, 87, 122, 0.08);
+      border-color: rgba(184, 87, 122, 0.2);
+    }
+
+    &:active {
+      transform: translateY(-3px);
+    }
+  `}
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    
+    &:hover {
+      transform: none;
+    }
+  }
+`;
+
+export const Divider = styled.hr`
+  border: none;
+  height: 1px;
+  margin: ${({ theme }) => theme.spacing.lg}px 0;
+  background: ${({ theme }) => theme.colors.border};
+`;

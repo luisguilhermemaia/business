@@ -1,0 +1,100 @@
+{
+  "nav": {
+    "home": "Início",
+    "about": "Apresentação",
+    "services": "Serviços",
+    "location": "Localização",
+    "blog": "Conteúdos",
+    "contact": "Contato"
+  },
+  "actions": {
+    "book": "Agendar",
+    "contact": "Falar com a clínica",
+    "viewServices": "Ver serviços",
+    "send": "Enviar",
+    "back": "Voltar"
+  },
+  "hero": {
+    "location": "Localização",
+    "hours": "Horários",
+    "contact": "Contato"
+  },
+  "services": {
+    "title": "Talvez você esteja aqui porque",
+    "headline": "Seus sintomas merecem atenção especializada",
+    "subtitle": "Cuidamos de cada fase da vida da mulher com escuta ativa, ciência e condutas seguras.",
+    "ctaBlurb": "Quer entender seu caso com clareza? Vamos conversar."
+  },
+  "steps": {
+    "title": "Como conduzimos"
+  },
+  "testimonials": {
+    "title": "Depoimentos",
+    "headline": "Histórias reais de quem se sentiu acolhida"
+  },
+  "location": {
+    "title": "Onde estamos",
+    "headline": "Ambiente acolhedor e bem localizado",
+    "description": "Fácil acesso, horários amplos e um espaço pensado para receber com calma.",
+    "openMaps": "Abrir no Google Maps"
+  },
+  "blog": {
+    "title": "Conteúdos",
+    "headline": "Leituras objetivas e confiáveis",
+    "subtitle": "Artigos curtos para apoiar decisões de saúde no dia a dia.",
+    "minRead": "min de leitura",
+    "readMore": "Ler artigo",
+    "viewAll": "Ver todos os artigos",
+    "searchPlaceholder": "Buscar artigos",
+    "filterTags": "Filtrar por tema",
+    "noResults": "Nenhum artigo encontrado"
+  },
+  "cta": {
+    "title": "Pronto para cuidar da sua saúde com calma?",
+    "subtitle": "Envie sua solicitação de horário ou fale direto pelo WhatsApp."
+  },
+  "footer": {
+    "quickLinks": "Navegue",
+    "contact": "Contato",
+    "location": "Endereço",
+    "map": "Ver mapa",
+    "rights": "Todos os direitos reservados a {name}.",
+    "madeWithCare": "Cuidado que começa aqui."
+  },
+  "about": {
+    "title": "Sobre a Dra. Karinne Azin",
+    "intro": "Uma prática médica centrada na escuta, na clareza e no acompanhamento contínuo.",
+    "pillars": ["Atenção detalhada", "Comunicação transparente", "Planos factíveis"],
+    "approachTitle": "Visão de cuidado",
+    "approach": "A consulta é um espaço para entender o que faz sentido para você. Com protocolos baseados em evidências, definimos juntos prioridades, exames e passos práticos. Acompanhamos de perto, com ajustes quando necessário e disponibilidade para esclarecer dúvidas."
+  },
+  "contact": {
+    "title": "Entre em contato",
+    "subtitle": "Envie sua dúvida ou solicitação. Retornaremos em breve.",
+    "contact": "Contato",
+    "email": "E-mail",
+    "phone": "Telefone",
+    "whatsapp": "WhatsApp",
+    "formTitle": "Deixe sua mensagem",
+    "success": "Mensagem enviada. Retornaremos em breve."
+  },
+  "booking": {
+    "title": "Agende sua consulta",
+    "subtitle": "Envie sua preferência de data e horário. Confirmaremos por WhatsApp ou e-mail.",
+    "fullName": "Nome completo",
+    "emailOrPhone": "E-mail ou telefone",
+    "preferredDate": "Data preferencial",
+    "preferredTimeWindow": "Período do dia",
+    "morning": "Manhã",
+    "afternoon": "Tarde",
+    "evening": "Noite",
+    "message": "Observações",
+    "submit": "Enviar pedido",
+    "success": "Recebemos sua solicitação. Entraremos em contato para confirmar.",
+    "openWhatsApp": "Abrir WhatsApp"
+  },
+  "forms": {
+    "required": "Campo obrigatório",
+    "invalid": "Informação inválida"
+  }
+}
