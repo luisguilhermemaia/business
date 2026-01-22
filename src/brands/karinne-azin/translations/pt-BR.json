@@ -1,10 +1,10 @@
 {
   "nav": {
     "home": "Início",
-    "about": "Apresentação",
-    "services": "Serviços",
+    "about": "Sobre mim",
+    "services": "Especialidades",
     "location": "Localização",
-    "blog": "Conteúdos",
+    "blog": "Artigos",
     "contact": "Contato"
   },
   "actions": {
