@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { ComponentProps } from 'react';
 import styled from 'styled-components';
 import { BlogMeta, BlogPost } from '../utils/blog';
 import { useI18n } from '../i18n/I18nProvider';
@@ -9,7 +10,7 @@ import { Container, Section } from '../design-system/primitives';
 import { Icon } from '../icons/Icon';
 import { formatDate } from '../utils/format';
 
-const BackLink = styled(Link)`
+const BackLink = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href: string }>`
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
@@ -230,7 +231,7 @@ const AdjacentSection = styled.div`
   }
 `;
 
-const AdjacentCard = styled(Link)`
+const AdjacentCard = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href: string }>`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.sm}px;
@@ -266,12 +267,13 @@ const AdjacentTitle = styled.div`
 `;
 
 interface Props {
-  post: BlogPost;
+  post: Omit<BlogPost, 'Content'>;
   previous: BlogMeta | null;
   next: BlogMeta | null;
+  children: React.ReactNode;
 }
 
-export const BlogPostPage = ({ post, previous, next }: Props) => {
+export const BlogPostPage = ({ post, previous, next, children }: Props) => {
   const { t, locale } = useI18n();
   return (
     <Section>
@@ -313,7 +315,7 @@ export const BlogPostPage = ({ post, previous, next }: Props) => {
         )}
 
         <Article>
-          <post.Content />
+          {children}
         </Article>
 
         {(previous || next) && (

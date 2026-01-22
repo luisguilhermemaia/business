@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { hexToRgba } from '../utils/colors';
 
 export const Container = styled.div<{ width?: 'narrow' | 'regular' | 'wide' }>`
   width: 100%;
@@ -113,14 +114,14 @@ export const Card = styled.div<{
 }>`
   position: relative;
   background: ${({ theme }) => theme.colors.surface};
-  border: 1px solid rgba(184, 87, 122, 0.1);
+  border: 1px solid ${({ theme }) => hexToRgba(theme.colors.primary, 0.1)};
   border-radius: ${({ theme }) => theme.radii.xl || theme.radii.lg};
   padding: ${({ theme }) => theme.spacing.xl}px;
-  box-shadow: ${({ elevation = 'sm' }) => {
+  box-shadow: ${({ theme, elevation = 'sm' }) => {
     const shadowMap = {
-      sm: '0 2px 12px rgba(184, 87, 122, 0.08), 0 0 0 1px rgba(184, 87, 122, 0.04)',
-      md: '0 4px 20px rgba(184, 87, 122, 0.12), 0 0 0 1px rgba(184, 87, 122, 0.06)',
-      lg: '0 8px 32px rgba(184, 87, 122, 0.16), 0 0 0 1px rgba(184, 87, 122, 0.08)',
+      sm: `0 2px 12px ${hexToRgba(theme.colors.primary, 0.08)}, 0 0 0 1px ${hexToRgba(theme.colors.primary, 0.04)}`,
+      md: `0 4px 20px ${hexToRgba(theme.colors.primary, 0.12)}, 0 0 0 1px ${hexToRgba(theme.colors.primary, 0.06)}`,
+      lg: `0 8px 32px ${hexToRgba(theme.colors.primary, 0.16)}, 0 0 0 1px ${hexToRgba(theme.colors.primary, 0.08)}`,
     };
     return shadowMap[elevation];
   }};
@@ -145,9 +146,9 @@ export const Card = styled.div<{
       &:hover {
         transform: translateY(-6px);
         box-shadow:
-          0 8px 32px rgba(184, 87, 122, 0.16),
-          0 0 0 1px rgba(184, 87, 122, 0.08);
-        border-color: rgba(184, 87, 122, 0.2);
+          0 8px 32px ${({ theme }) => hexToRgba(theme.colors.primary, 0.16)},
+          0 0 0 1px ${({ theme }) => hexToRgba(theme.colors.primary, 0.08)};
+        border-color: ${({ theme }) => hexToRgba(theme.colors.primary, 0.2)};
       }
 
       &:active {

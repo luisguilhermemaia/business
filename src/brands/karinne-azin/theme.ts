@@ -3,28 +3,28 @@ import { createBrandTheme } from '../../core/design-system/theme';
 export const karinneTheme = createBrandTheme({
   name: 'karinne-azin',
   colors: {
-    // Warm, elegant palette inspired by the reference layout
-    background: '#FDF8F3',
-    backgroundAlt: '#F6EEE6',
+    // Green palette inspired by Instagram profile
+    background: '#F8F9FA',
+    backgroundAlt: '#F0F2F5',
     surface: '#FFFFFF',
-    surfaceMuted: '#FAF3ED',
+    surfaceMuted: '#FAFBFC',
     surfaceElevated: 'rgba(255,255,255,0.98)',
-    primary: '#B36A62',
-    primaryStrong: '#9E574F',
+    primary: '#1A5F3F', // Dark green from Instagram
+    primaryStrong: '#0F4A2F',
     primaryContrast: '#FFFFFF',
-    accent: '#E9C8B8',
-    accentContrast: '#3B2E2A',
-    muted: '#8B7C76',
-    border: '#EADFD6',
-    text: '#3B2E2A',
-    textMuted: '#7A6A64',
-    success: '#7AAE9B',
+    accent: '#2D8F5F', // Lighter green accent
+    accentContrast: '#FFFFFF',
+    muted: '#6B7C7A',
+    border: '#E1E8E6',
+    text: '#1A1F1E',
+    textMuted: '#5A6B69',
+    success: '#1A5F3F',
     warning: '#D0A36D',
     danger: '#C46D7A',
-    overlay: 'rgba(51, 36, 32, 0.55)',
+    overlay: 'rgba(26, 31, 30, 0.55)',
     gradientHero:
-      'radial-gradient(ellipse at 20% 10%, rgba(179, 106, 98, 0.08) 0%, transparent 55%), radial-gradient(ellipse at 80% 90%, rgba(233, 200, 184, 0.12) 0%, transparent 60%), linear-gradient(180deg, #FDF8F3 0%, #F6EEE6 100%)',
-    gradientCard: 'linear-gradient(180deg, #FFFFFF 0%, #FBF7F2 100%)',
+      'radial-gradient(ellipse at 20% 10%, rgba(26, 95, 63, 0.08) 0%, transparent 55%), radial-gradient(ellipse at 80% 90%, rgba(45, 143, 95, 0.12) 0%, transparent 60%), linear-gradient(180deg, #F8F9FA 0%, #F0F2F5 100%)',
+    gradientCard: 'linear-gradient(180deg, #FFFFFF 0%, #FAFBFC 100%)',
   },
   typography: {
     fonts: {
@@ -68,11 +68,11 @@ export const karinneTheme = createBrandTheme({
     hero: 140,
   },
   shadows: {
-    sm: '0 1px 3px rgba(59, 46, 42, 0.06)',
-    md: '0 4px 12px rgba(59, 46, 42, 0.08)',
-    lg: '0 12px 24px rgba(59, 46, 42, 0.12)',
-    soft: '0 2px 10px rgba(59, 46, 42, 0.06)',
-    medium: '0 6px 18px rgba(59, 46, 42, 0.1)',
-    strong: '0 16px 32px rgba(59, 46, 42, 0.14)',
+    sm: '0 1px 3px rgba(26, 95, 63, 0.06)',
+    md: '0 4px 12px rgba(26, 95, 63, 0.08)',
+    lg: '0 12px 24px rgba(26, 95, 63, 0.12)',
+    soft: '0 2px 10px rgba(26, 95, 63, 0.06)',
+    medium: '0 6px 18px rgba(26, 95, 63, 0.1)',
+    strong: '0 16px 32px rgba(26, 95, 63, 0.14)',
   },
 });

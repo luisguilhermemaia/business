@@ -21,6 +21,15 @@ const nextConfig = {
       },
     ],
   },
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@core': require('path').resolve(__dirname, 'src/core'),
+      '@brands': require('path').resolve(__dirname, 'src/brands'),
+      '@content': require('path').resolve(__dirname, 'content'),
+    };
+    return config;
+  },
 };
 
 module.exports = nextConfig;

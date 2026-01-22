@@ -65,7 +65,7 @@ export const AboutPage = () => {
                 {content.doctor.bio}
               </p>
               <Stack gap="sm">
-                {(pillars || content.doctor.highlights).map((pillar: string) => (
+                {(Array.isArray(pillars) ? pillars : content.doctor.highlights || []).map((pillar: string) => (
                   <Pillar key={pillar}>
                     <Icon name="check" size={16} />
                     {pillar}
@@ -85,7 +85,7 @@ export const AboutPage = () => {
               </p>
               <Stack direction="row" gap="md" align="center" style={{ marginTop: '8px' }}>
                 <Icon name="heart" size={20} />
-                <span style={{ fontWeight: 600 }}>{content.doctor.highlights[0]}</span>
+                <span style={{ fontWeight: 600 }}>{content.doctor.highlights?.[0] || ''}</span>
               </Stack>
             </Stack>
           </AccentCard>

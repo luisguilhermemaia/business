@@ -1,5 +1,7 @@
 import Link from 'next/link';
+import { ComponentProps } from 'react';
 import styled from 'styled-components';
+import { hexToRgba } from '../utils/colors';
 import { useBrand } from '../brand/BrandProvider';
 import { useI18n } from '../i18n/I18nProvider';
 import { Container, Grid, Stack } from '../design-system/primitives';
@@ -27,7 +29,7 @@ const Text = styled.p`
   margin: 0;
 `;
 
-const LinkRow = styled(Link)`
+const LinkRow = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href: string }>`
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
@@ -68,7 +70,7 @@ const LinkRow = styled(Link)`
   }
 `;
 
-const SocialLink = styled(Link)`
+const SocialLink = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href: string }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -84,7 +86,7 @@ const SocialLink = styled(Link)`
   &:hover {
     border-color: ${({ theme }) => theme.colors.primary};
     color: ${({ theme }) => theme.colors.primary};
-    background: rgba(184, 87, 122, 0.2);
+    background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.2)};
     transform: translateY(-3px);
   }
 

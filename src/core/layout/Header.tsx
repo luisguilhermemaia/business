@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { ComponentProps } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useBrand } from '../brand/BrandProvider';
@@ -11,6 +12,7 @@ import { LinkButton } from '../design-system/components/Button';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { Container } from '../design-system/primitives';
 import { usePathname } from 'next/navigation';
+import { hexToRgba } from '../utils/colors';
 
 const HeaderShell = styled.header<{ $scrolled: boolean }>`
   position: sticky;
@@ -69,7 +71,7 @@ const Inner = styled.div`
   }
 `;
 
-const BrandMark = styled(Link)`
+const BrandMark = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href: string }>`
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -103,7 +105,9 @@ const Nav = styled.nav`
   }
 `;
 
-const NavLink = styled(Link)<{ $active?: boolean }>`
+const NavLink = styled(Link)<
+  Omit<ComponentProps<typeof Link>, 'href'> & { href: string; $active?: boolean }
+>`
   color: ${({ theme, $active }) => ($active ? theme.colors.primary : theme.colors.text)};
   font-weight: ${({ theme, $active }) =>
     $active ? theme.typography.weights.semi : theme.typography.weights.regular};
@@ -119,14 +123,14 @@ const NavLink = styled(Link)<{ $active?: boolean }>`
   ${({ $active, theme }) =>
     $active &&
     `
-    background: rgba(184, 87, 122, 0.12);
+    background: ${hexToRgba(theme.colors.primary, 0.12)};
     color: ${theme.colors.primary};
   `}
 
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
-    background: ${({ $active }) =>
-      $active ? 'rgba(184, 87, 122, 0.16)' : 'rgba(184, 87, 122, 0.06)'};
+    background: ${({ $active, theme }) =>
+      $active ? hexToRgba(theme.colors.primary, 0.16) : hexToRgba(theme.colors.primary, 0.06)};
   }
 
   &:focus-visible {
@@ -138,7 +142,8 @@ const NavLink = styled(Link)<{ $active?: boolean }>`
     padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
     font-size: ${({ theme }) => theme.typography.sizes.lg};
     border-radius: ${({ theme }) => theme.radii.lg};
-    background: ${({ $active }) => ($active ? 'rgba(184, 87, 122, 0.12)' : 'transparent')};
+    background: ${({ $active, theme }) =>
+      $active ? hexToRgba(theme.colors.primary, 0.12) : 'transparent'};
   }
 `;
 
@@ -152,7 +157,7 @@ const Actions = styled.div`
 const MobileToggle = styled.button`
   display: none;
   border: none;
-  background: rgba(184, 87, 122, 0.08);
+  background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.08)};
   color: ${({ theme }) => theme.colors.primary};
   padding: ${({ theme }) => theme.spacing.sm}px;
   border-radius: ${({ theme }) => theme.radii.pill};
@@ -165,7 +170,7 @@ const MobileToggle = styled.button`
   justify-content: center;
 
   &:hover {
-    background: rgba(184, 87, 122, 0.16);
+    background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.16)};
     transform: translateY(-1px);
   }
 
@@ -275,10 +280,10 @@ const MobileNavLink = styled(NavLink)`
   font-size: ${({ theme }) => theme.typography.sizes.md};
   padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
   border-radius: ${({ theme }) => theme.radii.lg};
-  background: rgba(184, 87, 122, 0.04);
+  background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.04)};
 
   &:hover {
-    background: rgba(184, 87, 122, 0.1);
+    background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.1)};
   }
 `;
 

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ComponentProps } from 'react';
 import styled from 'styled-components';
 import { FaWhatsapp } from 'react-icons/fa';
 
@@ -7,7 +8,7 @@ interface Props {
   message?: string;
 }
 
-const FloatingButton = styled(Link)`
+const FloatingButton = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href: string }>`
   position: fixed;
   bottom: 24px;
   right: 24px;

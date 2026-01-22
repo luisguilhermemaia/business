@@ -1,3 +1,4 @@
+import { hexToRgba } from '@core/utils/colors';
 import styled from 'styled-components';
 
 export const Badge = styled.span<{ tone?: 'primary' | 'accent' | 'muted' }>`
@@ -21,20 +22,20 @@ export const Badge = styled.span<{ tone?: 'primary' | 'accent' | 'muted' }>`
     tone === 'accent'
       ? theme.colors.accent
       : tone === 'muted'
-        ? `rgba(184, 87, 122, 0.1)`
+        ? hexToRgba(theme.colors.primary, 0.1)
         : `linear-gradient(135deg, ${theme.colors.primaryStrong}, ${theme.colors.primary})`};
-  box-shadow: ${({ tone }) =>
+  box-shadow: ${({ theme, tone }) =>
     tone === 'muted'
       ? 'none'
-      : `0 4px 12px ${tone === 'accent' ? 'rgba(40, 167, 69, 0.25)' : 'rgba(184, 87, 122, 0.25)'}`};
+      : `0 4px 12px ${tone === 'accent' ? hexToRgba(theme.colors.accent, 0.25) : hexToRgba(theme.colors.primary, 0.25)}`};
   transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
     ${({ theme }) => theme.motion?.easing.ease || 'ease'};
 
   &:hover {
     transform: translateY(-1px);
-    box-shadow: ${({ tone }) =>
+    box-shadow: ${({ theme, tone }) =>
       tone === 'muted'
-        ? '0 2px 8px rgba(184, 87, 122, 0.1)'
-        : `0 6px 16px ${tone === 'accent' ? 'rgba(40, 167, 69, 0.3)' : 'rgba(184, 87, 122, 0.3)'}`};
+        ? hexToRgba(theme.colors.primary, 0.1)
+        : `0 6px 16px ${tone === 'accent' ? hexToRgba(theme.colors.accent, 0.3) : hexToRgba(theme.colors.primary, 0.3)}`};
   }
 `;

@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { hexToRgba } from '../utils/colors';
 import { useBrand } from '../brand/BrandProvider';
 import { useI18n } from '../i18n/I18nProvider';
 import { LinkButton } from '../design-system/components/Button';
@@ -64,7 +65,7 @@ const ServiceCard = styled.div`
   &:hover {
     transform: translateY(-4px);
     box-shadow: ${({ theme }) => theme.shadows.md || theme.shadows.medium};
-    border-color: rgba(179, 106, 98, 0.35);
+    border-color: ${({ theme }) => hexToRgba(theme.colors.primary, 0.35)};
   }
 
   @media (prefers-reduced-motion: reduce) {

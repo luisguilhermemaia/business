@@ -1,3 +1,4 @@
+import { hexToRgba } from '@core/utils/colors';
 import styled, { css } from 'styled-components';
 
 const baseControl = css<{ error?: boolean }>`
@@ -20,7 +21,8 @@ const baseControl = css<{ error?: boolean }>`
     outline: none;
     border-color: ${({ theme, error }) => (error ? theme.colors.danger : theme.colors.primary)};
     box-shadow: 0 0 0 3px
-      ${({ error }) => (error ? `rgba(212, 117, 134, 0.2)` : `rgba(184, 87, 122, 0.2)`)};
+      ${({ theme, error }) =>
+        error ? hexToRgba(theme.colors.danger, 0.2) : hexToRgba(theme.colors.primary, 0.2)};
   }
 
   &:disabled {

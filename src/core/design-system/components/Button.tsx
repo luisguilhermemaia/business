@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react';
+import { ButtonHTMLAttributes, ComponentProps, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
 type Variant = 'primary' | 'secondary' | 'ghost';
@@ -16,7 +16,8 @@ interface BaseProps {
 }
 
 type ButtonProps = BaseProps & ButtonHTMLAttributes<HTMLButtonElement>;
-type AnchorProps = BaseProps & AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
+type AnchorProps = BaseProps &
+  Omit<ComponentProps<typeof Link>, 'children' | 'href'> & { href: string };
 
 const buttonStyles = css<BaseProps>`
   display: inline-flex;
@@ -91,23 +92,25 @@ const buttonStyles = css<BaseProps>`
         }
       `;
     }
+    // Convert hex to rgba for shadows
+    const primaryRgb = '26, 95, 63'; // #1A5F3F
     return css`
       background: linear-gradient(135deg, ${theme.colors.primaryStrong}, ${theme.colors.primary});
       color: ${theme.colors.primaryContrast};
       box-shadow:
-        0 4px 16px rgba(184, 87, 122, 0.3),
-        0 2px 4px rgba(184, 87, 122, 0.2);
+        0 4px 16px rgba(${primaryRgb}, 0.25),
+        0 2px 4px rgba(${primaryRgb}, 0.19);
       font-weight: ${theme.typography.weights.semi};
       &:hover:not(:disabled) {
         background: linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.primaryStrong});
         transform: translateY(-2px);
         box-shadow:
-          0 6px 24px rgba(184, 87, 122, 0.4),
-          0 4px 8px rgba(184, 87, 122, 0.25);
+          0 6px 24px rgba(${primaryRgb}, 0.31),
+          0 4px 8px rgba(${primaryRgb}, 0.21);
       }
       &:active:not(:disabled) {
         transform: translateY(0);
-        box-shadow: 0 2px 8px rgba(184, 87, 122, 0.25);
+        box-shadow: 0 2px 8px rgba(${primaryRgb}, 0.19);
       }
     `;
   }}
@@ -160,7 +163,7 @@ const StyledButton = styled.button.withConfig({
 
 const StyledLink = styled(Link).withConfig({
   shouldForwardProp: (prop) => !['fullWidth', 'loading', 'variant', 'size', 'icon'].includes(prop),
-})<BaseProps>`
+})<BaseProps & Omit<ComponentProps<typeof Link>, 'children' | 'href'> & { href: string }>`
   ${buttonStyles}
 `;
 

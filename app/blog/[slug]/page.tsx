@@ -23,5 +23,10 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   const post = await getPostBySlug(params.slug);
   if (!post) return notFound();
   const { previous, next } = getAdjacentPosts(params.slug);
-  return <BlogPostPage post={post} previous={previous} next={next} />;
+  const { Content, ...postMeta } = post;
+  return (
+    <BlogPostPage post={postMeta} previous={previous} next={next}>
+      <Content />
+    </BlogPostPage>
+  );
 }
