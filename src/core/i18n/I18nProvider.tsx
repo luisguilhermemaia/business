@@ -72,8 +72,13 @@ export const I18nProvider = ({ translations, defaultLocale, locales, children }:
 
   const setLocale = useCallback(
     (next: string) => {
-      if (locales.includes(next)) {
-        setLocaleState(next);
+      if (!locales.includes(next)) return;
+      setLocaleState(next);
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem(STORAGE_KEY, next);
+      }
+      if (typeof document !== 'undefined') {
+        document.documentElement.lang = next;
       }
     },
     [locales]

@@ -105,7 +105,7 @@ export const BlogIndexPage = ({ posts, introTitle, introDescription }: Props) =>
             >
               <strong style={{ fontSize: '0.95rem' }}>{t('blog.filterTags')}:</strong>
               <Tag active={!tag} onClick={() => setTag(null)}>
-                <Icon name="check" size={14} /> {t('actions.all') || 'All'}
+                <Icon name="check" size={14} /> {t('actions.all')}
               </Tag>
               {tags.map((item) => (
                 <Tag key={item} active={tag === item} onClick={() => setTag(item)}>

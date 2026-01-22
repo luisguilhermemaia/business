@@ -14,7 +14,8 @@
     "send": "Enviar",
     "back": "Voltar",
     "previous": "Anterior",
-    "next": "Próximo"
+    "next": "Próximo",
+    "all": "Todos"
   },
   "hero": {
     "location": "Localização",
@@ -49,7 +50,8 @@
     "viewAll": "Ver todos os artigos",
     "searchPlaceholder": "Buscar artigos",
     "filterTags": "Filtrar por tema",
-    "noResults": "Nenhum artigo encontrado"
+    "noResults": "Nenhum artigo encontrado",
+    "backToBlog": "Voltar ao blog"
   },
   "cta": {
     "title": "Pronto para cuidar da sua saúde com calma?",
@@ -59,6 +61,7 @@
     "quickLinks": "Navegue",
     "contact": "Contato",
     "location": "Endereço",
+    "hours": "Horários",
     "map": "Ver mapa",
     "rights": "Todos os direitos reservados a {name}.",
     "madeWithCare": "Cuidado que começa aqui."

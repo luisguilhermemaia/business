@@ -280,7 +280,7 @@ export const BlogPostPage = ({ post, previous, next, children }: Props) => {
       <Container width="wide">
         <BackLink href="/blog">
           <Icon name="arrow-right" size={16} style={{ transform: 'rotate(180deg)' }} />
-          {t('actions.back') || 'Voltar ao blog'}
+          {t('blog.backToBlog') || t('actions.back')}
         </BackLink>
 
         <PostHeader>
@@ -322,7 +322,7 @@ export const BlogPostPage = ({ post, previous, next, children }: Props) => {
           <AdjacentSection>
             {previous ? (
               <AdjacentCard href={`/blog/${previous.slug}`}>
-                <AdjacentLabel>← {t('actions.previous') || 'Anterior'}</AdjacentLabel>
+                <AdjacentLabel>← {t('actions.previous')}</AdjacentLabel>
                 <AdjacentTitle>{previous.title}</AdjacentTitle>
               </AdjacentCard>
             ) : (
@@ -331,7 +331,7 @@ export const BlogPostPage = ({ post, previous, next, children }: Props) => {
             {next ? (
               <AdjacentCard href={`/blog/${next.slug}`} style={{ textAlign: 'right' }}>
                 <AdjacentLabel style={{ textAlign: 'right' }}>
-                  {t('actions.next') || 'Próximo'} →
+                  {t('actions.next')} →
                 </AdjacentLabel>
                 <AdjacentTitle>{next.title}</AdjacentTitle>
               </AdjacentCard>

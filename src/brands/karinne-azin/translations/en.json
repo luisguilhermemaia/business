@@ -4,17 +4,18 @@
     "about": "About",
     "services": "Services",
     "location": "Location",
-    "blog": "Insights",
+    "blog": "Articles",
     "contact": "Contact"
   },
   "actions": {
     "book": "Book now",
-    "contact": "Contact",
+    "contact": "Contact us",
     "viewServices": "View services",
     "send": "Send",
     "back": "Back",
     "previous": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "all": "All"
   },
   "hero": {
     "location": "Location",
@@ -24,7 +25,7 @@
   "services": {
     "title": "You might be here because",
     "headline": "Your symptoms deserve specialist care",
-    "subtitle": "Care for every stage of a woman’s life with active listening, science, and safe decisions.",
+    "subtitle": "We care for every stage of a woman’s life with active listening, evidence-based practice, and sound clinical decisions.",
     "ctaBlurb": "Want clarity about your case? Let’s talk."
   },
   "steps": {
@@ -36,53 +37,55 @@
   },
   "location": {
     "title": "Where to find us",
-    "headline": "A calm, central space",
-    "description": "Easy access, ample hours, and an environment designed to welcome you.",
+    "headline": "A welcoming, well-located space",
+    "description": "Easy access, flexible hours, and an environment designed to welcome you.",
     "openMaps": "Open in Google Maps"
   },
   "blog": {
     "title": "Articles",
-    "headline": "Concise, reliable reads",
-    "subtitle": "Short pieces to guide everyday health decisions.",
+    "headline": "Clear, reliable reads",
+    "subtitle": "Short pieces to support everyday health decisions.",
     "minRead": "min read",
     "readMore": "Read article",
     "viewAll": "View all articles",
     "searchPlaceholder": "Search articles",
     "filterTags": "Filter by topic",
-    "noResults": "No articles found"
+    "noResults": "No articles found",
+    "backToBlog": "Back to blog"
   },
   "cta": {
     "title": "Ready for calm, attentive care?",
-    "subtitle": "Send your preferred time or talk directly on WhatsApp."
+    "subtitle": "Send your appointment request or message us directly on WhatsApp."
   },
   "footer": {
-    "quickLinks": "Navigate",
+    "quickLinks": "Quick links",
     "contact": "Contact",
     "location": "Address",
+    "hours": "Hours",
     "map": "View map",
     "rights": "All rights reserved to {name}.",
     "madeWithCare": "Care starts here."
   },
   "about": {
     "title": "About Dr. Karinne Azin",
-    "intro": "A medical practice centered on listening, clarity, and continuous follow-up.",
+    "intro": "A practice centered on listening, clarity, and ongoing follow-up.",
     "pillars": ["Detailed attention", "Transparent communication", "Feasible plans"],
     "approachTitle": "Care philosophy",
-    "approach": "Each consultation is a space to understand what matters to you. Using evidence-based protocols, we define priorities, exams, and practical steps together. We follow up closely, adjust when needed, and stay available for questions."
+    "approach": "Each visit is a space to understand what matters to you. Using evidence-based protocols, we set priorities, exams, and practical next steps together. We follow up closely, adjust when needed, and remain available for your questions."
   },
   "contact": {
     "title": "Get in touch",
-    "subtitle": "Send your question or request. We will get back shortly.",
+    "subtitle": "Send your question or request. We'll get back to you shortly.",
     "contact": "Contact",
     "email": "Email",
     "phone": "Phone",
     "whatsapp": "WhatsApp",
-    "formTitle": "Send a message",
-    "success": "Message sent. We will respond soon."
+    "formTitle": "Leave a message",
+    "success": "Message sent. We'll respond soon."
   },
   "booking": {
-    "title": "Book your visit",
-    "subtitle": "Share your preferred date and time. We will confirm via WhatsApp or email.",
+    "title": "Book your appointment",
+    "subtitle": "Share your preferred date and time. We'll confirm via WhatsApp or email.",
     "fullName": "Full name",
     "emailOrPhone": "Email or phone",
     "preferredDate": "Preferred date",
@@ -92,11 +95,11 @@
     "evening": "Evening",
     "message": "Notes",
     "submit": "Send request",
-    "success": "Request received. We will contact you to confirm.",
+    "success": "Request received. We'll contact you to confirm.",
     "openWhatsApp": "Open WhatsApp"
   },
   "forms": {
-    "required": "Required field",
-    "invalid": "Invalid information"
+    "required": "This field is required",
+    "invalid": "Please check your information"
   }
 }
