@@ -12,7 +12,9 @@
     "contact": "Falar com a clínica",
     "viewServices": "Ver serviços",
     "send": "Enviar",
-    "back": "Voltar"
+    "back": "Voltar",
+    "previous": "Anterior",
+    "next": "Próximo"
   },
   "hero": {
     "location": "Localização",

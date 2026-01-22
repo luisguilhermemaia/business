@@ -12,7 +12,9 @@
     "contact": "Contact",
     "viewServices": "View services",
     "send": "Send",
-    "back": "Back"
+    "back": "Back",
+    "previous": "Previous",
+    "next": "Next"
   },
   "hero": {
     "location": "Location",
