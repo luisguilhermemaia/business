@@ -21,9 +21,12 @@ const SectionBadge = styled.div`
   gap: ${({ theme }) => theme.spacing.sm}px;
   padding: ${({ theme }) => theme.spacing.sm + 2}px ${({ theme }) => theme.spacing.lg}px;
   border-radius: ${({ theme }) => theme.radii.pill};
-  background: ${({ theme }) => theme.colors.surface};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  color: ${({ theme }) => theme.colors.primary};
+  background: ${({ theme }) =>
+    theme.colors.tealDark ?? theme.colors.surface};
+  border: 1px solid
+    ${({ theme }) => (theme.colors.tealDark ? 'transparent' : theme.colors.border)};
+  color: ${({ theme }) =>
+    theme.colors.tealDark ? theme.colors.tealDarkContrast : theme.colors.primary};
   font-size: ${({ theme }) => theme.typography.sizes.xs};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   letter-spacing: 0.1em;
@@ -83,7 +86,8 @@ const PersonIcon = styled.div`
   width: 38px;
   height: 38px;
   border-radius: ${({ theme }) => theme.radii.round};
-  background: ${({ theme }) => theme.colors.surfaceMuted};
+  background: ${({ theme }) =>
+    theme.colors.tealDark ?? theme.colors.surfaceMuted};
   color: ${({ theme }) => theme.colors.primary};
   display: grid;
   place-items: center;

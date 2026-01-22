@@ -3,24 +3,25 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 import { useBrand } from '../brand/BrandProvider';
+import { useI18n } from '../i18n/I18nProvider';
 import { LinkButton } from '../design-system/components/Button';
 import { Container, Grid, Section } from '../design-system/primitives';
 import { Reveal } from '../design-system/components/Reveal';
 
 const HeroShell = styled(Section)`
-  padding-top: ${({ theme }) => theme.spacing.xxl * 2}px;
-  padding-bottom: ${({ theme }) => theme.spacing.xxl * 2}px;
+  padding-top: ${({ theme }) => theme.spacing.xl}px;
+  padding-bottom: ${({ theme }) => theme.spacing.xxl}px;
   background: ${({ theme }) => theme.colors.background};
   position: relative;
   overflow: hidden;
-  min-height: calc(100vh - 152px);
+  min-height: calc(100vh - 120px);
   display: flex;
   align-items: center;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     min-height: auto;
-    padding-top: ${({ theme }) => theme.spacing.xl}px;
-    padding-bottom: ${({ theme }) => theme.spacing.xl * 1.5}px;
+    padding-top: ${({ theme }) => theme.spacing.lg}px;
+    padding-bottom: ${({ theme }) => theme.spacing.xl}px;
   }
 `;
 
@@ -38,11 +39,13 @@ const HeroContent = styled.div`
 
 const HeroMedia = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding-top: ${({ theme }) => theme.spacing.md}px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     order: 0;
+    padding-top: 0;
   }
 `;
 
@@ -82,13 +85,18 @@ const CTAs = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     flex-direction: column;
+    width: 100%;
+    & > a {
+      width: 100%;
+      min-width: 0;
+    }
   }
 `;
 
 const HeroImage = styled.div`
   position: relative;
   width: 100%;
-  height: 680px;
+  height: 580px;
   border-radius: ${({ theme }) => theme.radii.xl || theme.radii.lg};
   overflow: hidden;
   box-shadow: ${({ theme }) => theme.shadows.lg || theme.shadows.strong};
@@ -101,18 +109,19 @@ const HeroImage = styled.div`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    height: 420px;
-    margin-bottom: ${({ theme }) => theme.spacing.xl}px;
+    height: 380px;
+    margin-bottom: ${({ theme }) => theme.spacing.lg}px;
   }
 `;
 
 export const HeroSection = () => {
   const { content } = useBrand();
+  const { t } = useI18n();
 
   return (
     <HeroShell>
       <Container width="wide">
-        <Grid columns={2} min="320px" gap="xl">
+        <Grid columns={2} min="320px" gap="lg">
           <Reveal>
             <HeroMedia>
               <HeroImage>
@@ -121,7 +130,7 @@ export const HeroSection = () => {
                     content.doctor.headshot ||
                     'https://images.unsplash.com/photo-1544717305-2782549b5136?w=1200&h=900&fit=crop&q=80'
                   }
-                  alt={`Dra. ${content.doctor.name}`}
+                  alt={content.doctor.name}
                   fill
                   priority
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -136,10 +145,10 @@ export const HeroSection = () => {
               <Subheading>{content.hero.subheadline}</Subheading>
               <CTAs>
                 <LinkButton href="/booking" size="md">
-                  Quero atendimento presencial
+                  {t('hero.ctaPresencial')}
                 </LinkButton>
                 <LinkButton href="/booking" variant="secondary" size="md">
-                  Quero atendimento online
+                  {t('hero.ctaOnline')}
                 </LinkButton>
               </CTAs>
             </HeroContent>

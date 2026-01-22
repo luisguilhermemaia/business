@@ -2,14 +2,17 @@
 
 import styled from 'styled-components';
 import { useBrand } from '../brand/BrandProvider';
+import { useI18n } from '../i18n/I18nProvider';
 import { Container, Section, Grid } from '../design-system/primitives';
 import { Icon } from '../icons/Icon';
 
 const Strip = styled(Section)`
   padding: ${({ theme }) => theme.spacing.lg}px 0;
-  background: ${({ theme }) => theme.colors.surfaceMuted};
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  background: ${({ theme }) => theme.colors.tealDark ?? theme.colors.surfaceMuted};
+  border-top: 1px solid
+    ${({ theme }) => (theme.colors.tealDark ? 'transparent' : theme.colors.border)};
+  border-bottom: 1px solid
+    ${({ theme }) => (theme.colors.tealDark ? 'transparent' : theme.colors.border)};
 `;
 
 const Pill = styled.div`
@@ -18,7 +21,8 @@ const Pill = styled.div`
   gap: ${({ theme }) => theme.spacing.md}px;
   padding: ${({ theme }) => theme.spacing.sm + 2}px ${({ theme }) => theme.spacing.lg}px;
   border-radius: ${({ theme }) => theme.radii.pill};
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: 1px solid ${({ theme }) =>
+    (theme.colors.tealDark ? 'rgba(255, 255, 255, 0.2)' : theme.colors.border)};
   background: ${({ theme }) => theme.colors.surface};
   color: ${({ theme }) => theme.colors.text};
   justify-content: center;
@@ -28,8 +32,12 @@ const Pill = styled.div`
 
 export const TrustStripSection = () => {
   const { content } = useBrand();
-  const inPerson = `Atendimento presencial em ${content.location.city}/${content.location.state}`;
-  const online = 'Atendimento online para todo o Brasil';
+  const { t } = useI18n();
+  const inPerson = t('trustStrip.inPerson', {
+    city: content.location.city,
+    state: content.location.state,
+  });
+  const online = t('trustStrip.online');
   return (
     <Strip>
       <Container width="wide">

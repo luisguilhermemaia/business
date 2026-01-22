@@ -10,6 +10,7 @@ import { Card, Container, Grid, Section, Stack } from '../design-system/primitiv
 import { Icon } from '../icons/Icon';
 import { formatDate } from '../utils/format';
 import { Reveal } from '../design-system/components/Reveal';
+import { hexToRgba } from '../utils/colors';
 
 const Title = styled.h2`
   font-size: ${({ theme }) => theme.typography.sizes.xxl};
@@ -29,9 +30,9 @@ const Tag = styled.span`
   gap: ${({ theme }) => theme.spacing.xs}px;
   padding: ${({ theme }) => theme.spacing.xs}px ${({ theme }) => theme.spacing.sm}px;
   border-radius: ${({ theme }) => theme.radii.md};
-  background: ${({ theme }) => theme.colors.surfaceMuted};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  color: ${({ theme }) => theme.colors.textMuted};
+  background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.1)};
+  border: 1px solid ${({ theme }) => hexToRgba(theme.colors.primary, 0.25)};
+  color: ${({ theme }) => theme.colors.primary};
   font-size: ${({ theme }) => theme.typography.sizes.xs};
   font-weight: ${({ theme }) => theme.typography.weights.medium};
 `;
@@ -52,6 +53,15 @@ const PostTitle = styled.h3`
   }
 `;
 
+const ReadingMeta = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  margin-top: auto;
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.colors.textMuted};
+`;
+
 interface Props {
   posts: BlogMeta[];
 }
@@ -62,7 +72,7 @@ export const BlogPreviewSection = ({ posts }: Props) => {
     <Section background="card">
       <Container width="wide">
         <Stack gap="md">
-          <Badge tone="muted">{t('blog.title')}</Badge>
+          <Badge tone="teal">{t('blog.title')}</Badge>
           <Title>{t('blog.headline')}</Title>
           <Excerpt>{t('blog.subtitle')}</Excerpt>
         </Stack>
@@ -90,22 +100,12 @@ export const BlogPreviewSection = ({ posts }: Props) => {
                     <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                   </PostTitle>
                   <Excerpt>{post.excerpt}</Excerpt>
-                  <Stack
-                    direction="row"
-                    gap="sm"
-                    align="center"
-                    style={{
-                      marginTop: 'auto',
-                      fontSize: '0.875rem',
-                      color: 'inherit',
-                      opacity: 0.7,
-                    }}
-                  >
+                  <ReadingMeta>
                     <Icon name="clock" size={16} />
                     <span>
                       {post.readingTime} {t('blog.minRead')}
                     </span>
-                  </Stack>
+                  </ReadingMeta>
                   <LinkButton
                     href={`/blog/${post.slug}`}
                     variant="secondary"
@@ -119,7 +119,7 @@ export const BlogPreviewSection = ({ posts }: Props) => {
           ))}
         </Grid>
         <div style={{ marginTop: '48px', textAlign: 'center' }}>
-          <LinkButton href="/blog" size="md">
+          <LinkButton href="/blog" variant="secondary" size="md">
             {t('blog.viewAll')}
           </LinkButton>
         </div>

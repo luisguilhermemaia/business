@@ -26,11 +26,12 @@ const HeaderShell = styled.header<{ $scrolled: boolean }>`
 `;
 
 const TopBar = styled.div`
-  background: ${({ theme }) => theme.colors.text};
-  color: ${({ theme }) => theme.colors.surface};
+  background: ${({ theme }) => theme.colors.tealDark ?? theme.colors.backgroundAlt};
+  color: ${({ theme }) => theme.colors.tealDarkContrast ?? theme.colors.text};
   padding: ${({ theme }) => theme.spacing.sm}px 0;
   font-size: ${({ theme }) => theme.typography.sizes.sm};
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid ${({ theme }) =>
+    hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.12)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     display: none;
@@ -48,7 +49,7 @@ const TopBarItem = styled.div`
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
-  color: ${({ theme }) => theme.colors.surface};
+  color: ${({ theme }) => theme.colors.tealDarkContrast ?? theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.sm};
 
   svg {
@@ -123,14 +124,14 @@ const NavLink = styled(Link)<
   ${({ $active, theme }) =>
     $active &&
     `
-    background: ${hexToRgba(theme.colors.primary, 0.12)};
-    color: ${theme.colors.primary};
+    background: ${theme.colors.primary};
+    color: ${theme.colors.primaryContrast};
   `}
 
   &:hover {
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ $active, theme }) => ($active ? theme.colors.primaryContrast : theme.colors.primary)};
     background: ${({ $active, theme }) =>
-      $active ? hexToRgba(theme.colors.primary, 0.16) : hexToRgba(theme.colors.primary, 0.06)};
+      $active ? theme.colors.primaryStrong : hexToRgba(theme.colors.primary, 0.06)};
   }
 
   &:focus-visible {
@@ -143,7 +144,9 @@ const NavLink = styled(Link)<
     font-size: ${({ theme }) => theme.typography.sizes.lg};
     border-radius: ${({ theme }) => theme.radii.lg};
     background: ${({ $active, theme }) =>
-      $active ? hexToRgba(theme.colors.primary, 0.12) : 'transparent'};
+      $active ? theme.colors.primary : 'transparent'};
+    color: ${({ $active, theme }) =>
+      $active ? theme.colors.primaryContrast : theme.colors.text};
   }
 `;
 
@@ -210,7 +213,7 @@ const MobileMenuOverlay = styled.div<{ $open: boolean }>`
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(10, 6, 12, 0.35);
+  background: ${({ theme }) => theme.colors.overlay};
   backdrop-filter: blur(3px);
   z-index: ${({ theme }) => theme.zIndex.overlay};
   opacity: ${({ $open }) => ($open ? 1 : 0)};
@@ -350,7 +353,7 @@ export const Header = () => {
           <TopBarInner>
             <TopBarItem>
               <Icon name="location" size={16} />
-              Atendimento presencial e online para todo o Brasil
+              {t('hero.topBar')}
             </TopBarItem>
           </TopBarInner>
         </Container>

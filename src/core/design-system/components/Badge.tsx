@@ -1,7 +1,7 @@
 import { hexToRgba } from '@core/utils/colors';
 import styled from 'styled-components';
 
-export const Badge = styled.span<{ tone?: 'primary' | 'accent' | 'muted' }>`
+export const Badge = styled.span<{ tone?: 'primary' | 'accent' | 'muted' | 'teal' }>`
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -13,19 +13,23 @@ export const Badge = styled.span<{ tone?: 'primary' | 'accent' | 'muted' }>`
   text-transform: uppercase;
   border: none;
   color: ${({ theme, tone = 'primary' }) =>
-    tone === 'accent'
-      ? theme.colors.accentContrast
-      : tone === 'muted'
-        ? theme.colors.textMuted
-        : theme.colors.primaryContrast};
+    tone === 'teal' && theme.colors.tealDark
+      ? theme.colors.tealDarkContrast
+      : tone === 'accent'
+        ? theme.colors.accentContrast
+        : tone === 'muted'
+          ? theme.colors.textMuted
+          : theme.colors.primaryContrast};
   background: ${({ theme, tone = 'primary' }) =>
-    tone === 'accent'
-      ? theme.colors.accent
-      : tone === 'muted'
-        ? hexToRgba(theme.colors.primary, 0.1)
-        : `linear-gradient(135deg, ${theme.colors.primaryStrong}, ${theme.colors.primary})`};
+    tone === 'teal' && theme.colors.tealDark
+      ? theme.colors.tealDark
+      : tone === 'accent'
+        ? theme.colors.accent
+        : tone === 'muted'
+          ? hexToRgba(theme.colors.primary, 0.1)
+          : `linear-gradient(135deg, ${theme.colors.primaryStrong}, ${theme.colors.primary})`};
   box-shadow: ${({ theme, tone }) =>
-    tone === 'muted'
+    tone === 'muted' || (tone === 'teal' && theme.colors.tealDark)
       ? 'none'
       : `0 4px 12px ${tone === 'accent' ? hexToRgba(theme.colors.accent, 0.25) : hexToRgba(theme.colors.primary, 0.25)}`};
   transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
@@ -36,6 +40,8 @@ export const Badge = styled.span<{ tone?: 'primary' | 'accent' | 'muted' }>`
     box-shadow: ${({ theme, tone }) =>
       tone === 'muted'
         ? hexToRgba(theme.colors.primary, 0.1)
-        : `0 6px 16px ${tone === 'accent' ? hexToRgba(theme.colors.accent, 0.3) : hexToRgba(theme.colors.primary, 0.3)}`};
+        : tone === 'teal' && theme.colors.tealDark
+          ? `0 2px 8px rgba(0,0,0,0.08)`
+          : `0 6px 16px ${tone === 'accent' ? hexToRgba(theme.colors.accent, 0.3) : hexToRgba(theme.colors.primary, 0.3)}`};
   }
 `;

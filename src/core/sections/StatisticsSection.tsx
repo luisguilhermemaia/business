@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { useI18n } from '../i18n/I18nProvider';
 import { Container, Grid, Section } from '../design-system/primitives';
 import { LinkButton } from '../design-system/components/Button';
 import { Reveal } from '../design-system/components/Reveal';
@@ -37,26 +38,21 @@ const Text = styled.p`
 `;
 
 export const StatisticsSection = () => {
+  const { t } = useI18n();
   return (
     <HighlightSection>
       <Container width="wide">
         <Reveal>
           <Grid columns={2} min="280px" gap="xl">
             <Card>
-              <Title>Você merece se sentir bem com você mesma.</Title>
-              <Text>
-                Um cuidado ginecológico feito com calma, escuta verdadeira e decisões baseadas em
-                ciência. Aqui você encontra um espaço seguro para falar sobre sintomas, tratamentos
-                e qualidade de vida.
-              </Text>
+              <Title>{t('stats.card1Title')}</Title>
+              <Text>{t('stats.card1Text')}</Text>
             </Card>
             <Card>
-              <Title>Agende sua consulta com tranquilidade.</Title>
-              <Text>
-                Escolha o melhor horário e receba orientações claras sobre cada etapa do cuidado.
-              </Text>
+              <Title>{t('stats.card2Title')}</Title>
+              <Text>{t('stats.card2Text')}</Text>
               <LinkButton href="/booking" size="md">
-                Agendar consulta
+                {t('actions.book')}
               </LinkButton>
             </Card>
           </Grid>

@@ -36,7 +36,7 @@ export const LocationSection = () => {
     <Section background="muted">
       <Container width="wide">
         <Stack gap="md">
-          <Badge tone="muted">{t('location.title')}</Badge>
+          <Badge tone="teal">{t('location.title')}</Badge>
           <Title>{t('location.headline')}</Title>
           <Info>{t('location.description')}</Info>
         </Stack>
@@ -65,7 +65,7 @@ export const LocationSection = () => {
                     href={content.location.mapsLink}
                     target="_blank"
                     rel="noreferrer noopener"
-                    variant="secondary"
+                    size="md"
                     style={{ marginTop: 'auto' }}
                   >
                     <Icon name="location" size={16} />

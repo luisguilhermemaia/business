@@ -8,8 +8,8 @@ import { Container, Grid, Stack } from '../design-system/primitives';
 import { Icon } from '../icons/Icon';
 
 const FooterShell = styled.footer`
-  background: ${({ theme }) => theme.colors.text};
-  color: ${({ theme }) => theme.colors.surface};
+  background: ${({ theme }) => theme.colors.tealDark ?? theme.colors.backgroundAlt};
+  color: ${({ theme }) => theme.colors.tealDarkContrast ?? theme.colors.text};
   padding: ${({ theme }) => theme.spacing.xxl * 2}px 0 ${({ theme }) => theme.spacing.xl}px;
   margin-top: ${({ theme }) => theme.spacing.xxl * 2}px;
 `;
@@ -18,12 +18,12 @@ const Title = styled.h3`
   font-size: ${({ theme }) => theme.typography.sizes.xl};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   margin-bottom: ${({ theme }) => theme.spacing.lg}px;
-  color: ${({ theme }) => theme.colors.surface};
+  color: ${({ theme }) => theme.colors.tealDarkContrast ?? theme.colors.text};
   font-family: ${({ theme }) => theme.typography.fonts.heading};
 `;
 
 const Text = styled.p`
-  color: rgba(255, 255, 255, 0.8);
+  color: ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.85)};
   line-height: 1.75;
   font-size: ${({ theme }) => theme.typography.sizes.md};
   margin: 0;
@@ -33,7 +33,7 @@ const LinkRow = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href:
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
-  color: rgba(255, 255, 255, 0.7);
+  color: ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.75)};
   padding: ${({ theme }) => theme.spacing.sm}px 0;
   font-size: ${({ theme }) => theme.typography.sizes.md};
   transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
@@ -77,9 +77,10 @@ const SocialLink = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { hr
   width: 44px;
   height: 44px;
   border-radius: ${({ theme }) => theme.radii.pill};
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid ${({ theme }) =>
+    hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.25)};
+  background: ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.08)};
+  color: ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.9)};
   transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
     ${({ theme }) => theme.motion?.easing.ease || 'ease'};
 
@@ -105,13 +106,14 @@ const SocialLink = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { hr
 const FooterBottom = styled.div`
   margin-top: ${({ theme }) => theme.spacing.xl * 2}px;
   padding-top: ${({ theme }) => theme.spacing.xl}px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid ${({ theme }) =>
+    hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.2)};
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: ${({ theme }) => theme.spacing.md}px;
   flex-wrap: wrap;
-  color: rgba(255, 255, 255, 0.6);
+  color: ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.65)};
   font-size: ${({ theme }) => theme.typography.sizes.sm};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
@@ -191,7 +193,7 @@ export const Footer = () => {
             </Text>
             {content.location.openingHours && content.location.openingHours.length > 0 && (
               <Text style={{ marginTop: '12px' }}>
-                <strong style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{t('footer.hours')}:</strong>{' '}
+                <strong style={{ color: 'inherit', opacity: 1 }}>{t('footer.hours')}:</strong>{' '}
                 {content.location.openingHours[0]}
               </Text>
             )}

@@ -24,6 +24,13 @@ const Subtitle = styled.p`
   margin-bottom: ${({ theme }) => theme.spacing.lg}px;
 `;
 
+const Excerpt = styled.p`
+  color: ${({ theme }) => theme.colors.textMuted};
+  line-height: 1.75;
+  font-size: 0.95rem;
+  margin: 0;
+`;
+
 const Tag = styled.button<{ active: boolean }>`
   border: 1px solid ${({ theme, active }) => (active ? theme.colors.primary : theme.colors.border)};
   border-radius: ${({ theme }) => theme.radii.md};
@@ -59,6 +66,13 @@ const MetaRow = styled.div`
   color: ${({ theme }) => theme.colors.textMuted};
   flex-wrap: wrap;
   font-size: ${({ theme }) => theme.typography.sizes.sm};
+`;
+
+const NoResults = styled.p`
+  text-align: center;
+  padding: 48px 0;
+  margin: 0;
+  color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 interface Props {
@@ -140,17 +154,7 @@ export const BlogIndexPage = ({ posts, introTitle, introDescription }: Props) =>
                       {post.title}
                     </h3>
                   </Link>
-                  <p
-                    style={{
-                      color: 'inherit',
-                      opacity: 0.75,
-                      lineHeight: '1.75',
-                      fontSize: '0.95rem',
-                      flex: 1,
-                    }}
-                  >
-                    {post.excerpt}
-                  </p>
+                  <Excerpt>{post.excerpt}</Excerpt>
                   <MetaRow style={{ marginTop: 'auto', paddingTop: '8px' }}>
                     {post.tags?.map((t) => (
                       <span key={t} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -164,9 +168,7 @@ export const BlogIndexPage = ({ posts, introTitle, introDescription }: Props) =>
           ))}
         </Grid>
         {filtered.length === 0 && (
-          <p style={{ textAlign: 'center', padding: '48px 0', color: 'inherit', opacity: 0.7 }}>
-            {t('blog.noResults')}
-          </p>
+          <NoResults>{t('blog.noResults')}</NoResults>
         )}
       </Container>
     </Section>

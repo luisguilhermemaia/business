@@ -20,7 +20,21 @@
   "hero": {
     "location": "Localização",
     "hours": "Horários",
-    "contact": "Contato"
+    "contact": "Contato",
+    "badge": "Saúde da Mulher",
+    "ctaPresencial": "Quero atendimento presencial",
+    "ctaOnline": "Quero atendimento online",
+    "topBar": "Atendimento presencial e online para todo o Brasil"
+  },
+  "trustStrip": {
+    "inPerson": "Atendimento presencial em {city}/{state}",
+    "online": "Atendimento online para todo o Brasil"
+  },
+  "stats": {
+    "card1Title": "Você merece se sentir bem com você mesma.",
+    "card1Text": "Um cuidado ginecológico feito com calma, escuta verdadeira e decisões baseadas em ciência. Aqui você encontra um espaço seguro para falar sobre sintomas, tratamentos e qualidade de vida.",
+    "card2Title": "Agende sua consulta com tranquilidade.",
+    "card2Text": "Escolha o melhor horário e receba orientações claras sobre cada etapa do cuidado."
   },
   "services": {
     "title": "Talvez você esteja aqui porque",

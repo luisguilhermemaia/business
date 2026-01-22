@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ButtonHTMLAttributes, ComponentProps, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
+import { hexToRgba } from '../../utils/colors';
 
 type Variant = 'primary' | 'secondary' | 'ghost';
 type Size = 'sm' | 'md' | 'lg';
@@ -64,18 +65,20 @@ const buttonStyles = css<BaseProps>`
   ${({ variant = 'primary', theme }) => {
     if (variant === 'secondary') {
       return css`
-        background: ${theme.colors.backgroundAlt};
-        color: ${theme.colors.text};
-        border: 1px solid ${theme.colors.border};
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        background: ${hexToRgba(theme.colors.primary, 0.06)};
+        color: ${theme.colors.primaryStrong};
+        border: 1.5px solid ${theme.colors.primaryStrong};
+        box-shadow: none;
         &:hover:not(:disabled) {
-          background: ${theme.colors.surfaceMuted};
+          background: ${hexToRgba(theme.colors.primary, 0.14)};
+          color: ${theme.colors.text};
+          border-color: ${theme.colors.text};
           transform: translateY(-1px);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 2px 12px ${hexToRgba(theme.colors.primary, 0.15)};
         }
         &:active:not(:disabled) {
           transform: translateY(0);
-          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+          background: ${hexToRgba(theme.colors.primary, 0.2)};
         }
       `;
     }
@@ -92,25 +95,23 @@ const buttonStyles = css<BaseProps>`
         }
       `;
     }
-    // Convert hex to rgba for shadows
-    const primaryRgb = '26, 95, 63'; // #1A5F3F
     return css`
       background: linear-gradient(135deg, ${theme.colors.primaryStrong}, ${theme.colors.primary});
       color: ${theme.colors.primaryContrast};
       box-shadow:
-        0 4px 16px rgba(${primaryRgb}, 0.25),
-        0 2px 4px rgba(${primaryRgb}, 0.19);
+        0 4px 16px ${hexToRgba(theme.colors.primary, 0.25)},
+        0 2px 4px ${hexToRgba(theme.colors.primary, 0.19)};
       font-weight: ${theme.typography.weights.semi};
       &:hover:not(:disabled) {
         background: linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.primaryStrong});
         transform: translateY(-2px);
         box-shadow:
-          0 6px 24px rgba(${primaryRgb}, 0.31),
-          0 4px 8px rgba(${primaryRgb}, 0.21);
+          0 6px 24px ${hexToRgba(theme.colors.primary, 0.31)},
+          0 4px 8px ${hexToRgba(theme.colors.primary, 0.21)};
       }
       &:active:not(:disabled) {
         transform: translateY(0);
-        box-shadow: 0 2px 8px rgba(${primaryRgb}, 0.19);
+        box-shadow: 0 2px 8px ${hexToRgba(theme.colors.primary, 0.19)};
       }
     `;
   }}
@@ -132,6 +133,25 @@ const buttonStyles = css<BaseProps>`
     &:active:not(:disabled) {
       transform: none;
     }
+  }
+
+  @media (max-width: 768px) {
+    min-height: 48px;
+    padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.xl}px;
+    font-size: ${({ theme }) => theme.typography.sizes.md};
+    ${({ variant, theme }) =>
+      variant === 'primary' &&
+      css`
+        color: #fff;
+        font-weight: ${theme.typography.weights.bold};
+      `}
+    ${({ variant, theme }) =>
+      variant === 'secondary' &&
+      css`
+        color: ${theme.colors.text};
+        border-color: ${theme.colors.text};
+        background: ${hexToRgba(theme.colors.text, 0.06)};
+      `}
   }
 `;
 

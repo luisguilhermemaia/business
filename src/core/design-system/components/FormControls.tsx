@@ -57,7 +57,7 @@ export const Select = styled.select<{ error?: boolean }>`
   ${baseControl}
   height: 48px;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%233D2A33' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23D4AF37' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
   background-position: calc(100% - ${({ theme }) => theme.spacing.md}px) center;
   background-repeat: no-repeat;
   background-size: 12px;

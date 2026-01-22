@@ -23,9 +23,12 @@ const SectionBadge = styled.div`
   gap: ${({ theme }) => theme.spacing.sm}px;
   padding: ${({ theme }) => theme.spacing.sm + 2}px ${({ theme }) => theme.spacing.lg}px;
   border-radius: ${({ theme }) => theme.radii.pill};
-  background: ${({ theme }) => theme.colors.surface};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  color: ${({ theme }) => theme.colors.primary};
+  background: ${({ theme }) =>
+    theme.colors.tealDark ?? theme.colors.surface};
+  border: 1px solid
+    ${({ theme }) => (theme.colors.tealDark ? 'transparent' : theme.colors.border)};
+  color: ${({ theme }) =>
+    theme.colors.tealDark ? theme.colors.tealDarkContrast : theme.colors.primary};
   font-size: ${({ theme }) => theme.typography.sizes.xs};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   letter-spacing: 0.1em;
@@ -81,7 +84,8 @@ const ServiceIcon = styled.div`
   border-radius: ${({ theme }) => theme.radii.lg};
   display: grid;
   place-items: center;
-  background: ${({ theme }) => theme.colors.surfaceMuted};
+  background: ${({ theme }) =>
+    theme.colors.tealDark ?? theme.colors.surfaceMuted};
   color: ${({ theme }) => theme.colors.primary};
   margin: 0 auto;
 `;

@@ -17,7 +17,8 @@ export type IconName =
   | 'calendar'
   | 'search'
   | 'tag'
-  | 'globe';
+  | 'globe'
+  | 'logo-mark';
 
 interface Props extends SVGProps<SVGSVGElement> {
   name: IconName;
@@ -116,6 +117,15 @@ const paths: Record<IconName, JSX.Element> = {
       <circle cx="12" cy="12" r="10" />
       <path d="M2 12h20" />
       <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+    </>
+  ),
+  'logo-mark': (
+    <>
+      <path d="M8 6c0-2.5 1.5-4 3.5-4 1.5 0 2.5.8 3 1.8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+      <path d="M8 18c0 2.5 1.5 4 3.5 4 1.5 0 2.5-.8 3-1.8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+      <circle cx="11.5" cy="4" r="2" fill="currentColor" />
+      <path d="M9.5 10c.8.8 2 1.2 3.5 1.2 1.2 0 2.2-.3 3-.8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" fill="none" />
+      <path d="M9.5 14c.8-.8 2-1.2 3.5-1.2 1.2 0 2.2.3 3 .8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" fill="none" />
     </>
   ),
 };

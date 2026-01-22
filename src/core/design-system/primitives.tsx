@@ -114,14 +114,14 @@ export const Card = styled.div<{
 }>`
   position: relative;
   background: ${({ theme }) => theme.colors.surface};
-  border: 1px solid ${({ theme }) => hexToRgba(theme.colors.primary, 0.1)};
+  border: 1px solid ${({ theme }) => hexToRgba(theme.colors.primary, 0.2)};
   border-radius: ${({ theme }) => theme.radii.xl || theme.radii.lg};
   padding: ${({ theme }) => theme.spacing.xl}px;
   box-shadow: ${({ theme, elevation = 'sm' }) => {
     const shadowMap = {
-      sm: `0 2px 12px ${hexToRgba(theme.colors.primary, 0.08)}, 0 0 0 1px ${hexToRgba(theme.colors.primary, 0.04)}`,
-      md: `0 4px 20px ${hexToRgba(theme.colors.primary, 0.12)}, 0 0 0 1px ${hexToRgba(theme.colors.primary, 0.06)}`,
-      lg: `0 8px 32px ${hexToRgba(theme.colors.primary, 0.16)}, 0 0 0 1px ${hexToRgba(theme.colors.primary, 0.08)}`,
+      sm: `0 2px 12px ${hexToRgba(theme.colors.text, 0.08)}, 0 0 0 1px ${hexToRgba(theme.colors.border, 0.6)}`,
+      md: `0 4px 20px ${hexToRgba(theme.colors.text, 0.1)}, 0 0 0 1px ${hexToRgba(theme.colors.border, 0.7)}`,
+      lg: `0 8px 32px ${hexToRgba(theme.colors.text, 0.12)}, 0 0 0 1px ${hexToRgba(theme.colors.border, 0.8)}`,
     };
     return shadowMap[elevation];
   }};
@@ -129,12 +129,31 @@ export const Card = styled.div<{
   transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'}
     ${({ theme }) => theme.motion?.easing.ease || 'ease'};
 
+  ${({ theme }) =>
+    theme.colors.tealDark &&
+    css`
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: ${theme.colors.tealDark};
+        border-radius: ${theme.radii.xl || theme.radii.lg} 0 0 ${theme.radii.xl || theme.radii.lg};
+        pointer-events: none;
+      }
+    `}
+
   &::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 50%);
-    opacity: 0.5;
+    background: linear-gradient(
+      180deg,
+      ${({ theme }) => hexToRgba(theme.colors.muted, 0.06)} 0%,
+      transparent 50%
+    );
     pointer-events: none;
   }
 

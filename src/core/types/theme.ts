@@ -21,6 +21,8 @@ export interface AppTheme {
     overlay: string;
     gradientHero: string;
     gradientCard: string;
+    tealDark?: string;
+    tealDarkContrast?: string;
   };
   typography: {
     fonts: {

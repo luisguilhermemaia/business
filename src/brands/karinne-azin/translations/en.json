@@ -20,7 +20,21 @@
   "hero": {
     "location": "Location",
     "hours": "Hours",
-    "contact": "Contact"
+    "contact": "Contact",
+    "badge": "Women's Health",
+    "ctaPresencial": "In-person appointment",
+    "ctaOnline": "Online appointment",
+    "topBar": "In-person and online care across Brazil"
+  },
+  "trustStrip": {
+    "inPerson": "In-person care in {city}/{state}",
+    "online": "Online care across Brazil"
+  },
+  "stats": {
+    "card1Title": "You deserve to feel good about yourself.",
+    "card1Text": "Gynecological care with patience, attentive listening, and evidence-based decisions. A safe space to talk about symptoms, treatments, and quality of life.",
+    "card2Title": "Book your appointment with ease.",
+    "card2Text": "Choose the best time and get clear guidance for each step of your care."
   },
   "services": {
     "title": "You might be here because",

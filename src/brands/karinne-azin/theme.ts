@@ -1,36 +1,62 @@
 import { createBrandTheme } from '../../core/design-system/theme';
 
+const teal = {
+  dark: '#2A4242',
+  darker: '#1E3636',
+  medium: '#3D5A5A',
+} as const;
+
+const taupe = {
+  main: '#9A816C',
+  light: '#C4B5A5',
+  soft: 'rgba(154, 129, 108, 0.2)',
+} as const;
+
+const gold = {
+  main: '#D4AF37',
+  strong: '#B8941F',
+  soft: 'rgba(212, 175, 55, 0.15)',
+} as const;
+
+const cream = {
+  main: '#FBF8ED',
+  dark: '#F5F0E0',
+  surface: '#FFFEF9',
+} as const;
+
 export const karinneTheme = createBrandTheme({
   name: 'karinne-azin',
   colors: {
-    // Green palette inspired by Instagram profile
-    background: '#F8F9FA',
-    backgroundAlt: '#F0F2F5',
-    surface: '#FFFFFF',
-    surfaceMuted: '#FAFBFC',
-    surfaceElevated: 'rgba(255,255,255,0.98)',
-    primary: '#1A5F3F', // Dark green from Instagram
-    primaryStrong: '#0F4A2F',
-    primaryContrast: '#FFFFFF',
-    accent: '#2D8F5F', // Lighter green accent
-    accentContrast: '#FFFFFF',
-    muted: '#6B7C7A',
-    border: '#E1E8E6',
-    text: '#1A1F1E',
-    textMuted: '#5A6B69',
-    success: '#1A5F3F',
-    warning: '#D0A36D',
-    danger: '#C46D7A',
-    overlay: 'rgba(26, 31, 30, 0.55)',
-    gradientHero:
-      'radial-gradient(ellipse at 20% 10%, rgba(26, 95, 63, 0.08) 0%, transparent 55%), radial-gradient(ellipse at 80% 90%, rgba(45, 143, 95, 0.12) 0%, transparent 60%), linear-gradient(180deg, #F8F9FA 0%, #F0F2F5 100%)',
-    gradientCard: 'linear-gradient(180deg, #FFFFFF 0%, #FAFBFC 100%)',
+    background: cream.main,
+    backgroundAlt: cream.dark,
+    surface: cream.surface,
+    surfaceMuted: taupe.light,
+    surfaceElevated: cream.surface,
+    primary: gold.main,
+    primaryStrong: gold.strong,
+    primaryContrast: teal.dark,
+    accent: gold.main,
+    accentContrast: teal.dark,
+    muted: taupe.main,
+    border: 'rgba(154, 129, 108, 0.35)',
+    text: teal.dark,
+    textMuted: '#6B5D4F',
+    success: gold.main,
+    warning: gold.main,
+    danger: '#c46d7a',
+    overlay: 'rgba(42, 66, 66, 0.75)',
+    gradientHero: `radial-gradient(ellipse at 30% 20%, ${gold.soft} 0%, transparent 55%),
+      radial-gradient(ellipse at 70% 80%, ${taupe.soft} 0%, transparent 50%),
+      linear-gradient(180deg, ${cream.main} 0%, ${cream.dark} 100%)`,
+    gradientCard: `linear-gradient(180deg, ${cream.surface} 0%, ${cream.dark} 100%)`,
+    tealDark: teal.dark,
+    tealDarkContrast: cream.main,
   },
   typography: {
     fonts: {
-      heading: 'var(--font-serif), "Times New Roman", serif',
+      heading: 'var(--font-serif), "Times New Roman", Georgia, serif',
       body: 'var(--font-sans), "Inter", system-ui, -apple-system, sans-serif',
-      accent: 'var(--font-serif), "Times New Roman", serif',
+      accent: 'var(--font-serif), "Times New Roman", Georgia, serif',
     },
     sizes: {
       xs: '0.75rem',
@@ -68,11 +94,11 @@ export const karinneTheme = createBrandTheme({
     hero: 140,
   },
   shadows: {
-    sm: '0 1px 3px rgba(26, 95, 63, 0.06)',
-    md: '0 4px 12px rgba(26, 95, 63, 0.08)',
-    lg: '0 12px 24px rgba(26, 95, 63, 0.12)',
-    soft: '0 2px 10px rgba(26, 95, 63, 0.06)',
-    medium: '0 6px 18px rgba(26, 95, 63, 0.1)',
-    strong: '0 16px 32px rgba(26, 95, 63, 0.14)',
+    sm: '0 2px 8px rgba(42, 66, 66, 0.08), 0 0 0 1px rgba(154, 129, 108, 0.12)',
+    md: '0 6px 20px rgba(42, 66, 66, 0.1), 0 0 0 1px rgba(154, 129, 108, 0.14)',
+    lg: '0 12px 32px rgba(42, 66, 66, 0.12), 0 0 0 1px rgba(154, 129, 108, 0.16)',
+    soft: '0 4px 16px rgba(42, 66, 66, 0.1)',
+    medium: '0 8px 24px rgba(42, 66, 66, 0.12)',
+    strong: '0 16px 40px rgba(42, 66, 66, 0.16)',
   },
 });
