@@ -192,12 +192,22 @@ export const ServicesGridSection = () => {
           <CTAText>{t('services.ctaBlurb')}</CTAText>
           <Stack direction="row" gap="md" style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
             <PrimaryCTAButton href="/booking" size="md">
-              {t('actions.book')}
+              Agendar Consulta Agora
             </PrimaryCTAButton>
             <SecondaryCTAButton href="/contact" size="md">
-              {t('actions.contact')}
+              Falar com a Clínica
             </SecondaryCTAButton>
           </Stack>
+          <CTAText
+            style={{
+              fontSize: '0.875rem',
+              marginTop: '12px',
+              opacity: 0.8,
+              fontStyle: 'italic',
+            }}
+          >
+            ⚡ Resposta rápida via WhatsApp • Primeira consulta com acolhimento especial
+          </CTAText>
         </CTASection>
       </Container>
     </Section>

@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { hexToRgba } from '../utils/colors';
 import { useBrand } from '../brand/BrandProvider';
 import { useI18n } from '../i18n/I18nProvider';
 import { Container, Grid, Section } from '../design-system/primitives';
@@ -48,10 +49,18 @@ const TestimonialCard = styled.div`
   background: ${({ theme }) => theme.colors.surface};
   border-radius: ${({ theme }) => theme.radii.xl || theme.radii.lg};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  padding: ${({ theme }) => theme.spacing.lg}px;
-  box-shadow: ${({ theme }) => theme.shadows.sm || theme.shadows.soft};
+  padding: ${({ theme }) => theme.spacing.xl}px;
+  box-shadow: ${({ theme }) => theme.shadows.md || theme.shadows.medium};
   display: grid;
-  gap: ${({ theme }) => theme.spacing.md}px;
+  gap: ${({ theme }) => theme.spacing.lg}px;
+  transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'}
+    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: ${({ theme }) => theme.shadows.lg || theme.shadows.strong};
+    border-color: ${({ theme }) => hexToRgba(theme.colors.primary, 0.3)};
+  }
 `;
 
 const Quote = styled.p`
@@ -83,14 +92,16 @@ const Person = styled.div`
 `;
 
 const PersonIcon = styled.div`
-  width: 38px;
-  height: 38px;
+  width: 48px;
+  height: 48px;
   border-radius: ${({ theme }) => theme.radii.round};
   background: ${({ theme }) =>
     theme.colors.tealDark ?? theme.colors.surfaceMuted};
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.tealDarkContrast ?? '#FFFFFF'};
   display: grid;
   place-items: center;
+  box-shadow: 0 2px 6px ${({ theme }) =>
+    hexToRgba(theme.colors.tealDark || theme.colors.text, 0.15)};
 `;
 
 const PersonName = styled.div`

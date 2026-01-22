@@ -31,10 +31,42 @@ const Title = styled.h2`
 `;
 
 const Text = styled.p`
-  color: ${({ theme }) => theme.colors.textMuted};
+  color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.md};
   line-height: 1.7;
   margin: 0;
+  opacity: 0.9;
+`;
+
+const BenefitList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: ${({ theme }) => theme.spacing.lg}px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+const BenefitItem = styled.li`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  color: ${({ theme }) => theme.colors.text};
+  font-size: ${({ theme }) => theme.typography.sizes.md};
+  line-height: 1.6;
+
+  &::before {
+    content: '✓';
+    color: ${({ theme }) => theme.colors.primary};
+    font-weight: ${({ theme }) => theme.typography.weights.bold};
+    font-size: ${({ theme }) => theme.typography.sizes.lg};
+    flex-shrink: 0;
+  }
+`;
+
+const CTAButton = styled(LinkButton)`
+  margin-top: ${({ theme }) => theme.spacing.md}px;
+  width: 100%;
 `;
 
 export const StatisticsSection = () => {
@@ -47,13 +79,25 @@ export const StatisticsSection = () => {
             <Card>
               <Title>{t('stats.card1Title')}</Title>
               <Text>{t('stats.card1Text')}</Text>
+              <BenefitList>
+                <BenefitItem>Consulta com tempo adequado para escuta</BenefitItem>
+                <BenefitItem>Decisões baseadas em evidências científicas</BenefitItem>
+                <BenefitItem>Plano de tratamento claro e personalizado</BenefitItem>
+                <BenefitItem>Acompanhamento contínuo e disponibilidade</BenefitItem>
+              </BenefitList>
             </Card>
             <Card>
               <Title>{t('stats.card2Title')}</Title>
               <Text>{t('stats.card2Text')}</Text>
-              <LinkButton href="/booking" size="md">
-                {t('actions.book')}
-              </LinkButton>
+              <BenefitList>
+                <BenefitItem>Agendamento rápido pelo WhatsApp</BenefitItem>
+                <BenefitItem>Atendimento presencial e online</BenefitItem>
+                <BenefitItem>Horários flexíveis e amplos</BenefitItem>
+                <BenefitItem>Confirmação imediata do agendamento</BenefitItem>
+              </BenefitList>
+              <CTAButton href="/booking" size="md">
+                {t('actions.book')} Agora
+              </CTAButton>
             </Card>
           </Grid>
         </Reveal>

@@ -103,12 +103,23 @@ export const CTASection = () => {
               >
                 <PrimaryCTAButton href="/booking" size="md">
                   <Icon name="calendar" size={18} />
-                  {content.hero.ctaLabel || t('actions.book')}
+                  Agendar Consulta Agora
                 </PrimaryCTAButton>
                 <SecondaryCTAButton href="/contact" size="md">
-                  {t('actions.contact')}
+                  <Icon name="phone" size={18} />
+                  Falar com a Clínica
                 </SecondaryCTAButton>
               </Stack>
+              <Text
+                style={{
+                  fontSize: '0.875rem',
+                  marginTop: '8px',
+                  opacity: 0.8,
+                  fontStyle: 'italic',
+                }}
+              >
+                ⚡ Resposta rápida via WhatsApp • Horários disponíveis esta semana
+              </Text>
             </Stack>
           </CTAWrap>
         </Reveal>

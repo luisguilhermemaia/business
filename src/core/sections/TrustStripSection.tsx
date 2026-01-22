@@ -30,6 +30,35 @@ const Pill = styled.div`
   font-weight: ${({ theme }) => theme.typography.weights.semi};
 `;
 
+const StatPill = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+  padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
+  border-radius: ${({ theme }) => theme.radii.lg};
+  background: ${({ theme }) => theme.colors.surface};
+  color: ${({ theme }) => theme.colors.text};
+  text-align: center;
+  min-width: 140px;
+`;
+
+const StatNumber = styled.div`
+  font-size: ${({ theme }) => theme.typography.sizes.xxl};
+  font-weight: ${({ theme }) => theme.typography.weights.bold};
+  color: ${({ theme }) => theme.colors.primary};
+  line-height: 1;
+  font-family: ${({ theme }) => theme.typography.fonts.heading};
+`;
+
+const StatLabel = styled.div`
+  font-size: ${({ theme }) => theme.typography.sizes.xs};
+  color: ${({ theme }) => theme.colors.textMuted};
+  font-weight: ${({ theme }) => theme.typography.weights.medium};
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+`;
+
 export const TrustStripSection = () => {
   const { content } = useBrand();
   const { t } = useI18n();
@@ -41,13 +70,21 @@ export const TrustStripSection = () => {
   return (
     <Strip>
       <Container width="wide">
-        <Grid min="260px" gap={12}>
+        <Grid min="200px" gap="md">
           {[inPerson, online].map((item, idx) => (
             <Pill key={item}>
               <Icon name={idx === 0 ? 'location' : 'calendar'} size={16} />
               {item}
             </Pill>
           ))}
+          <StatPill>
+            <StatNumber>15+</StatNumber>
+            <StatLabel>Anos de Experiência</StatLabel>
+          </StatPill>
+          <StatPill>
+            <StatNumber>500+</StatNumber>
+            <StatLabel>Pacientes Atendidas</StatLabel>
+          </StatPill>
         </Grid>
       </Container>
     </Strip>
