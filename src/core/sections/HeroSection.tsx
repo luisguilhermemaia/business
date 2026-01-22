@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useBrand } from '../brand/BrandProvider';
 import { useI18n } from '../i18n/I18nProvider';
 import { LinkButton } from '../design-system/components/Button';
-import { Container, Section } from '../design-system/primitives';
+import { Section } from '../design-system/primitives';
 import { Reveal } from '../design-system/components/Reveal';
 import { hexToRgba } from '../utils/colors';
 
@@ -41,43 +41,45 @@ const HeroImageSection = styled.div`
   min-height: 500px;
   overflow: hidden;
   z-index: 1;
-  background: radial-gradient(
-    ellipse at 20% 30%,
-    ${({ theme }) => hexToRgba(theme.colors.background || '#FBF8ED', 0.4)} 0%,
-    transparent 50%
-  ),
-  radial-gradient(
-    ellipse at 80% 70%,
-    ${({ theme }) => hexToRgba(theme.colors.backgroundAlt || '#F5F0E0', 0.3)} 0%,
-    transparent 60%
-  ),
-  linear-gradient(
-    135deg,
-    ${({ theme }) => theme.colors.background || '#FBF8ED'} 0%,
-    ${({ theme }) => theme.colors.backgroundAlt || '#F5F0E0'} 100%
-  );
+  background:
+    radial-gradient(
+      ellipse at 20% 30%,
+      ${({ theme }) => hexToRgba(theme.colors.background || '#FBF8ED', 0.4)} 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 70%,
+      ${({ theme }) => hexToRgba(theme.colors.backgroundAlt || '#F5F0E0', 0.3)} 0%,
+      transparent 60%
+    ),
+    linear-gradient(
+      135deg,
+      ${({ theme }) => theme.colors.background || '#FBF8ED'} 0%,
+      ${({ theme }) => theme.colors.backgroundAlt || '#F5F0E0'} 100%
+    );
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     width: 50%;
     height: auto;
     min-height: 600px;
     max-height: 85vh;
-    background: radial-gradient(
-      ellipse at 15% 25%,
-      ${({ theme }) => hexToRgba(theme.colors.background || '#FBF8ED', 0.5)} 0%,
-      transparent 45%
-    ),
-    radial-gradient(
-      ellipse at 85% 75%,
-      ${({ theme }) => hexToRgba(theme.colors.backgroundAlt || '#F5F0E0', 0.4)} 0%,
-      transparent 55%
-    ),
-    linear-gradient(
-      135deg,
-      ${({ theme }) => theme.colors.background || '#FBF8ED'} 0%,
-      ${({ theme }) => hexToRgba(theme.colors.backgroundAlt || '#F5F0E0', 0.8)} 50%,
-      ${({ theme }) => theme.colors.backgroundAlt || '#F5F0E0'} 100%
-    );
+    background:
+      radial-gradient(
+        ellipse at 15% 25%,
+        ${({ theme }) => hexToRgba(theme.colors.background || '#FBF8ED', 0.5)} 0%,
+        transparent 45%
+      ),
+      radial-gradient(
+        ellipse at 85% 75%,
+        ${({ theme }) => hexToRgba(theme.colors.backgroundAlt || '#F5F0E0', 0.4)} 0%,
+        transparent 55%
+      ),
+      linear-gradient(
+        135deg,
+        ${({ theme }) => theme.colors.background || '#FBF8ED'} 0%,
+        ${({ theme }) => hexToRgba(theme.colors.backgroundAlt || '#F5F0E0', 0.8)} 50%,
+        ${({ theme }) => theme.colors.backgroundAlt || '#F5F0E0'} 100%
+      );
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
@@ -90,6 +92,9 @@ const HeroImageContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   img {
     object-fit: cover;
@@ -99,80 +104,32 @@ const HeroImageContainer = styled.div`
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    padding: ${({ theme }) => theme.spacing.xxl}px;
+    padding-right: ${({ theme }) => theme.spacing.xxl * 2}px;
+
+    img {
+      object-fit: contain;
+      object-position: center center;
+      width: auto;
+      max-width: 100%;
+      height: 100%;
+    }
+
     &::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(
-        ellipse at 30% 40%,
+      background: linear-gradient(
+        90deg,
         transparent 0%,
-        ${({ theme }) => hexToRgba(theme.colors.background || '#FBF8ED', 0.15)} 40%,
-        transparent 70%
+        transparent 50%,
+        ${({ theme }) => hexToRgba(theme.colors.background || '#FBF8ED', 0.3)} 70%,
+        ${({ theme }) => hexToRgba(theme.colors.background || '#FBF8ED', 0.6)} 85%,
+        ${({ theme }) => theme.colors.background || '#FBF8ED'} 100%
       );
       pointer-events: none;
       z-index: 1;
     }
-  }
-`;
-
-const DecorativeElements = styled.div`
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  overflow: hidden;
-`;
-
-const BrainOutline = styled.svg`
-  position: absolute;
-  left: 8%;
-  top: 15%;
-  width: 200px;
-  height: 200px;
-  opacity: 0.08;
-  stroke: ${({ theme }) => theme.colors.brownDark || theme.colors.text};
-  fill: none;
-  stroke-width: 1.5;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    left: -8%;
-    top: 15%;
-    width: 320px;
-    height: 320px;
-    opacity: 0.12;
-    stroke: ${({ theme }) => theme.colors.brownMedium || '#a77e5d'};
-    stroke-width: 2;
-    filter: blur(0.5px);
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    width: 120px;
-    height: 120px;
-    left: 5%;
-    top: 10%;
-  }
-`;
-
-const HandsOutline = styled.svg`
-  position: absolute;
-  right: 10%;
-  top: 20%;
-  width: 180px;
-  height: 180px;
-  opacity: 0.08;
-  stroke: ${({ theme }) => theme.colors.brownDark || theme.colors.text};
-  fill: none;
-  stroke-width: 1.5;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    display: none;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    width: 100px;
-    height: 100px;
-    right: 5%;
-    top: 15%;
   }
 `;
 
@@ -194,15 +151,12 @@ const ContentOverlay = styled.div`
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     width: 50%;
     margin-top: 0;
-    padding: ${({ theme }) => theme.spacing.xxl * 1.5}px ${({ theme }) => theme.spacing.xxl * 2}px ${({ theme }) => theme.spacing.xxl * 1.5}px;
-    background: radial-gradient(
-      ellipse at 0% 50%,
-      ${({ theme }) => hexToRgba(theme.colors.background || '#FBF8ED', 0.3)} 0%,
-      transparent 40%
-    ),
-    linear-gradient(
+    padding: ${({ theme }) => theme.spacing.xxl * 1.5}px ${({ theme }) => theme.spacing.xxl * 2}px
+      ${({ theme }) => theme.spacing.xxl * 1.5}px;
+    background: linear-gradient(
       90deg,
-      ${({ theme }) => theme.colors.background || '#FBF8ED'} 0%,
+      ${({ theme }) => hexToRgba(theme.colors.background || '#FBF8ED', 0.95)} 0%,
+      ${({ theme }) => theme.colors.background || '#FBF8ED'} 15%,
       ${({ theme }) => theme.colors.backgroundAlt || '#F5F0E0'} 100%
     );
     position: relative;
@@ -210,26 +164,11 @@ const ContentOverlay = styled.div`
     justify-content: flex-start;
     height: auto;
     max-height: 85vh;
-    
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background: linear-gradient(
-        180deg,
-        transparent 0%,
-        ${({ theme }) => hexToRgba(theme.colors.border || '#C4B5A5', 0.2)} 20%,
-        ${({ theme }) => hexToRgba(theme.colors.border || '#C4B5A5', 0.2)} 80%,
-        transparent 100%
-      );
-    }
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    padding: ${({ theme }) => theme.spacing.xl * 1.5}px ${({ theme }) => theme.spacing.lg}px ${({ theme }) => theme.spacing.xl}px;
+    padding: ${({ theme }) => theme.spacing.xl * 1.5}px ${({ theme }) => theme.spacing.lg}px
+      ${({ theme }) => theme.spacing.xl}px;
     margin-top: -80px;
   }
 `;
@@ -260,11 +199,12 @@ const Heading = styled.h1`
   font-size: clamp(2rem, 5vw + 0.5rem, 3.5rem);
   line-height: 1.2;
   margin: 0 0 ${({ theme }) => theme.spacing.lg}px 0;
-  color: ${({ theme }) => theme.colors.brownMedium || theme.colors.text};
+  color: ${({ theme }) => theme.colors.brownDark || theme.colors.text};
   letter-spacing: -0.02em;
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   font-family: ${({ theme }) => theme.typography.fonts.heading};
   max-width: 100%;
+  text-align: left;
 
   strong {
     font-weight: ${({ theme }) => theme.typography.weights.bold};
@@ -272,9 +212,9 @@ const Heading = styled.h1`
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     font-size: clamp(2.5rem, 3.5vw + 0.5rem, 3.25rem);
-    margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+    margin-bottom: ${({ theme }) => theme.spacing.xl}px;
     margin-top: 0;
-    line-height: 1.15;
+    line-height: 1.2;
     letter-spacing: -0.03em;
   }
 
@@ -291,12 +231,14 @@ const Subheading = styled.p`
   margin: 0 0 ${({ theme }) => theme.spacing.xl * 1.5}px 0;
   font-weight: ${({ theme }) => theme.typography.weights.regular};
   max-width: 100%;
+  text-align: left;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    font-size: ${({ theme }) => theme.typography.sizes.xl};
-    margin-bottom: ${({ theme }) => theme.spacing.xl * 1.5}px;
+    font-size: ${({ theme }) => theme.typography.sizes.lg};
+    margin-bottom: ${({ theme }) => theme.spacing.xxl}px;
     line-height: 1.75;
-    max-width: 95%;
+    max-width: 100%;
+    color: ${({ theme }) => theme.colors.textMuted || theme.colors.brownMedium};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
@@ -310,17 +252,18 @@ const CTAs = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.md}px;
   max-width: 400px;
+  align-items: flex-start;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     flex-direction: row;
     gap: ${({ theme }) => theme.spacing.lg}px;
     max-width: 100%;
     margin-top: 0;
+    align-items: flex-start;
     & > a {
-      flex: 1;
-      min-width: 0;
-      padding: ${({ theme }) => theme.spacing.md + 4}px ${({ theme }) => theme.spacing.xl}px !important;
-      font-size: ${({ theme }) => theme.typography.sizes.md};
+      flex: 0 1 auto;
+      min-width: 220px;
+      max-width: 260px;
     }
   }
 
@@ -336,24 +279,36 @@ const PrimaryButton = styled(LinkButton)`
   background: ${({ theme }) => theme.colors.brownDark || theme.colors.text} !important;
   color: ${({ theme }) => theme.colors.background || '#fff'} !important;
   border: none !important;
-  box-shadow: 0 4px 12px ${({ theme }) =>
-    hexToRgba(theme.colors.brownDark || theme.colors.text, 0.2)} !important;
-  font-weight: ${({ theme }) => theme.typography.weights.medium} !important;
-  letter-spacing: 0.01em !important;
-  border-radius: ${({ theme }) => theme.radii.lg || '12px'} !important;
-  padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.xl}px !important;
-  transition: all 0.3s ease !important;
+  box-shadow: 0 6px 14px rgba(89, 60, 44, 0.18) !important;
+  font-weight: ${({ theme }) => theme.typography.weights.semi} !important;
+  letter-spacing: 0 !important;
+  border-radius: 999px !important;
+  padding: ${({ theme }) => theme.spacing.sm + 2}px ${({ theme }) => theme.spacing.xl + 8}px !important;
+  font-size: ${({ theme }) => theme.typography.sizes.md} !important;
+  min-height: 46px !important;
+  transition:
+    opacity 0.2s ease,
+    box-shadow 0.2s ease !important;
+  white-space: normal !important;
+  text-align: center !important;
+  line-height: 1.35 !important;
 
   &:hover:not(:disabled) {
-    background: ${({ theme }) =>
-      hexToRgba(theme.colors.brownDark || theme.colors.text, 0.9)} !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px ${({ theme }) =>
-      hexToRgba(theme.colors.brownDark || theme.colors.text, 0.3)} !important;
+    background: ${({ theme }) => theme.colors.brownDark || theme.colors.text} !important;
+    opacity: 0.9;
+    transform: none !important;
+    box-shadow: 0 8px 18px rgba(89, 60, 44, 0.2) !important;
   }
 
   &:active:not(:disabled) {
-    transform: translateY(0);
+    opacity: 0.85;
+    transform: none !important;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    padding: ${({ theme }) => theme.spacing.sm + 4}px ${({ theme }) => theme.spacing.xxl}px !important;
+    font-size: ${({ theme }) => theme.typography.sizes.md} !important;
+    min-height: 48px !important;
   }
 `;
 
@@ -361,24 +316,36 @@ const SecondaryButton = styled(LinkButton)`
   background: ${({ theme }) => theme.colors.brownMedium || '#a77e5d'} !important;
   color: ${({ theme }) => theme.colors.background || '#fff'} !important;
   border: none !important;
-  box-shadow: 0 4px 12px ${({ theme }) =>
-    hexToRgba(theme.colors.brownMedium || '#a77e5d', 0.2)} !important;
-  font-weight: ${({ theme }) => theme.typography.weights.medium} !important;
-  letter-spacing: 0.01em !important;
-  border-radius: ${({ theme }) => theme.radii.lg || '12px'} !important;
-  padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.xl}px !important;
-  transition: all 0.3s ease !important;
+  box-shadow: 0 6px 14px rgba(140, 107, 80, 0.18) !important;
+  font-weight: ${({ theme }) => theme.typography.weights.semi} !important;
+  letter-spacing: 0 !important;
+  border-radius: 999px !important;
+  padding: ${({ theme }) => theme.spacing.sm + 2}px ${({ theme }) => theme.spacing.xl + 8}px !important;
+  font-size: ${({ theme }) => theme.typography.sizes.md} !important;
+  min-height: 46px !important;
+  transition:
+    opacity 0.2s ease,
+    box-shadow 0.2s ease !important;
+  white-space: normal !important;
+  text-align: center !important;
+  line-height: 1.35 !important;
 
   &:hover:not(:disabled) {
-    background: ${({ theme }) =>
-      hexToRgba(theme.colors.brownMedium || '#a77e5d', 0.9)} !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px ${({ theme }) =>
-      hexToRgba(theme.colors.brownMedium || '#a77e5d', 0.3)} !important;
+    background: ${({ theme }) => theme.colors.brownMedium || '#a77e5d'} !important;
+    opacity: 0.9;
+    transform: none !important;
+    box-shadow: 0 8px 18px rgba(140, 107, 80, 0.2) !important;
   }
 
   &:active:not(:disabled) {
-    transform: translateY(0);
+    opacity: 0.85;
+    transform: none !important;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    padding: ${({ theme }) => theme.spacing.sm + 4}px ${({ theme }) => theme.spacing.xxl}px !important;
+    font-size: ${({ theme }) => theme.typography.sizes.md} !important;
+    min-height: 48px !important;
   }
 `;
 
