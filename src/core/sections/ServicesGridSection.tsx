@@ -23,10 +23,8 @@ const SectionBadge = styled.div`
   gap: ${({ theme }) => theme.spacing.sm}px;
   padding: ${({ theme }) => theme.spacing.sm + 2}px ${({ theme }) => theme.spacing.lg}px;
   border-radius: ${({ theme }) => theme.radii.pill};
-  background: ${({ theme }) =>
-    theme.colors.tealDark ?? theme.colors.surface};
-  border: 1px solid
-    ${({ theme }) => (theme.colors.tealDark ? 'transparent' : theme.colors.border)};
+  background: ${({ theme }) => theme.colors.tealDark ?? theme.colors.surface};
+  border: 1px solid ${({ theme }) => (theme.colors.tealDark ? 'transparent' : theme.colors.border)};
   color: ${({ theme }) =>
     theme.colors.tealDark ? theme.colors.tealDarkContrast : theme.colors.primary};
   font-size: ${({ theme }) => theme.typography.sizes.xs};
@@ -79,29 +77,32 @@ const ServiceCard = styled.div`
 `;
 
 const ServiceIcon = styled.div`
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: ${({ theme }) => theme.radii.lg};
   display: grid;
   place-items: center;
-  background: ${({ theme }) =>
-    theme.colors.tealDark ?? theme.colors.surfaceMuted};
-  color: ${({ theme }) => theme.colors.primary};
+  background: ${({ theme }) => theme.colors.tealDark ?? theme.colors.surfaceMuted};
+  color: ${({ theme }) => theme.colors.tealDarkContrast ?? '#FFFFFF'};
   margin: 0 auto;
+  box-shadow: 0 2px 8px
+    ${({ theme }) => hexToRgba(theme.colors.tealDark || theme.colors.text, 0.15)};
 `;
 
 const ServiceTitle = styled.h3`
   font-size: ${({ theme }) => theme.typography.sizes.lg};
-  font-weight: ${({ theme }) => theme.typography.weights.semi};
+  font-weight: ${({ theme }) => theme.typography.weights.bold};
   color: ${({ theme }) => theme.colors.text};
   margin: 0;
+  margin-top: ${({ theme }) => theme.spacing.sm}px;
 `;
 
 const ServiceDescription = styled.p`
-  color: ${({ theme }) => theme.colors.textMuted};
+  color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.sm};
-  line-height: 1.6;
+  line-height: 1.7;
   margin: 0;
+  opacity: 0.85;
 `;
 
 const CTASection = styled.div`
@@ -112,9 +113,54 @@ const CTASection = styled.div`
 `;
 
 const CTAText = styled.p`
-  color: ${({ theme }) => theme.colors.textMuted};
-  font-size: ${({ theme }) => theme.typography.sizes.md};
+  color: ${({ theme }) => theme.colors.text};
+  font-size: ${({ theme }) => theme.typography.sizes.lg};
+  font-weight: ${({ theme }) => theme.typography.weights.medium};
   margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+`;
+
+const PrimaryCTAButton = styled(LinkButton)`
+  background: ${({ theme }) => theme.colors.tealDark || theme.colors.text} !important;
+  color: ${({ theme }) => theme.colors.tealDarkContrast || '#FFFFFF'} !important;
+  border: 1.5px solid ${({ theme }) => theme.colors.tealDark || theme.colors.text} !important;
+  box-shadow: 0 2px 8px ${({ theme }) => hexToRgba(theme.colors.tealDark || theme.colors.text, 0.2)} !important;
+  font-weight: ${({ theme }) => theme.typography.weights.semi} !important;
+
+  &:hover:not(:disabled) {
+    background: ${({ theme }) => theme.colors.tealDark || theme.colors.text} !important;
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px
+      ${({ theme }) => hexToRgba(theme.colors.tealDark || theme.colors.text, 0.3)} !important;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+`;
+
+const SecondaryCTAButton = styled(LinkButton)`
+  background: transparent !important;
+  color: ${({ theme }) => theme.colors.tealDark || theme.colors.text} !important;
+  border: 1.5px solid ${({ theme }) => theme.colors.tealDark || theme.colors.text} !important;
+  box-shadow: none !important;
+  font-weight: ${({ theme }) => theme.typography.weights.medium} !important;
+
+  &:hover:not(:disabled) {
+    background: ${({ theme }) =>
+      hexToRgba(theme.colors.tealDark || theme.colors.text, 0.08)} !important;
+    color: ${({ theme }) => theme.colors.tealDark || theme.colors.text} !important;
+    border-color: ${({ theme }) => theme.colors.tealDark || theme.colors.text} !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px
+      ${({ theme }) => hexToRgba(theme.colors.tealDark || theme.colors.text, 0.15)} !important;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    background: ${({ theme }) =>
+      hexToRgba(theme.colors.tealDark || theme.colors.text, 0.12)} !important;
+  }
 `;
 
 export const ServicesGridSection = () => {
@@ -134,7 +180,7 @@ export const ServicesGridSection = () => {
             <Reveal key={service.title} delay={0.05 + idx * 0.04}>
               <ServiceCard>
                 <ServiceIcon>
-                  <Icon name={(service.iconKey as IconName) || 'stethoscope'} size={22} />
+                  <Icon name={(service.iconKey as IconName) || 'stethoscope'} size={24} />
                 </ServiceIcon>
                 <ServiceTitle>{service.title}</ServiceTitle>
                 <ServiceDescription>{service.shortDescription}</ServiceDescription>
@@ -145,12 +191,12 @@ export const ServicesGridSection = () => {
         <CTASection>
           <CTAText>{t('services.ctaBlurb')}</CTAText>
           <Stack direction="row" gap="md" style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
-            <LinkButton href="/booking" size="md">
+            <PrimaryCTAButton href="/booking" size="md">
               {t('actions.book')}
-            </LinkButton>
-            <LinkButton href="/contact" variant="secondary" size="md">
+            </PrimaryCTAButton>
+            <SecondaryCTAButton href="/contact" size="md">
               {t('actions.contact')}
-            </LinkButton>
+            </SecondaryCTAButton>
           </Stack>
         </CTASection>
       </Container>

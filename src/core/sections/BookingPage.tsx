@@ -166,7 +166,25 @@ export const BookingPage = () => {
                     fontSize: '0.95rem',
                   }}
                 >
-                  <Icon name="phone" size={18} /> {content.contact.phone}
+                  <a
+                    href={`tel:${content.contact.phone.replace(/[^0-9+]/g, '')}`}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      color: 'inherit',
+                      textDecoration: 'none',
+                      transition: 'opacity 0.2s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.opacity = '0.8';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.opacity = '1';
+                    }}
+                  >
+                    <Icon name="phone" size={18} /> {content.contact.phone}
+                  </a>
                 </div>
                 <div
                   style={{
@@ -176,7 +194,29 @@ export const BookingPage = () => {
                     fontSize: '0.95rem',
                   }}
                 >
-                  <Icon name="whatsapp" size={18} /> {content.contact.whatsapp}
+                  <a
+                    href={`https://wa.me/${content.contact.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+                      content.contact.whatsappMessage || 'Olá! Gostaria de mais informações.'
+                    )}`}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      color: 'inherit',
+                      textDecoration: 'none',
+                      transition: 'opacity 0.2s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.opacity = '0.8';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.opacity = '1';
+                    }}
+                  >
+                    <Icon name="whatsapp" size={18} /> {content.contact.whatsapp}
+                  </a>
                 </div>
                 <div
                   style={{
@@ -186,7 +226,25 @@ export const BookingPage = () => {
                     fontSize: '0.95rem',
                   }}
                 >
-                  <Icon name="check" size={18} /> {content.contact.email}
+                  <a
+                    href={`mailto:${content.contact.email}`}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      color: 'inherit',
+                      textDecoration: 'none',
+                      transition: 'opacity 0.2s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.opacity = '0.8';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.opacity = '1';
+                    }}
+                  >
+                    <Icon name="check" size={18} /> {content.contact.email}
+                  </a>
                 </div>
               </Stack>
             </Stack>

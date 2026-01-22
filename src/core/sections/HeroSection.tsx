@@ -181,8 +181,7 @@ const SecondaryButton = styled(LinkButton)`
   letter-spacing: 0.01em !important;
 
   &:hover:not(:disabled) {
-    background: ${({ theme }) =>
-      hexToRgba(theme.colors.brownMedium || '#a77e5d', 0.08)} !important;
+    background: ${({ theme }) => hexToRgba(theme.colors.brownMedium || '#a77e5d', 0.08)} !important;
     color: ${({ theme }) => theme.colors.brownMedium || '#a77e5d'} !important;
     border-color: ${({ theme }) => theme.colors.brownMedium || '#a77e5d'} !important;
     transform: translateY(-1px);
@@ -191,8 +190,7 @@ const SecondaryButton = styled(LinkButton)`
 
   &:active:not(:disabled) {
     transform: translateY(0);
-    background: ${({ theme }) =>
-      hexToRgba(theme.colors.brownMedium || '#a77e5d', 0.12)} !important;
+    background: ${({ theme }) => hexToRgba(theme.colors.brownMedium || '#a77e5d', 0.12)} !important;
   }
 `;
 

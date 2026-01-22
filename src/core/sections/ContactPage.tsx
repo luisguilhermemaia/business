@@ -96,36 +96,70 @@ export const ContactPage = () => {
             <Stack gap="lg">
               <h3 style={{ fontSize: '1.25rem', marginBottom: '8px' }}>{t('contact.contact')}</h3>
               <Stack gap="md">
-                <div
+                <a
+                  href={`tel:${content.contact.phone.replace(/[^0-9+]/g, '')}`}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: '12px',
                     fontSize: '0.95rem',
+                    color: 'inherit',
+                    textDecoration: 'none',
+                    transition: 'opacity 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.opacity = '0.8';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.opacity = '1';
                   }}
                 >
                   <Icon name="phone" size={18} /> {content.contact.phone}
-                </div>
-                <div
+                </a>
+                <a
+                  href={`https://wa.me/${content.contact.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+                    content.contact.whatsappMessage || 'Olá! Gostaria de mais informações.'
+                  )}`}
+                  target="_blank"
+                  rel="noreferrer noopener"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: '12px',
                     fontSize: '0.95rem',
+                    color: 'inherit',
+                    textDecoration: 'none',
+                    transition: 'opacity 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.opacity = '0.8';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.opacity = '1';
                   }}
                 >
                   <Icon name="whatsapp" size={18} /> {content.contact.whatsapp}
-                </div>
-                <div
+                </a>
+                <a
+                  href={`mailto:${content.contact.email}`}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: '12px',
                     fontSize: '0.95rem',
+                    color: 'inherit',
+                    textDecoration: 'none',
+                    transition: 'opacity 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.opacity = '0.8';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.opacity = '1';
                   }}
                 >
-                  <Icon name="mail" size={18} /> {content.contact.email}
-                </div>
+                  <Icon name="check" size={18} /> {content.contact.email}
+                </a>
               </Stack>
             </Stack>
           </Card>

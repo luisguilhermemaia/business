@@ -30,8 +30,8 @@ const TopBar = styled.div`
   color: ${({ theme }) => theme.colors.tealDarkContrast ?? theme.colors.text};
   padding: ${({ theme }) => theme.spacing.sm}px 0;
   font-size: ${({ theme }) => theme.typography.sizes.sm};
-  border-bottom: 1px solid ${({ theme }) =>
-    hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.12)};
+  border-bottom: 1px solid
+    ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.12)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     display: none;
@@ -146,8 +146,7 @@ const NavLink = styled(Link)<
     border-radius: ${({ theme }) => theme.radii.lg};
     background: ${({ $active, theme }) =>
       $active ? hexToRgba(theme.colors.primary, 0.1) : 'transparent'};
-    color: ${({ $active, theme }) =>
-      $active ? theme.colors.text : theme.colors.text};
+    color: ${({ $active, theme }) => ($active ? theme.colors.text : theme.colors.text)};
     border: ${({ $active, theme }) =>
       $active ? `1px solid ${hexToRgba(theme.colors.primary, 0.3)}` : '1px solid transparent'};
   }

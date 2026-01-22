@@ -107,13 +107,16 @@ export const karinneContent: BrandContent = {
     state: 'CE',
     mapEmbedUrl:
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.273!2d-38.524!3d-3.732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf4a92d2e9c33177e!2sDra.%20Karinne%20Azin!5e0!3m2!1spt-BR!2sbr!4v1690000000000!5m2!1spt-BR!2sbr',
-    mapsLink: 'https://www.google.com/maps/place/Dra.+Karinne+Azin/data=!4m2!3m1!1s0x0:0xf4a92d2e9c33177e?sa=X&ved=1t:2428&ictx=111',
+    mapsLink:
+      'https://www.google.com/maps/place/Dra.+Karinne+Azin/data=!4m2!3m1!1s0x0:0xf4a92d2e9c33177e?sa=X&ved=1t:2428&ictx=111',
     openingHours: ['Seg a Sex • 8h às 19h', 'Sáb • 9h às 13h'],
   },
   contact: {
     email: 'contato@karinneazin.com',
-    phone: '+55 (85) 4000-0000',
-    whatsapp: '+55 (85) 98888-8888',
+    phone: '+55 (85) 98208-5858',
+    whatsapp: '+55 (85) 98208-5858',
+    whatsappMessage:
+      'Olá! Gostaria de agendar uma consulta com a Dra. Karinne Azin. Como posso proceder?',
   },
   booking: {
     mode: 'whatsapp',

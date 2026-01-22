@@ -73,6 +73,7 @@ export interface BrandContent {
     email: string;
     phone: string;
     whatsapp: string;
+    whatsappMessage?: string;
   };
   booking: BookingConfig;
   social?: { label: string; url: string }[];

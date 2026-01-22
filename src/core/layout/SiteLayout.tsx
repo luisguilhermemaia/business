@@ -18,7 +18,10 @@ export const SiteLayout = ({ children }: { children: ReactNode }) => {
       <Header />
       <Main>{children}</Main>
       <Footer />
-      <FloatingWhatsAppButton phone={content.contact.whatsapp} message={content.hero.ctaLabel} />
+      <FloatingWhatsAppButton
+        phone={content.contact.whatsapp}
+        message={content.contact.whatsappMessage || content.hero.ctaLabel}
+      />
     </>
   );
 };

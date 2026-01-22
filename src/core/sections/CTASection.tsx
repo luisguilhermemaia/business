@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import { hexToRgba } from '../utils/colors';
 import { useBrand } from '../brand/BrandProvider';
 import { useI18n } from '../i18n/I18nProvider';
 import { LinkButton } from '../design-system/components/Button';
@@ -17,11 +18,56 @@ const Title = styled.h2`
 `;
 
 const Text = styled.p`
-  color: ${({ theme }) => theme.colors.textMuted};
+  color: ${({ theme }) => theme.colors.text};
   max-width: 650px;
   font-size: ${({ theme }) => theme.typography.sizes.lg};
   line-height: ${({ theme }) => theme.typography.lineHeights?.relaxed || 1.8};
   margin: 0 auto;
+  opacity: 0.9;
+`;
+
+const PrimaryCTAButton = styled(LinkButton)`
+  background: ${({ theme }) => theme.colors.tealDark || theme.colors.text} !important;
+  color: ${({ theme }) => theme.colors.tealDarkContrast || '#FFFFFF'} !important;
+  border: 1.5px solid ${({ theme }) => theme.colors.tealDark || theme.colors.text} !important;
+  box-shadow: 0 2px 8px ${({ theme }) => hexToRgba(theme.colors.tealDark || theme.colors.text, 0.2)} !important;
+  font-weight: ${({ theme }) => theme.typography.weights.semi} !important;
+
+  &:hover:not(:disabled) {
+    background: ${({ theme }) => theme.colors.tealDark || theme.colors.text} !important;
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px
+      ${({ theme }) => hexToRgba(theme.colors.tealDark || theme.colors.text, 0.3)} !important;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+`;
+
+const SecondaryCTAButton = styled(LinkButton)`
+  background: transparent !important;
+  color: ${({ theme }) => theme.colors.tealDark || theme.colors.text} !important;
+  border: 1.5px solid ${({ theme }) => theme.colors.tealDark || theme.colors.text} !important;
+  box-shadow: none !important;
+  font-weight: ${({ theme }) => theme.typography.weights.medium} !important;
+
+  &:hover:not(:disabled) {
+    background: ${({ theme }) =>
+      hexToRgba(theme.colors.tealDark || theme.colors.text, 0.08)} !important;
+    color: ${({ theme }) => theme.colors.tealDark || theme.colors.text} !important;
+    border-color: ${({ theme }) => theme.colors.tealDark || theme.colors.text} !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px
+      ${({ theme }) => hexToRgba(theme.colors.tealDark || theme.colors.text, 0.15)} !important;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    background: ${({ theme }) =>
+      hexToRgba(theme.colors.tealDark || theme.colors.text, 0.12)} !important;
+  }
 `;
 
 const CTAWrap = styled(Card)`
@@ -55,13 +101,13 @@ export const CTASection = () => {
                 align="center"
                 style={{ flexWrap: 'wrap', justifyContent: 'center' }}
               >
-                <LinkButton href="/booking" size="md">
+                <PrimaryCTAButton href="/booking" size="md">
                   <Icon name="calendar" size={18} />
                   {content.hero.ctaLabel || t('actions.book')}
-                </LinkButton>
-                <LinkButton href="/contact" variant="secondary" size="md">
+                </PrimaryCTAButton>
+                <SecondaryCTAButton href="/contact" size="md">
                   {t('actions.contact')}
-                </LinkButton>
+                </SecondaryCTAButton>
               </Stack>
             </Stack>
           </CTAWrap>
