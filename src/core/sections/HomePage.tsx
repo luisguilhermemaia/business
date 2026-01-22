@@ -10,6 +10,8 @@ import { TestimonialsSection } from './TestimonialsSection';
 import { LocationSection } from './LocationSection';
 import { BlogPreviewSection } from './BlogPreviewSection';
 import { CTASection } from './CTASection';
+import { FAQSection } from './FAQSection';
+import { WhyChooseSection } from './WhyChooseSection';
 import { SectionKey } from '../types/brand';
 
 interface Props {
@@ -46,6 +48,10 @@ export const HomePage = ({ sections, posts }: Props) => {
       {sections.map(renderSection)}
       {/* Add statistics section after services */}
       {sections.includes('services') && <StatisticsSection key="statistics" />}
+      {/* Add why choose section after statistics */}
+      {sections.includes('services') && <WhyChooseSection key="why-choose" />}
+      {/* Add FAQ section before final CTA */}
+      {sections.includes('testimonials') && <FAQSection key="faq" />}
     </>
   );
 };

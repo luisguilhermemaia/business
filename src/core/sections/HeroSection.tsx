@@ -38,6 +38,27 @@ const HeroContent = styled.div`
   }
 `;
 
+const CredibilityBadges = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const CredibilityBadge = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.xs}px;
+  padding: ${({ theme }) => theme.spacing.xs}px ${({ theme }) => theme.spacing.md}px;
+  border-radius: ${({ theme }) => theme.radii.pill};
+  background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.1)};
+  color: ${({ theme }) => theme.colors.text};
+  border: 1px solid ${({ theme }) => hexToRgba(theme.colors.primary, 0.2)};
+  font-size: ${({ theme }) => theme.typography.sizes.xs};
+  font-weight: ${({ theme }) => theme.typography.weights.semi};
+  white-space: nowrap;
+`;
+
 const HeroMedia = styled.div`
   position: relative;
   display: flex;
@@ -95,6 +116,28 @@ const CTAs = styled.div`
   }
 `;
 
+const HeroImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: transform ${({ theme }) => theme.motion?.duration.slow || '350ms'}
+      ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    img {
+      transition: none;
+    }
+  }
+`;
+
 const HeroImageWrapper = styled.div`
   position: relative;
   width: 100%;
@@ -103,23 +146,34 @@ const HeroImageWrapper = styled.div`
   overflow: hidden;
   box-shadow: ${({ theme }) => theme.shadows.lg || theme.shadows.strong};
   background: ${({ theme }) => theme.colors.surfaceMuted};
+  transition: transform ${({ theme }) => theme.motion?.duration.slow || '350ms'}
+    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     height: 380px;
     margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+
+    &:hover {
+      transform: none;
+    }
+
+    &:hover img {
+      transform: none;
+    }
   }
 `;
 
-const HeroImageContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-
-  img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+const HeroImageWrapperWithHover = styled(HeroImageWrapper)`
+  &:hover ${HeroImageContainer} img {
+    transform: scale(1.05);
   }
 `;
 
@@ -202,7 +256,7 @@ export const HeroSection = () => {
     <HeroShell>
       <Container width="wide">
         <Grid columns={2} min="320px" gap="lg">
-          <Reveal>
+          <Reveal direction="right" duration={1000}>
             <HeroMedia>
               <HeroImageWrapper>
                 {content.hero.backgroundImage && (
@@ -224,8 +278,13 @@ export const HeroSection = () => {
               </HeroImageWrapper>
             </HeroMedia>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.15} direction="left" duration={1000}>
             <HeroContent>
+              <CredibilityBadges>
+                <CredibilityBadge>✓ CRM 10236 - CE</CredibilityBadge>
+                <CredibilityBadge>✓ 15+ Anos de Experiência</CredibilityBadge>
+                <CredibilityBadge>✓ Baseado em Evidências</CredibilityBadge>
+              </CredibilityBadges>
               <Heading>{content.hero.headline}</Heading>
               <Subheading>{content.hero.subheadline}</Subheading>
               <CTAs>

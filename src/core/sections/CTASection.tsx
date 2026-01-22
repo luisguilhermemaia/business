@@ -10,11 +10,13 @@ import { Icon } from '../icons/Icon';
 import { Reveal } from '../design-system/components/Reveal';
 
 const Title = styled.h2`
-  font-size: clamp(1.9rem, 3.5vw, ${({ theme }) => theme.typography.sizes.xxl});
+  font-size: clamp(2rem, 4vw, ${({ theme }) => theme.typography.sizes.xxl});
   line-height: ${({ theme }) => theme.typography.lineHeights?.tight || 1.2};
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
   font-family: ${({ theme }) => theme.typography.fonts.heading};
+  font-weight: ${({ theme }) => theme.typography.weights.bold};
   letter-spacing: -0.02em;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 const Text = styled.p`
@@ -24,6 +26,43 @@ const Text = styled.p`
   line-height: ${({ theme }) => theme.typography.lineHeights?.relaxed || 1.8};
   margin: 0 auto;
   opacity: 0.9;
+  font-weight: ${({ theme }) => theme.typography.weights.medium};
+`;
+
+const BenefitsList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing.md}px;
+  justify-content: center;
+  margin: ${({ theme }) => theme.spacing.lg}px 0;
+  padding: ${({ theme }) => theme.spacing.lg}px;
+  background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.05)};
+  border-radius: ${({ theme }) => theme.radii.lg};
+  border: 1px solid ${({ theme }) => hexToRgba(theme.colors.primary, 0.15)};
+`;
+
+const Benefit = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  font-size: ${({ theme }) => theme.typography.sizes.sm};
+  color: ${({ theme }) => theme.colors.text};
+  font-weight: ${({ theme }) => theme.typography.weights.medium};
+
+  &::before {
+    content: '✓';
+    color: ${({ theme }) => theme.colors.primary};
+    font-weight: ${({ theme }) => theme.typography.weights.bold};
+    font-size: ${({ theme }) => theme.typography.sizes.md};
+  }
+`;
+
+const UrgencyText = styled.p`
+  font-size: ${({ theme }) => theme.typography.sizes.sm};
+  margin-top: ${({ theme }) => theme.spacing.md}px;
+  opacity: 0.85;
+  font-style: italic;
+  color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 const PrimaryCTAButton = styled(LinkButton)`
@@ -90,11 +129,17 @@ export const CTASection = () => {
   return (
     <Section>
       <Container>
-        <Reveal delay={0.1}>
+        <Reveal delay={0.1} direction="scale" duration={900}>
           <CTAWrap>
             <Stack gap="lg" align="center">
               <Title>{t('cta.title')}</Title>
               <Text>{t('cta.subtitle')}</Text>
+              <BenefitsList>
+                <Benefit>Consulta com tempo adequado</Benefit>
+                <Benefit>Resposta em até 24h</Benefit>
+                <Benefit>Atendimento presencial e online</Benefit>
+                <Benefit>Plano de tratamento personalizado</Benefit>
+              </BenefitsList>
               <Stack
                 direction="row"
                 gap="md"
@@ -110,16 +155,10 @@ export const CTASection = () => {
                   Falar com a Clínica
                 </SecondaryCTAButton>
               </Stack>
-              <Text
-                style={{
-                  fontSize: '0.875rem',
-                  marginTop: '8px',
-                  opacity: 0.8,
-                  fontStyle: 'italic',
-                }}
-              >
-                ⚡ Resposta rápida via WhatsApp • Horários disponíveis esta semana
-              </Text>
+              <UrgencyText>
+                ⚡ Resposta rápida via WhatsApp • Horários disponíveis esta semana • Primeira
+                consulta com acolhimento especial
+              </UrgencyText>
             </Stack>
           </CTAWrap>
         </Reveal>

@@ -54,12 +54,32 @@ const TestimonialCard = styled.div`
   display: grid;
   gap: ${({ theme }) => theme.spacing.lg}px;
   transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'}
-    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+    ${({ theme }) => theme.motion?.easing.easeOut || 'cubic-bezier(0.4, 0, 0.2, 1)'};
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: ${({ theme }) => theme.colors.primary};
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform ${({ theme }) => theme.motion?.duration.normal || '250ms'}
+      ${({ theme }) => theme.motion?.easing.easeOut || 'cubic-bezier(0.4, 0, 0.2, 1)'};
+  }
 
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px) scale(1.01);
     box-shadow: ${({ theme }) => theme.shadows.lg || theme.shadows.strong};
-    border-color: ${({ theme }) => hexToRgba(theme.colors.primary, 0.3)};
+    border-color: ${({ theme }) => hexToRgba(theme.colors.primary, 0.4)};
+
+    &::after {
+      transform: scaleY(1);
+    }
   }
 `;
 
@@ -123,7 +143,12 @@ export const TestimonialsSection = () => {
         </SectionHeader>
         <Grid min="260px" gap="lg">
           {content.testimonials.items.map((testimonial, idx) => (
-            <Reveal key={testimonial.name} delay={0.05 + idx * 0.06}>
+            <Reveal
+              key={testimonial.name}
+              delay={0.05 + idx * 0.06}
+              direction="scale"
+              duration={600}
+            >
               <TestimonialCard>
                 <Quote>{testimonial.quote}</Quote>
                 <Person>

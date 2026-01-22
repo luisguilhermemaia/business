@@ -74,7 +74,7 @@ export const StatisticsSection = () => {
   return (
     <HighlightSection>
       <Container width="wide">
-        <Reveal>
+        <Reveal direction="fade" duration={900}>
           <Grid columns={2} min="280px" gap="xl">
             <Card>
               <Title>{t('stats.card1Title')}</Title>

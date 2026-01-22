@@ -50,32 +50,6 @@ const Description = styled.p`
   line-height: 1.75;
 `;
 
-const ServiceCard = styled.div`
-  background: ${({ theme }) => theme.colors.surface};
-  border-radius: ${({ theme }) => theme.radii.xl || theme.radii.lg};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  padding: ${({ theme }) => theme.spacing.lg}px ${({ theme }) => theme.spacing.lg}px;
-  box-shadow: ${({ theme }) => theme.shadows.sm || theme.shadows.soft};
-  transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'}
-    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm}px;
-  text-align: center;
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: ${({ theme }) => theme.shadows.md || theme.shadows.medium};
-    border-color: ${({ theme }) => hexToRgba(theme.colors.primary, 0.35)};
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    &:hover {
-      transform: none;
-    }
-  }
-`;
-
 const ServiceIcon = styled.div`
   width: 56px;
   height: 56px;
@@ -87,6 +61,62 @@ const ServiceIcon = styled.div`
   margin: 0 auto;
   box-shadow: 0 2px 8px
     ${({ theme }) => hexToRgba(theme.colors.tealDark || theme.colors.text, 0.15)};
+  transition: transform ${({ theme }) => theme.motion?.duration.normal || '250ms'}
+    ${({ theme }) => theme.motion?.easing.easeOut || 'cubic-bezier(0.4, 0, 0.2, 1)'};
+`;
+
+const ServiceCard = styled.div`
+  background: ${({ theme }) => theme.colors.surface};
+  border-radius: ${({ theme }) => theme.radii.xl || theme.radii.lg};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  padding: ${({ theme }) => theme.spacing.lg}px ${({ theme }) => theme.spacing.lg}px;
+  box-shadow: ${({ theme }) => theme.shadows.sm || theme.shadows.soft};
+  transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'}
+    ${({ theme }) => theme.motion?.easing.easeOut || 'cubic-bezier(0.4, 0, 0.2, 1)'};
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: ${({ theme }) => theme.colors.primary};
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform ${({ theme }) => theme.motion?.duration.normal || '250ms'}
+      ${({ theme }) => theme.motion?.easing.easeOut || 'cubic-bezier(0.4, 0, 0.2, 1)'};
+  }
+
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: ${({ theme }) => theme.shadows.lg || theme.shadows.strong};
+    border-color: ${({ theme }) => hexToRgba(theme.colors.primary, 0.4)};
+
+    &::before {
+      transform: scaleX(1);
+    }
+
+    ${ServiceIcon} {
+      transform: scale(1.15) rotate(5deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:hover {
+      transform: none;
+
+      ${ServiceIcon} {
+        transform: none;
+      }
+    }
+  }
 `;
 
 const ServiceTitle = styled.h3`
@@ -177,7 +207,12 @@ export const ServicesGridSection = () => {
         </SectionHeader>
         <Grid min="220px" gap="lg">
           {content.services.map((service, idx) => (
-            <Reveal key={service.title} delay={0.05 + idx * 0.04}>
+            <Reveal
+              key={service.title}
+              delay={0.05 + idx * 0.04}
+              direction="up"
+              duration={700}
+            >
               <ServiceCard>
                 <ServiceIcon>
                   <Icon name={(service.iconKey as IconName) || 'stethoscope'} size={24} />

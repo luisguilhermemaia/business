@@ -175,6 +175,16 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+  }
+
   .animate-fade-up {
     opacity: 0;
     animation: fadeUp 0.6s ${({ theme }) => theme.motion?.easing.easeOut || 'ease-out'} forwards;

@@ -5,6 +5,7 @@ import { useBrand } from '../brand/BrandProvider';
 import { useI18n } from '../i18n/I18nProvider';
 import { Container, Section, Grid } from '../design-system/primitives';
 import { Icon } from '../icons/Icon';
+import { Reveal } from '../design-system/components/Reveal';
 
 const Strip = styled(Section)`
   padding: ${({ theme }) => theme.spacing.lg}px 0;
@@ -72,19 +73,25 @@ export const TrustStripSection = () => {
       <Container width="wide">
         <Grid min="200px" gap="md">
           {[inPerson, online].map((item, idx) => (
-            <Pill key={item}>
-              <Icon name={idx === 0 ? 'location' : 'calendar'} size={16} />
-              {item}
-            </Pill>
+            <Reveal key={item} delay={idx * 0.1} direction="fade" duration={600}>
+              <Pill>
+                <Icon name={idx === 0 ? 'location' : 'calendar'} size={16} />
+                {item}
+              </Pill>
+            </Reveal>
           ))}
-          <StatPill>
-            <StatNumber>15+</StatNumber>
-            <StatLabel>Anos de Experiência</StatLabel>
-          </StatPill>
-          <StatPill>
-            <StatNumber>500+</StatNumber>
-            <StatLabel>Pacientes Atendidas</StatLabel>
-          </StatPill>
+          <Reveal delay={0.2} direction="scale" duration={700}>
+            <StatPill>
+              <StatNumber>15+</StatNumber>
+              <StatLabel>Anos de Experiência</StatLabel>
+            </StatPill>
+          </Reveal>
+          <Reveal delay={0.3} direction="scale" duration={700}>
+            <StatPill>
+              <StatNumber>500+</StatNumber>
+              <StatLabel>Pacientes Atendidas</StatLabel>
+            </StatPill>
+          </Reveal>
         </Grid>
       </Container>
     </Strip>

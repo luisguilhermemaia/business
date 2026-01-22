@@ -47,7 +47,7 @@ export const LocationSection = () => {
           <Info>{t('location.description')}</Info>
         </Stack>
         <Grid columns={2} gap="xl">
-          <Reveal>
+          <Reveal direction="right" duration={800}>
             <Card elevation="md" style={{ display: 'flex', flexDirection: 'column' }}>
               <Stack gap="lg">
                 <div>
@@ -81,7 +81,7 @@ export const LocationSection = () => {
               </Stack>
             </Card>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.15} direction="left" duration={800}>
             <Card style={{ padding: 0, overflow: 'hidden' }}>
               {content.location.mapEmbedUrl ? (
                 <MapFrame
