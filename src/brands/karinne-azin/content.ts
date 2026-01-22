@@ -11,48 +11,48 @@ export const karinneContent: BrandContent = {
     highlights: ['Ciência e Ética', 'Acolhimento e Escuta', 'Cuidado Personalizado'],
   },
   hero: {
-    headline: 'Você está cansada de conviver com dores ou sintomas que atrapalham sua vida?',
+    headline: 'Vamos conversar sobre Ginecologia Baseada em Evidências?',
     subheadline:
-      'O cuidado ginecológico pode ser o seu espaço seguro para entender o que está acontecendo e receber um plano claro de tratamento. Atendo presencialmente e online para todo o Brasil — com acolhimento, escuta ativa e condutas baseadas em evidências.',
+      'O cuidado ginecológico pode ser o seu espaço seguro para entender o que está acontecendo e receber um plano claro de tratamento. Atendo presencialmente e online para todo o Brasil — com acolhimento, escuta ativa e condutas baseadas em evidências científicas.',
     ctaLabel: 'Agendar consulta',
     secondaryCtaLabel: 'Conhecer especialidades',
   },
   services: [
     {
-      title: 'Cólicas intensas e dor pélvica',
+      title: 'Corrimento',
       shortDescription:
-        'Investigação cuidadosa para identificar causas como endometriose, adenomiose e miomas.',
+        'Avaliação e tratamento adequado de corrimentos vaginais, identificando causas e oferecendo soluções efetivas.',
       iconKey: 'stethoscope',
     },
     {
-      title: 'Menopausa e sintomas hormonais',
+      title: 'Candidíase',
       shortDescription:
-        'Tratamento individualizado para ondas de calor, insônia, ansiedade e alterações de humor.',
-      iconKey: 'heart',
-    },
-    {
-      title: 'Endometriose e adenomiose',
-      shortDescription:
-        'Diagnóstico preciso e plano terapêutico para reduzir dor e preservar qualidade de vida.',
+        'Diagnóstico preciso e tratamento individualizado para candidíase, com foco em prevenção de recorrências.',
       iconKey: 'shield',
     },
     {
-      title: 'Mioma uterino',
+      title: 'Endometriose',
       shortDescription:
-        'Avaliação completa com condutas clínicas ou cirúrgicas de acordo com seu perfil.',
+        'Diagnóstico preciso e plano terapêutico para reduzir dor e preservar qualidade de vida. Abordagem baseada em evidências.',
+      iconKey: 'heart',
+    },
+    {
+      title: 'Menopausa',
+      shortDescription:
+        'Entenda como saber se está entrando nessa fase e o que ajuda no corpo. Ondas de calor, insônia, irritabilidade e alterações podem ser sinais.',
+      iconKey: 'clock',
+    },
+    {
+      title: 'Rejuvenescimento Íntimo',
+      shortDescription:
+        'Procedimentos com técnica precisa para rejuvenescimento íntimo, segurança e acompanhamento pós-operatório.',
+      iconKey: 'shield',
+    },
+    {
+      title: 'Cirurgia Ginecológica',
+      shortDescription:
+        'Cirurgias ginecológicas conduzidas com técnica refinada, segurança e cuidado especializado.',
       iconKey: 'check',
-    },
-    {
-      title: 'Cirurgia íntima e ginecológica',
-      shortDescription:
-        'Procedimentos com técnica precisa, segurança e acompanhamento pós-operatório.',
-      iconKey: 'shield',
-    },
-    {
-      title: 'Planejamento reprodutivo',
-      shortDescription:
-        'Orientação sobre fertilidade, anticoncepção e escolhas seguras para seu momento de vida.',
-      iconKey: 'heart',
     },
   ],
   steps: {
