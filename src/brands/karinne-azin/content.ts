@@ -3,7 +3,7 @@ import { BrandContent } from '../../core/types/brand';
 export const karinneContent: BrandContent = {
   doctor: {
     name: 'Dra. Karinne Azin',
-    specialty: 'Ginecologia e Obstetrícia',
+    specialty: 'Ginecologia',
     registrationLabel: 'CRM 000000 - Registro profissional',
     bio: 'Ginecologista dedicada ao cuidado integral da mulher, combinando ciência, ética e acolhimento em cada consulta.',
     headshot:
@@ -128,7 +128,7 @@ export const karinneContent: BrandContent = {
   ],
   pagesMeta: {
     default: {
-      title: 'Ginecologia e Obstetrícia - Dra. Karinne Azin',
+      title: 'Ginecologia - Dra. Karinne Azin',
       description:
         'Cuidado ginecológico especializado com foco em ciência, ética, acolhimento e escuta. Atendimento para menopausa, endometriose, mioma e cirurgia íntima.',
     },
