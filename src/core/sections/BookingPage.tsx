@@ -4,7 +4,7 @@ import { FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import { useBrand } from '../brand/BrandProvider';
 import { useI18n } from '../i18n/I18nProvider';
-import { Button, LinkButton } from '../design-system/components/Button';
+import { Button } from '../design-system/components/Button';
 import { Input, Select, Textarea } from '../design-system/components/FormControls';
 import { InlineFeedback } from '../design-system/components/InlineFeedback';
 import { Card, Container, Grid, Section, Stack } from '../design-system/primitives';
@@ -39,7 +39,7 @@ export const BookingPage = () => {
     contact: '',
     preferredDate: '',
     preferredTimeWindow: '',
-    message: ''
+    message: '',
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -55,7 +55,8 @@ export const BookingPage = () => {
   };
 
   const buildMessage = () => {
-    const template = content.booking.defaultMessage[locale] || content.booking.defaultMessage[defaultLocale] || '';
+    const template =
+      content.booking.defaultMessage[locale] || content.booking.defaultMessage[defaultLocale] || '';
     return template
       .replace('{name}', form.fullName)
       .replace('{date}', form.preferredDate)
@@ -80,7 +81,7 @@ export const BookingPage = () => {
       const response = await fetch('/api/booking', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, locale })
+        body: JSON.stringify({ ...form, locale }),
       });
       if (!response.ok) throw new Error('Request failed');
       setStatus('success');
@@ -99,25 +100,34 @@ export const BookingPage = () => {
         </Stack>
         <Grid columns={2} gap="xl">
           <Card elevation="md">
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <form
+              onSubmit={handleSubmit}
+              style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+            >
               <Input
                 placeholder={t('booking.fullName')}
                 value={form.fullName}
                 onChange={(e) => setForm({ ...form, fullName: e.target.value })}
               />
-              {errors.fullName && <InlineFeedback tone="error" message={errors.fullName} icon="close" />}
+              {errors.fullName && (
+                <InlineFeedback tone="error" message={errors.fullName} icon="close" />
+              )}
               <Input
                 placeholder={t('booking.emailOrPhone')}
                 value={form.contact}
                 onChange={(e) => setForm({ ...form, contact: e.target.value })}
               />
-              {errors.contact && <InlineFeedback tone="error" message={errors.contact} icon="close" />}
+              {errors.contact && (
+                <InlineFeedback tone="error" message={errors.contact} icon="close" />
+              )}
               <Input
                 type="date"
                 value={form.preferredDate}
                 onChange={(e) => setForm({ ...form, preferredDate: e.target.value })}
               />
-              {errors.preferredDate && <InlineFeedback tone="error" message={errors.preferredDate} icon="close" />}
+              {errors.preferredDate && (
+                <InlineFeedback tone="error" message={errors.preferredDate} icon="close" />
+              )}
               <Select
                 value={form.preferredTimeWindow}
                 onChange={(e) => setForm({ ...form, preferredTimeWindow: e.target.value })}
@@ -127,28 +137,55 @@ export const BookingPage = () => {
                 <option value={t('booking.afternoon')}>{t('booking.afternoon')}</option>
                 <option value={t('booking.evening')}>{t('booking.evening')}</option>
               </Select>
-              {errors.preferredTimeWindow && <InlineFeedback tone="error" message={errors.preferredTimeWindow} icon="close" />}
+              {errors.preferredTimeWindow && (
+                <InlineFeedback tone="error" message={errors.preferredTimeWindow} icon="close" />
+              )}
               <Textarea
                 placeholder={t('booking.message')}
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
               />
               <Button type="submit">{t('booking.submit')}</Button>
-              {status === 'success' && <InlineFeedback tone="success" message={t('booking.success')} icon="check" />}
-              {status === 'error' && <InlineFeedback tone="error" message={t('forms.invalid')} icon="close" />}
+              {status === 'success' && (
+                <InlineFeedback tone="success" message={t('booking.success')} icon="check" />
+              )}
+              {status === 'error' && (
+                <InlineFeedback tone="error" message={t('forms.invalid')} icon="close" />
+              )}
             </form>
           </Card>
           <Card elevation="md">
             <Stack gap="lg">
               <h3 style={{ fontSize: '1.25rem', marginBottom: '8px' }}>{t('contact.contact')}</h3>
               <Stack gap="md">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.95rem' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    fontSize: '0.95rem',
+                  }}
+                >
                   <Icon name="phone" size={18} /> {content.contact.phone}
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.95rem' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    fontSize: '0.95rem',
+                  }}
+                >
                   <Icon name="whatsapp" size={18} /> {content.contact.whatsapp}
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.95rem' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    fontSize: '0.95rem',
+                  }}
+                >
                   <Icon name="check" size={18} /> {content.contact.email}
                 </div>
               </Stack>

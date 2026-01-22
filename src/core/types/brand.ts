@@ -102,7 +102,7 @@ export interface BrandConfig {
   logo: string;
   theme: AppTheme;
   content: BrandContent;
-  translations: Record<Locale, Record<string, any>>;
+  translations: Record<Locale, Record<string, unknown>>;
   defaultLocale: Locale;
   locales: Locale[];
 }

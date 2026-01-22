@@ -2,10 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   compiler: {
-    styledComponents: true
+    styledComponents: true,
   },
   experimental: {
-    typedRoutes: true
+    typedRoutes: true,
   },
   images: {
     remotePatterns: [

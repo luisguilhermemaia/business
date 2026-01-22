@@ -4,7 +4,7 @@ import { FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import { useBrand } from '../brand/BrandProvider';
 import { useI18n } from '../i18n/I18nProvider';
-import { Button, LinkButton } from '../design-system/components/Button';
+import { Button } from '../design-system/components/Button';
 import { Input, Textarea } from '../design-system/components/FormControls';
 import { InlineFeedback } from '../design-system/components/InlineFeedback';
 import { Card, Container, Grid, Section, Stack } from '../design-system/primitives';
@@ -59,7 +59,10 @@ export const ContactPage = () => {
           <Card elevation="md">
             <Stack gap="lg">
               <h3 style={{ fontSize: '1.25rem', marginBottom: '8px' }}>{t('contact.formTitle')}</h3>
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <form
+                onSubmit={handleSubmit}
+                style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+              >
                 <Input
                   placeholder={t('booking.fullName')}
                   value={form.name}
@@ -71,15 +74,21 @@ export const ContactPage = () => {
                   value={form.contact}
                   onChange={(e) => setForm({ ...form, contact: e.target.value })}
                 />
-                {errors.contact && <InlineFeedback tone="error" message={errors.contact} icon="close" />}
+                {errors.contact && (
+                  <InlineFeedback tone="error" message={errors.contact} icon="close" />
+                )}
                 <Textarea
                   placeholder={t('booking.message')}
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
                 />
-                {errors.message && <InlineFeedback tone="error" message={errors.message} icon="close" />}
+                {errors.message && (
+                  <InlineFeedback tone="error" message={errors.message} icon="close" />
+                )}
                 <Button type="submit">{t('actions.send')}</Button>
-                {submitted && <InlineFeedback tone="success" message={t('contact.success')} icon="check" />}
+                {submitted && (
+                  <InlineFeedback tone="success" message={t('contact.success')} icon="check" />
+                )}
               </form>
             </Stack>
           </Card>
@@ -87,13 +96,34 @@ export const ContactPage = () => {
             <Stack gap="lg">
               <h3 style={{ fontSize: '1.25rem', marginBottom: '8px' }}>{t('contact.contact')}</h3>
               <Stack gap="md">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.95rem' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    fontSize: '0.95rem',
+                  }}
+                >
                   <Icon name="phone" size={18} /> {content.contact.phone}
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.95rem' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    fontSize: '0.95rem',
+                  }}
+                >
                   <Icon name="whatsapp" size={18} /> {content.contact.whatsapp}
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.95rem' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    fontSize: '0.95rem',
+                  }}
+                >
                   <Icon name="check" size={18} /> {content.contact.email}
                 </div>
               </Stack>

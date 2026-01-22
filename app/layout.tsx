@@ -10,13 +10,13 @@ import { buildMetadata } from '../src/core/seo/metadata';
 const sans = Manrope({
   subsets: ['latin'],
   variable: '--font-sans',
-  display: 'swap'
+  display: 'swap',
 });
 
 const serif = Playfair_Display({
   subsets: ['latin'],
   variable: '--font-serif',
-  display: 'swap'
+  display: 'swap',
 });
 
 export async function generateMetadata(): Promise<Metadata> {

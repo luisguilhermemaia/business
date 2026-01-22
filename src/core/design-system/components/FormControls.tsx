@@ -4,22 +4,23 @@ const baseControl = css<{ error?: boolean }>`
   width: 100%;
   padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
   border-radius: ${({ theme }) => theme.radii.lg};
-  border: 1px solid ${({ theme, error }) => error ? theme.colors.danger : theme.colors.border};
+  border: 1px solid ${({ theme, error }) => (error ? theme.colors.danger : theme.colors.border)};
   background: ${({ theme }) => theme.colors.surface};
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.md};
   font-family: ${({ theme }) => theme.typography.fonts.body};
   line-height: ${({ theme }) => theme.typography.lineHeights?.normal || 1.5};
-  transition: border-color ${({ theme }) => theme.motion?.duration.fast || '150ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'},
-              box-shadow ${({ theme }) => theme.motion?.duration.fast || '150ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
-  
+  transition:
+    border-color ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+      ${({ theme }) => theme.motion?.easing.ease || 'ease'},
+    box-shadow ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+      ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+
   &:focus {
     outline: none;
-    border-color: ${({ theme, error }) => error ? theme.colors.danger : theme.colors.primary};
-    box-shadow: 0 0 0 3px ${({ theme, error }) => 
-      error 
-        ? `rgba(212, 117, 134, 0.2)` 
-        : `rgba(184, 87, 122, 0.2)`};
+    border-color: ${({ theme, error }) => (error ? theme.colors.danger : theme.colors.primary)};
+    box-shadow: 0 0 0 3px
+      ${({ error }) => (error ? `rgba(212, 117, 134, 0.2)` : `rgba(184, 87, 122, 0.2)`)};
   }
 
   &:disabled {
@@ -72,7 +73,7 @@ export const Label = styled.label`
 export const HelperText = styled.p<{ error?: boolean }>`
   margin: ${({ theme }) => theme.spacing.xs}px 0 0;
   font-size: ${({ theme }) => theme.typography.sizes.xs};
-  color: ${({ theme, error }) => error ? theme.colors.danger : theme.colors.textMuted};
+  color: ${({ theme, error }) => (error ? theme.colors.danger : theme.colors.textMuted)};
   line-height: ${({ theme }) => theme.typography.lineHeights?.normal || 1.5};
 `;
 

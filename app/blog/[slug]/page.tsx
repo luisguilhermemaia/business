@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!post) return buildMetadata(brand, 'blog/[slug]');
   return {
     title: `${post.title} | ${brand.name}`,
-    description: post.excerpt
+    description: post.excerpt,
   };
 }
 

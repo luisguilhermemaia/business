@@ -56,8 +56,14 @@ export const AboutPage = () => {
           <Card elevation="md">
             <Stack gap="lg">
               <h3 style={{ fontSize: '1.5rem', marginBottom: '8px' }}>{content.doctor.name}</h3>
-              <p style={{ fontWeight: 600, color: 'inherit', marginBottom: '8px' }}>{content.doctor.registrationLabel}</p>
-              <p style={{ color: 'inherit', opacity: 0.8, lineHeight: '1.75', fontSize: '0.95rem' }}>{content.doctor.bio}</p>
+              <p style={{ fontWeight: 600, color: 'inherit', marginBottom: '8px' }}>
+                {content.doctor.registrationLabel}
+              </p>
+              <p
+                style={{ color: 'inherit', opacity: 0.8, lineHeight: '1.75', fontSize: '0.95rem' }}
+              >
+                {content.doctor.bio}
+              </p>
               <Stack gap="sm">
                 {(pillars || content.doctor.highlights).map((pillar: string) => (
                   <Pillar key={pillar}>
@@ -74,7 +80,9 @@ export const AboutPage = () => {
           <AccentCard>
             <Stack gap="lg">
               <Badge tone="accent">{t('about.approachTitle')}</Badge>
-              <p style={{ opacity: 0.85, lineHeight: '1.75', fontSize: '0.95rem' }}>{t('about.approach')}</p>
+              <p style={{ opacity: 0.85, lineHeight: '1.75', fontSize: '0.95rem' }}>
+                {t('about.approach')}
+              </p>
               <Stack direction="row" gap="md" align="center" style={{ marginTop: '8px' }}>
                 <Icon name="heart" size={20} />
                 <span style={{ fontWeight: 600 }}>{content.doctor.highlights[0]}</span>

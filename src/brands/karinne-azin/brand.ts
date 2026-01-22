@@ -12,10 +12,10 @@ export const brandConfig: BrandConfig = {
   content: karinneContent,
   translations: {
     'pt-BR': ptBR,
-    en
+    en,
   },
   defaultLocale: 'pt-BR',
-  locales: ['pt-BR', 'en']
+  locales: ['pt-BR', 'en'],
 };
 
 export default brandConfig;

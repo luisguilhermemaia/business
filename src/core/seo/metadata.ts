@@ -11,7 +11,7 @@ export const buildMetadata = (brand: BrandConfig, routeKey: string): Metadata =>
     openGraph: {
       title,
       description,
-      images: brand.content.openGraph?.image ? [brand.content.openGraph.image] : undefined
-    }
+      images: brand.content.openGraph?.image ? [brand.content.openGraph.image] : undefined,
+    },
   };
 };

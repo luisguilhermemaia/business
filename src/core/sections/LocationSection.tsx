@@ -49,7 +49,8 @@ export const LocationSection = () => {
                     {content.location.addressLine}
                   </Info>
                   <Info>
-                    {content.location.neighborhood} • {content.location.city}/{content.location.state}
+                    {content.location.neighborhood} • {content.location.city}/
+                    {content.location.state}
                   </Info>
                 </div>
                 <Stack gap="sm">
@@ -60,7 +61,13 @@ export const LocationSection = () => {
                   ))}
                 </Stack>
                 {content.location.mapsLink && (
-                  <LinkButton href={content.location.mapsLink} target="_blank" rel="noreferrer noopener" variant="secondary" style={{ marginTop: 'auto' }}>
+                  <LinkButton
+                    href={content.location.mapsLink}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    variant="secondary"
+                    style={{ marginTop: 'auto' }}
+                  >
                     <Icon name="location" size={16} />
                     {t('location.openMaps')}
                   </LinkButton>
@@ -69,7 +76,11 @@ export const LocationSection = () => {
             </Card>
           </Reveal>
           <Reveal delay={0.1}>
-            <Card>{content.location.mapEmbedUrl ? <MapFrame src={content.location.mapEmbedUrl} loading="lazy" /> : null}</Card>
+            <Card>
+              {content.location.mapEmbedUrl ? (
+                <MapFrame src={content.location.mapEmbedUrl} loading="lazy" />
+              ) : null}
+            </Card>
           </Reveal>
         </Grid>
       </Container>

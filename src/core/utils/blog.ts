@@ -43,7 +43,7 @@ export const getAllPostsMeta = (): BlogMeta[] => {
       return {
         ...meta,
         slug: meta.slug || slug,
-        readingTime: estimateReadingTime(content)
+        readingTime: estimateReadingTime(content),
       };
     })
     .sort((a, b) => (a.date > b.date ? -1 : 1));
@@ -53,17 +53,18 @@ export const getPostBySlug = async (slug: string): Promise<BlogPost | null> => {
   const filepath = path.join(postsDirectory, `${slug}.mdx`);
   if (!fs.existsSync(filepath)) return null;
   const source = fs.readFileSync(filepath, 'utf-8');
-  const { content, data } = matter(source);
+  const { content } = matter(source);
   const compiled = await compileMDX<BlogFrontmatter>({
     source,
-    options: { parseFrontmatter: true }
+    options: { parseFrontmatter: true },
   });
   const readingTime = estimateReadingTime(content);
+  const ContentComponent = () => compiled.content;
   return {
     ...(compiled.frontmatter as BlogFrontmatter),
     slug,
     readingTime,
-    Content: compiled.content
+    Content: ContentComponent,
   };
 };
 
@@ -72,6 +73,6 @@ export const getAdjacentPosts = (slug: string) => {
   const index = posts.findIndex((p) => p.slug === slug);
   return {
     previous: index < posts.length - 1 ? posts[index + 1] : null,
-    next: index > 0 ? posts[index - 1] : null
+    next: index > 0 ? posts[index - 1] : null,
   };
 };

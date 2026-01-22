@@ -34,8 +34,9 @@ const LinkRow = styled(Link)`
   color: rgba(255, 255, 255, 0.7);
   padding: ${({ theme }) => theme.spacing.sm}px 0;
   font-size: ${({ theme }) => theme.typography.sizes.md};
-  transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
-  
+  transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
     transform: translateX(4px);
@@ -49,7 +50,8 @@ const LinkRow = styled(Link)`
 
   svg {
     flex-shrink: 0;
-    transition: transform ${({ theme }) => theme.motion?.duration.fast || '150ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+    transition: transform ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+      ${({ theme }) => theme.motion?.easing.ease || 'ease'};
   }
 
   &:hover svg {
@@ -76,8 +78,9 @@ const SocialLink = styled(Link)`
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: rgba(255, 255, 255, 0.05);
   color: rgba(255, 255, 255, 0.8);
-  transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
-  
+  transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+
   &:hover {
     border-color: ${({ theme }) => theme.colors.primary};
     color: ${({ theme }) => theme.colors.primary};
@@ -131,7 +134,7 @@ export const Footer = () => {
     { href: '/', label: t('nav.home') },
     { href: '/about', label: t('nav.about') },
     { href: '/services', label: t('nav.services') },
-    { href: '/blog', label: t('nav.blog') }
+    { href: '/blog', label: t('nav.blog') },
   ];
 
   return (
@@ -144,7 +147,13 @@ export const Footer = () => {
             {content.social && content.social.length > 0 && (
               <SocialLinks direction="row" gap="sm">
                 {content.social.map((s) => (
-                  <SocialLink key={s.url} href={s.url} target="_blank" rel="noreferrer noopener" aria-label={s.label}>
+                  <SocialLink
+                    key={s.url}
+                    href={s.url}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label={s.label}
+                  >
                     <Icon name="arrow-right" size={18} />
                   </SocialLink>
                 ))}
@@ -180,11 +189,17 @@ export const Footer = () => {
             </Text>
             {content.location.openingHours && content.location.openingHours.length > 0 && (
               <Text style={{ marginTop: '12px' }}>
-                <strong style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{t('footer.hours')}:</strong> {content.location.openingHours[0]}
+                <strong style={{ color: 'rgba(255, 255, 255, 0.9)' }}>{t('footer.hours')}:</strong>{' '}
+                {content.location.openingHours[0]}
               </Text>
             )}
             {content.location.mapsLink && (
-              <LinkRow href={content.location.mapsLink} target="_blank" rel="noreferrer noopener" style={{ marginTop: '8px' }}>
+              <LinkRow
+                href={content.location.mapsLink}
+                target="_blank"
+                rel="noreferrer noopener"
+                style={{ marginTop: '8px' }}
+              >
                 <Icon name="location" size={16} />
                 {t('footer.map')}
               </LinkRow>

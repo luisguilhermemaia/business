@@ -12,7 +12,7 @@ const Main = styled.main`
 `;
 
 export const SiteLayout = ({ children }: { children: ReactNode }) => {
-  const { content, defaultLocale } = useBrand();
+  const { content } = useBrand();
   return (
     <>
       <Header />

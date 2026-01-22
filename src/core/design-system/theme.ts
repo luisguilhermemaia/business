@@ -23,49 +23,48 @@ export const baseTheme: AppTheme = {
     overlay: 'rgba(5, 8, 15, 0.72)',
     gradientHero:
       'radial-gradient(circle at 20% 20%, rgba(31,95,255,0.18), transparent 30%), radial-gradient(circle at 80% 0%, rgba(154,230,180,0.16), transparent 32%), linear-gradient(135deg, #05080F 0%, #0A1224 60%, #05080F 100%)',
-    gradientCard:
-      'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.06) 100%)'
+    gradientCard: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.06) 100%)',
   },
   typography: {
     fonts: {
       heading: 'var(--font-serif), "Times New Roman", serif',
       body: 'var(--font-sans), "Inter", system-ui, -apple-system, sans-serif',
-      accent: 'var(--font-serif), "Times New Roman", serif'
+      accent: 'var(--font-serif), "Times New Roman", serif',
     },
     sizes: {
-      xs: '0.75rem',      // 12px
-      sm: '0.875rem',     // 14px
-      md: '1rem',         // 16px
-      lg: '1.125rem',     // 18px
-      xl: '1.25rem',      // 20px
-      xxl: '1.5rem',      // 24px
-      display: '3.5rem'   // 56px
+      xs: '0.75rem', // 12px
+      sm: '0.875rem', // 14px
+      md: '1rem', // 16px
+      lg: '1.125rem', // 18px
+      xl: '1.25rem', // 20px
+      xxl: '1.5rem', // 24px
+      display: '3.5rem', // 56px
     },
     weights: {
       regular: 400,
       medium: 500,
       semi: 600,
-      bold: 700
+      bold: 700,
     },
     letterSpacings: {
       tight: '-0.02em',
       normal: '0',
-      wide: '0.05em'
+      wide: '0.05em',
     },
     lineHeights: {
       tight: 1.2,
       normal: 1.5,
-      relaxed: 1.75
-    }
+      relaxed: 1.75,
+    },
   },
   spacing: {
-    xs: 4,    // 4px
-    sm: 8,    // 8px
-    md: 16,   // 16px
-    lg: 24,   // 24px
-    xl: 40,   // 40px - generous
-    xxl: 72,  // 72px - generous
-    hero: 120 // 120px
+    xs: 4, // 4px
+    sm: 8, // 8px
+    md: 16, // 16px
+    lg: 24, // 24px
+    xl: 40, // 40px - generous
+    xxl: 72, // 72px - generous
+    hero: 120, // 120px
   },
   radii: {
     sm: '6px',
@@ -74,7 +73,7 @@ export const baseTheme: AppTheme = {
     xl: '24px',
     '2xl': '32px',
     pill: '999px',
-    round: '50%'
+    round: '50%',
   } as AppTheme['radii'],
   shadows: {
     sm: '0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1)',
@@ -82,38 +81,38 @@ export const baseTheme: AppTheme = {
     lg: '0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05)',
     soft: '0 10px 30px rgba(0,0,0,0.18)',
     medium: '0 16px 50px rgba(0,0,0,0.24)',
-    strong: '0 20px 70px rgba(0,0,0,0.32)'
+    strong: '0 20px 70px rgba(0,0,0,0.32)',
   },
   breakpoints: {
     sm: '640px',
     md: '768px',
     lg: '1024px',
-    xl: '1280px'
+    xl: '1280px',
   },
   zIndex: {
     header: 100,
     overlay: 200,
     modal: 300,
-    floating: 400
+    floating: 400,
   },
   containerWidth: {
     narrow: '640px',
     regular: '1200px',
-    wide: '1400px'
+    wide: '1400px',
   },
   motion: {
     duration: {
       fast: '150ms',
       normal: '250ms',
-      slow: '350ms'
+      slow: '350ms',
     },
     easing: {
       ease: 'cubic-bezier(0.4, 0, 0.2, 1)',
       easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
       easeOut: 'cubic-bezier(0, 0, 0.2, 1)',
-      easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)'
-    }
-  }
+      easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
+    },
+  },
 };
 
 export const createBrandTheme = (overrides: Partial<AppTheme>): AppTheme => ({
@@ -121,50 +120,50 @@ export const createBrandTheme = (overrides: Partial<AppTheme>): AppTheme => ({
   ...overrides,
   colors: {
     ...baseTheme.colors,
-    ...(overrides.colors ?? {})
+    ...(overrides.colors ?? {}),
   },
   typography: {
     ...baseTheme.typography,
     ...(overrides.typography ?? {}),
     fonts: {
       ...baseTheme.typography.fonts,
-      ...(overrides.typography?.fonts ?? {})
+      ...(overrides.typography?.fonts ?? {}),
     },
     sizes: {
       ...baseTheme.typography.sizes,
-      ...(overrides.typography?.sizes ?? {})
+      ...(overrides.typography?.sizes ?? {}),
     },
     weights: {
       ...baseTheme.typography.weights,
-      ...(overrides.typography?.weights ?? {})
+      ...(overrides.typography?.weights ?? {}),
     },
     letterSpacings: {
       ...baseTheme.typography.letterSpacings,
-      ...(overrides.typography?.letterSpacings ?? {})
-    }
+      ...(overrides.typography?.letterSpacings ?? {}),
+    },
   },
   spacing: {
     ...baseTheme.spacing,
-    ...(overrides.spacing ?? {})
+    ...(overrides.spacing ?? {}),
   },
   radii: {
     ...baseTheme.radii,
-    ...(overrides.radii ?? {})
+    ...(overrides.radii ?? {}),
   },
   shadows: {
     ...baseTheme.shadows,
-    ...(overrides.shadows ?? {})
+    ...(overrides.shadows ?? {}),
   },
   breakpoints: {
     ...baseTheme.breakpoints,
-    ...(overrides.breakpoints ?? {})
+    ...(overrides.breakpoints ?? {}),
   },
   zIndex: {
     ...baseTheme.zIndex,
-    ...(overrides.zIndex ?? {})
+    ...(overrides.zIndex ?? {}),
   },
   containerWidth: {
     ...baseTheme.containerWidth,
-    ...(overrides.containerWidth ?? {})
-  }
+    ...(overrides.containerWidth ?? {}),
+  },
 });

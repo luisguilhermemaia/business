@@ -27,7 +27,8 @@ const buttonStyles = css<BaseProps>`
   font-weight: ${({ theme }) => theme.typography.weights.semi};
   letter-spacing: 0.02em;
   cursor: ${({ disabled, loading }) => (disabled || loading ? 'not-allowed' : 'pointer')};
-  transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+  transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'}
+    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
   border: 1px solid transparent;
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
   text-decoration: none;
@@ -40,17 +41,17 @@ const buttonStyles = css<BaseProps>`
     const paddingMap: Record<Size, string> = {
       sm: `6px ${theme.spacing.md}px`,
       md: `${theme.spacing.sm + 2}px ${theme.spacing.lg}px`,
-      lg: `${theme.spacing.md}px ${theme.spacing.xl}px`
+      lg: `${theme.spacing.md}px ${theme.spacing.xl}px`,
     };
     const fontMap: Record<Size, string> = {
       sm: theme.typography.sizes.sm,
       md: theme.typography.sizes.md,
-      lg: theme.typography.sizes.lg
+      lg: theme.typography.sizes.lg,
     };
     const heightMap: Record<Size, string> = {
       sm: '32px',
       md: '40px',
-      lg: '46px'
+      lg: '46px',
     };
     return css`
       padding: ${paddingMap[size]};
@@ -59,7 +60,7 @@ const buttonStyles = css<BaseProps>`
     `;
   }}
 
-  ${({ variant = 'primary', theme, disabled, loading }) => {
+  ${({ variant = 'primary', theme }) => {
     if (variant === 'secondary') {
       return css`
         background: ${theme.colors.backgroundAlt};
@@ -93,12 +94,16 @@ const buttonStyles = css<BaseProps>`
     return css`
       background: linear-gradient(135deg, ${theme.colors.primaryStrong}, ${theme.colors.primary});
       color: ${theme.colors.primaryContrast};
-      box-shadow: 0 4px 16px rgba(184, 87, 122, 0.3), 0 2px 4px rgba(184, 87, 122, 0.2);
+      box-shadow:
+        0 4px 16px rgba(184, 87, 122, 0.3),
+        0 2px 4px rgba(184, 87, 122, 0.2);
       font-weight: ${theme.typography.weights.semi};
       &:hover:not(:disabled) {
         background: linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.primaryStrong});
         transform: translateY(-2px);
-        box-shadow: 0 6px 24px rgba(184, 87, 122, 0.4), 0 4px 8px rgba(184, 87, 122, 0.25);
+        box-shadow:
+          0 6px 24px rgba(184, 87, 122, 0.4),
+          0 4px 8px rgba(184, 87, 122, 0.25);
       }
       &:active:not(:disabled) {
         transform: translateY(0);

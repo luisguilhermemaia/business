@@ -109,7 +109,7 @@ const paths: Record<IconName, JSX.Element> = {
       <path d="M2 12l10 10 10-10-10-10H6a4 4 0 0 0-4 4v6z" />
       <circle cx="7.5" cy="7.5" r="1.5" />
     </>
-  )
+  ),
 };
 
 export const Icon = ({ name, size = 22, strokeWidth = 1.75, ...rest }: Props) => {

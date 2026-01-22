@@ -11,5 +11,11 @@ export async function generateMetadata() {
 export default async function BlogPage() {
   const brand = await getBrandConfig();
   const posts = getAllPostsMeta();
-  return <BlogIndexPage posts={posts} introTitle={brand.content.blog.intro.title} introDescription={brand.content.blog.intro.description} />;
+  return (
+    <BlogIndexPage
+      posts={posts}
+      introTitle={brand.content.blog.intro.title}
+      introDescription={brand.content.blog.intro.description}
+    />
+  );
 }

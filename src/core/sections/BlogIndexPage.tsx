@@ -35,12 +35,15 @@ const Tag = styled.button<{ active: boolean }>`
   align-items: center;
   gap: ${({ theme }) => theme.spacing.xs}px;
   font-size: ${({ theme }) => theme.typography.sizes.sm};
-  font-weight: ${({ theme, active }) => (active ? theme.typography.weights.semi : theme.typography.weights.medium)};
-  transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+  font-weight: ${({ theme, active }) =>
+    active ? theme.typography.weights.semi : theme.typography.weights.medium};
+  transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.primary};
-    background: ${({ active, theme }) => (active ? theme.colors.primaryStrong : theme.colors.surfaceMuted)};
+    background: ${({ active, theme }) =>
+      active ? theme.colors.primaryStrong : theme.colors.surfaceMuted};
   }
 
   &:focus-visible {
@@ -69,10 +72,7 @@ export const BlogIndexPage = ({ posts, introTitle, introDescription }: Props) =>
   const [query, setQuery] = useState('');
   const [tag, setTag] = useState<string | null>(null);
 
-  const tags = useMemo(
-    () => Array.from(new Set(posts.flatMap((p) => p.tags || []))),
-    [posts]
-  );
+  const tags = useMemo(() => Array.from(new Set(posts.flatMap((p) => p.tags || []))), [posts]);
 
   const filtered = useMemo(() => {
     return posts.filter((post) => {
@@ -97,7 +97,12 @@ export const BlogIndexPage = ({ posts, introTitle, introDescription }: Props) =>
             style={{ maxWidth: '500px' }}
           />
           {tags.length > 0 && (
-            <Stack direction="row" gap="sm" align="center" style={{ flexWrap: 'wrap', marginTop: '8px' }}>
+            <Stack
+              direction="row"
+              gap="sm"
+              align="center"
+              style={{ flexWrap: 'wrap', marginTop: '8px' }}
+            >
               <strong style={{ fontSize: '0.95rem' }}>{t('blog.filterTags')}:</strong>
               <Tag active={!tag} onClick={() => setTag(null)}>
                 <Icon name="check" size={14} /> {t('actions.all') || 'All'}
@@ -114,7 +119,10 @@ export const BlogIndexPage = ({ posts, introTitle, introDescription }: Props) =>
         <Grid gap="lg" style={{ marginTop: '32px' }}>
           {filtered.map((post, idx) => (
             <Reveal key={post.slug} delay={0.08 + idx * 0.05}>
-              <Card elevation="md" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+              <Card
+                elevation="md"
+                style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
+              >
                 <Stack gap="md">
                   <MetaRow>
                     <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -124,10 +132,25 @@ export const BlogIndexPage = ({ posts, introTitle, introDescription }: Props) =>
                       <Icon name="clock" size={14} /> {post.readingTime} {t('blog.minRead')}
                     </span>
                   </MetaRow>
-                  <Link href={`/blog/${post.slug}`} style={{ color: 'inherit', textDecoration: 'none' }}>
-                    <h3 style={{ fontSize: '1.25rem', lineHeight: '1.3', marginBottom: '8px' }}>{post.title}</h3>
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    style={{ color: 'inherit', textDecoration: 'none' }}
+                  >
+                    <h3 style={{ fontSize: '1.25rem', lineHeight: '1.3', marginBottom: '8px' }}>
+                      {post.title}
+                    </h3>
                   </Link>
-                  <p style={{ color: 'inherit', opacity: 0.75, lineHeight: '1.75', fontSize: '0.95rem', flex: 1 }}>{post.excerpt}</p>
+                  <p
+                    style={{
+                      color: 'inherit',
+                      opacity: 0.75,
+                      lineHeight: '1.75',
+                      fontSize: '0.95rem',
+                      flex: 1,
+                    }}
+                  >
+                    {post.excerpt}
+                  </p>
                   <MetaRow style={{ marginTop: 'auto', paddingTop: '8px' }}>
                     {post.tags?.map((t) => (
                       <span key={t} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -141,7 +164,9 @@ export const BlogIndexPage = ({ posts, introTitle, introDescription }: Props) =>
           ))}
         </Grid>
         {filtered.length === 0 && (
-          <p style={{ textAlign: 'center', padding: '48px 0', color: 'inherit', opacity: 0.7 }}>{t('blog.noResults')}</p>
+          <p style={{ textAlign: 'center', padding: '48px 0', color: 'inherit', opacity: 0.7 }}>
+            {t('blog.noResults')}
+          </p>
         )}
       </Container>
     </Section>

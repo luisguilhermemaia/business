@@ -1,8 +1,16 @@
 'use client';
 
-import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
-type Dictionary = Record<string, any>;
+type Dictionary = Record<string, unknown>;
 
 interface I18nContextValue {
   locale: string;
@@ -17,12 +25,23 @@ const STORAGE_KEY = 'site:locale';
 
 const getNestedValue = (dict: Dictionary | undefined, key: string): string | undefined => {
   if (!dict) return undefined;
-  return key.split('.').reduce<any>((acc, part) => (acc && acc[part] !== undefined ? acc[part] : undefined), dict);
+  const result = key
+    .split('.')
+    .reduce<unknown>(
+      (acc, part) =>
+        acc && typeof acc === 'object' && acc !== null && part in acc
+          ? (acc as Record<string, unknown>)[part]
+          : undefined,
+      dict
+    );
+  return typeof result === 'string' ? result : undefined;
 };
 
 const interpolate = (value: string, params?: Record<string, string | number>) => {
   if (!params) return value;
-  return value.replace(/\{(\w+)\}/g, (_, token) => (params[token] !== undefined ? String(params[token]) : `{${token}}`));
+  return value.replace(/\{(\w+)\}/g, (_, token) =>
+    params[token] !== undefined ? String(params[token]) : `{${token}}`
+  );
 };
 
 interface Props {
@@ -79,7 +98,7 @@ export const I18nProvider = ({ translations, defaultLocale, locales, children }:
       defaultLocale,
       locales,
       t,
-      setLocale
+      setLocale,
     }),
     [defaultLocale, locale, locales, setLocale, t]
   );

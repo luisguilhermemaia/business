@@ -18,11 +18,9 @@ const HeaderShell = styled.header<{ $scrolled: boolean }>`
   z-index: ${({ theme }) => theme.zIndex.header};
   background: ${({ theme }) => theme.colors.background};
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-  transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
-  box-shadow: ${({ $scrolled }) =>
-    $scrolled 
-      ? `0 1px 3px rgba(0, 0, 0, 0.04)`
-      : 'none'};
+  transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'}
+    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+  box-shadow: ${({ $scrolled }) => ($scrolled ? `0 1px 3px rgba(0, 0, 0, 0.04)` : 'none')};
 `;
 
 const TopBar = styled.div`
@@ -79,7 +77,8 @@ const BrandMark = styled(Link)`
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   color: ${({ theme }) => theme.colors.text};
   text-decoration: none;
-  transition: opacity ${({ theme }) => theme.motion?.duration.fast || '150ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+  transition: opacity ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
   flex-shrink: 0;
 
   &:hover {
@@ -105,24 +104,29 @@ const Nav = styled.nav`
 `;
 
 const NavLink = styled(Link)<{ $active?: boolean }>`
-  color: ${({ theme, $active }) => $active ? theme.colors.primary : theme.colors.text};
-  font-weight: ${({ theme, $active }) => $active ? theme.typography.weights.semi : theme.typography.weights.regular};
+  color: ${({ theme, $active }) => ($active ? theme.colors.primary : theme.colors.text)};
+  font-weight: ${({ theme, $active }) =>
+    $active ? theme.typography.weights.semi : theme.typography.weights.regular};
   font-size: ${({ theme }) => theme.typography.sizes.md};
   padding: ${({ theme }) => theme.spacing.sm + 2}px ${({ theme }) => theme.spacing.lg}px;
   border-radius: ${({ theme }) => theme.radii.lg};
-  transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+  transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
   position: relative;
   text-decoration: none;
   white-space: nowrap;
-  
-  ${({ $active, theme }) => $active && `
+
+  ${({ $active, theme }) =>
+    $active &&
+    `
     background: rgba(184, 87, 122, 0.12);
     color: ${theme.colors.primary};
   `}
 
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
-    background: ${({ theme, $active }) => $active ? 'rgba(184, 87, 122, 0.16)' : 'rgba(184, 87, 122, 0.06)'};
+    background: ${({ $active }) =>
+      $active ? 'rgba(184, 87, 122, 0.16)' : 'rgba(184, 87, 122, 0.06)'};
   }
 
   &:focus-visible {
@@ -134,7 +138,7 @@ const NavLink = styled(Link)<{ $active?: boolean }>`
     padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
     font-size: ${({ theme }) => theme.typography.sizes.lg};
     border-radius: ${({ theme }) => theme.radii.lg};
-    background: ${({ theme, $active }) => $active ? 'rgba(184, 87, 122, 0.12)' : 'transparent'};
+    background: ${({ $active }) => ($active ? 'rgba(184, 87, 122, 0.12)' : 'transparent')};
   }
 `;
 
@@ -153,12 +157,13 @@ const MobileToggle = styled.button`
   padding: ${({ theme }) => theme.spacing.sm}px;
   border-radius: ${({ theme }) => theme.radii.pill};
   cursor: pointer;
-  transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+  transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
   width: 42px;
   height: 42px;
   align-items: center;
   justify-content: center;
-  
+
   &:hover {
     background: rgba(184, 87, 122, 0.16);
     transform: translateY(-1px);
@@ -205,7 +210,8 @@ const MobileMenuOverlay = styled.div<{ $open: boolean }>`
   z-index: ${({ theme }) => theme.zIndex.overlay};
   opacity: ${({ $open }) => ($open ? 1 : 0)};
   pointer-events: ${({ $open }) => ($open ? 'auto' : 'none')};
-  transition: opacity ${({ theme }) => theme.motion?.duration.normal || '250ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+  transition: opacity ${({ theme }) => theme.motion?.duration.normal || '250ms'}
+    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     display: block;
@@ -226,7 +232,8 @@ const MobileMenuPanel = styled.aside<{ $open: boolean }>`
     padding: ${({ theme }) => theme.spacing.xl}px;
     box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
     transform: translateX(${({ $open }) => ($open ? '0' : '100%')});
-    transition: transform ${({ theme }) => theme.motion?.duration.normal || '250ms'} ${({ theme }) => theme.motion?.easing.easeOut || 'ease-out'};
+    transition: transform ${({ theme }) => theme.motion?.duration.normal || '250ms'}
+      ${({ theme }) => theme.motion?.easing.easeOut || 'ease-out'};
     flex-direction: column;
     gap: ${({ theme }) => theme.spacing.lg}px;
     overflow-y: auto;
@@ -328,7 +335,7 @@ export const Header = () => {
     { href: '/services', label: t('nav.services') },
     { href: '/location', label: t('nav.location') },
     { href: '/blog', label: t('nav.blog') },
-    { href: '/contact', label: t('nav.contact') }
+    { href: '/contact', label: t('nav.contact') },
   ];
 
   return (
@@ -355,11 +362,7 @@ export const Header = () => {
           <DesktopOnly>
             <Nav>
               {navItems.map((item) => (
-                <NavLink 
-                  key={item.href} 
-                  href={item.href}
-                  $active={pathname === item.href}
-                >
+                <NavLink key={item.href} href={item.href} $active={pathname === item.href}>
                   {item.label}
                 </NavLink>
               ))}
@@ -396,9 +399,9 @@ export const Header = () => {
         </MobileMenuHeader>
         <MobileMenuBody>
           {navItems.map((item) => (
-            <MobileNavLink 
-              key={item.href} 
-              href={item.href} 
+            <MobileNavLink
+              key={item.href}
+              href={item.href}
               onClick={() => setOpen(false)}
               $active={pathname === item.href}
             >

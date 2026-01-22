@@ -49,7 +49,12 @@ export const CTASection = () => {
             <Stack gap="lg" align="center">
               <Title>{t('cta.title')}</Title>
               <Text>{t('cta.subtitle')}</Text>
-              <Stack direction="row" gap="md" align="center" style={{ flexWrap: 'wrap', justifyContent: 'center' }}>
+              <Stack
+                direction="row"
+                gap="md"
+                align="center"
+                style={{ flexWrap: 'wrap', justifyContent: 'center' }}
+              >
                 <LinkButton href="/booking" size="md">
                   <Icon name="calendar" size={18} />
                   {content.hero.ctaLabel || t('actions.book')}

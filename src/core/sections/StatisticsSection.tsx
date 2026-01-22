@@ -45,8 +45,9 @@ export const StatisticsSection = () => {
             <Card>
               <Title>Você merece se sentir bem com você mesma.</Title>
               <Text>
-                Um cuidado ginecológico feito com calma, escuta verdadeira e decisões baseadas em ciência.
-                Aqui você encontra um espaço seguro para falar sobre sintomas, tratamentos e qualidade de vida.
+                Um cuidado ginecológico feito com calma, escuta verdadeira e decisões baseadas em
+                ciência. Aqui você encontra um espaço seguro para falar sobre sintomas, tratamentos
+                e qualidade de vida.
               </Text>
             </Card>
             <Card>

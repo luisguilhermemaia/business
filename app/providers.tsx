@@ -12,7 +12,11 @@ export const Providers = ({ brand, children }: { brand: BrandConfig; children: R
     <ThemeProvider theme={brand.theme}>
       <GlobalStyle />
       <BrandProvider brand={brand}>
-        <I18nProvider translations={brand.translations} defaultLocale={brand.defaultLocale} locales={brand.locales}>
+        <I18nProvider
+          translations={brand.translations}
+          defaultLocale={brand.defaultLocale}
+          locales={brand.locales}
+        >
           {children}
         </I18nProvider>
       </BrandProvider>

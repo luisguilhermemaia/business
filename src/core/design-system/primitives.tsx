@@ -19,7 +19,7 @@ export const Container = styled.div<{ width?: 'narrow' | 'regular' | 'wide' }>`
   }
 `;
 
-export const Section = styled.section<{ 
+export const Section = styled.section<{
   background?: 'default' | 'muted' | 'card';
   padding?: 'sm' | 'md' | 'lg' | 'xl';
 }>`
@@ -28,7 +28,7 @@ export const Section = styled.section<{
       sm: theme.spacing.lg,
       md: theme.spacing.xl,
       lg: theme.spacing.xxl,
-      xl: theme.spacing.hero
+      xl: theme.spacing.hero,
     };
     return `${paddingMap[padding]}px 0`;
   }};
@@ -44,7 +44,7 @@ export const Section = styled.section<{
         sm: theme.spacing.md,
         md: theme.spacing.lg,
         lg: theme.spacing.xl,
-        xl: theme.spacing.xxl
+        xl: theme.spacing.xxl,
       };
       return `${paddingMap[padding]}px 0`;
     }};
@@ -53,10 +53,10 @@ export const Section = styled.section<{
 
 export const Stack = styled.div.withConfig({
   shouldForwardProp: (prop) => !['gap', 'align', 'justify', 'direction'].includes(prop),
-})<{ 
-  gap?: number | 'xs' | 'sm' | 'md' | 'lg' | 'xl'; 
-  align?: string; 
-  justify?: string; 
+})<{
+  gap?: number | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  align?: string;
+  justify?: string;
   direction?: 'row' | 'column';
 }>`
   display: flex;
@@ -68,7 +68,7 @@ export const Stack = styled.div.withConfig({
       sm: theme.spacing.sm,
       md: theme.spacing.md,
       lg: theme.spacing.lg,
-      xl: theme.spacing.xl
+      xl: theme.spacing.xl,
     };
     return `${gapMap[gap]}px`;
   }};
@@ -91,7 +91,7 @@ export const Grid = styled.div.withConfig({
       sm: theme.spacing.sm,
       md: theme.spacing.md,
       lg: theme.spacing.lg,
-      xl: theme.spacing.xl
+      xl: theme.spacing.xl,
     };
     return `${gapMap[gap]}px`;
   }};
@@ -101,13 +101,13 @@ export const Grid = styled.div.withConfig({
     columns &&
     css`
       grid-template-columns: repeat(${columns}, minmax(0, 1fr));
-      @media (max-width: ${props => props.theme.breakpoints.md}) {
+      @media (max-width: ${(props) => props.theme.breakpoints.md}) {
         grid-template-columns: 1fr;
       }
     `}
 `;
 
-export const Card = styled.div<{ 
+export const Card = styled.div<{
   interactive?: boolean;
   elevation?: 'sm' | 'md' | 'lg';
 }>`
@@ -116,16 +116,17 @@ export const Card = styled.div<{
   border: 1px solid rgba(184, 87, 122, 0.1);
   border-radius: ${({ theme }) => theme.radii.xl || theme.radii.lg};
   padding: ${({ theme }) => theme.spacing.xl}px;
-  box-shadow: ${({ theme, elevation = 'sm' }) => {
+  box-shadow: ${({ elevation = 'sm' }) => {
     const shadowMap = {
       sm: '0 2px 12px rgba(184, 87, 122, 0.08), 0 0 0 1px rgba(184, 87, 122, 0.04)',
       md: '0 4px 20px rgba(184, 87, 122, 0.12), 0 0 0 1px rgba(184, 87, 122, 0.06)',
-      lg: '0 8px 32px rgba(184, 87, 122, 0.16), 0 0 0 1px rgba(184, 87, 122, 0.08)'
+      lg: '0 8px 32px rgba(184, 87, 122, 0.16), 0 0 0 1px rgba(184, 87, 122, 0.08)',
     };
     return shadowMap[elevation];
   }};
   overflow: hidden;
-  transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+  transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'}
+    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
 
   &::after {
     content: '';
@@ -136,23 +137,27 @@ export const Card = styled.div<{
     pointer-events: none;
   }
 
-  ${({ interactive }) => interactive && css`
-    cursor: pointer;
+  ${({ interactive }) =>
+    interactive &&
+    css`
+      cursor: pointer;
 
-    &:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 8px 32px rgba(184, 87, 122, 0.16), 0 0 0 1px rgba(184, 87, 122, 0.08);
-      border-color: rgba(184, 87, 122, 0.2);
-    }
+      &:hover {
+        transform: translateY(-6px);
+        box-shadow:
+          0 8px 32px rgba(184, 87, 122, 0.16),
+          0 0 0 1px rgba(184, 87, 122, 0.08);
+        border-color: rgba(184, 87, 122, 0.2);
+      }
 
-    &:active {
-      transform: translateY(-3px);
-    }
-  `}
+      &:active {
+        transform: translateY(-3px);
+      }
+    `}
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
-    
+
     &:hover {
       transform: none;
     }

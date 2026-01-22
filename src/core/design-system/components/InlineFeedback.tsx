@@ -12,7 +12,11 @@ const Wrapper = styled.div<{ tone: NonNullable<Props['tone']> }>`
   border-radius: ${({ theme }) => theme.radii.lg};
   border: 1px solid
     ${({ tone, theme }) =>
-      tone === 'success' ? 'rgba(120,180,163,0.45)' : tone === 'error' ? 'rgba(212,117,134,0.45)' : theme.colors.border};
+      tone === 'success'
+        ? 'rgba(120,180,163,0.45)'
+        : tone === 'error'
+          ? 'rgba(212,117,134,0.45)'
+          : theme.colors.border};
   background: ${({ tone, theme }) =>
     tone === 'success'
       ? 'rgba(120,180,163,0.12)'

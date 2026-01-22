@@ -23,30 +23,26 @@ const Option = styled.button<{ $active: boolean }>`
   cursor: pointer;
   border: none;
   background: ${({ $active, theme }) =>
-    $active 
-      ? `linear-gradient(135deg, ${theme.colors.primaryStrong}, ${theme.colors.primary})` 
+    $active
+      ? `linear-gradient(135deg, ${theme.colors.primaryStrong}, ${theme.colors.primary})`
       : 'transparent'};
-  color: ${({ $active, theme }) => 
-    $active 
-      ? theme.colors.primaryContrast 
-      : theme.colors.textMuted};
+  color: ${({ $active, theme }) =>
+    $active ? theme.colors.primaryContrast : theme.colors.textMuted};
   padding: 6px 14px;
   border-radius: ${({ theme }) => theme.radii.pill};
   font-weight: ${({ theme }) => theme.typography.weights.semi};
   font-size: ${({ theme }) => theme.typography.sizes.sm};
-  transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+  transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
   min-width: 48px;
   text-align: center;
-  
+
   &:hover {
-    background: ${({ $active, theme }) => 
-      $active 
-        ? `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.primaryStrong})` 
+    background: ${({ $active, theme }) =>
+      $active
+        ? `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.primaryStrong})`
         : theme.colors.surface};
-    color: ${({ $active, theme }) => 
-      $active 
-        ? theme.colors.primaryContrast 
-        : theme.colors.text};
+    color: ${({ $active, theme }) => ($active ? theme.colors.primaryContrast : theme.colors.text)};
   }
 
   &:focus-visible {
@@ -66,11 +62,7 @@ export const LanguageSwitcher = () => {
   return (
     <Switcher aria-label="Switch language">
       {locales.map((loc) => (
-        <Option 
-          key={loc} 
-          $active={loc === locale} 
-          onClick={() => setLocale(loc)}
-        >
+        <Option key={loc} $active={loc === locale} onClick={() => setLocale(loc)}>
           {loc.toUpperCase()}
         </Option>
       ))}

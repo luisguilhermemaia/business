@@ -40,11 +40,12 @@ const PostTitle = styled.h3`
   font-size: ${({ theme }) => theme.typography.sizes.lg};
   margin-bottom: ${({ theme }) => theme.spacing.sm}px;
   line-height: ${({ theme }) => theme.typography.lineHeights?.tight || 1.2};
-  
+
   a {
     color: ${({ theme }) => theme.colors.text};
-    transition: color ${({ theme }) => theme.motion?.duration.fast || '150ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
-    
+    transition: color ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+      ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+
     &:hover {
       color: ${({ theme }) => theme.colors.primary};
     }
@@ -68,7 +69,10 @@ export const BlogPreviewSection = ({ posts }: Props) => {
         <Grid gap="lg">
           {posts.map((post, idx) => (
             <Reveal key={post.slug} delay={0.1 + idx * 0.06}>
-              <Card elevation="md" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+              <Card
+                elevation="md"
+                style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
+              >
                 <Stack gap="md">
                   <Stack direction="row" gap="sm" align="center" style={{ flexWrap: 'wrap' }}>
                     <Tag>
@@ -83,18 +87,30 @@ export const BlogPreviewSection = ({ posts }: Props) => {
                     ))}
                   </Stack>
                   <PostTitle>
-                    <Link href={`/blog/${post.slug}`}>
-                      {post.title}
-                    </Link>
+                    <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                   </PostTitle>
                   <Excerpt>{post.excerpt}</Excerpt>
-                  <Stack direction="row" gap="sm" align="center" style={{ marginTop: 'auto', fontSize: '0.875rem', color: 'inherit', opacity: 0.7 }}>
+                  <Stack
+                    direction="row"
+                    gap="sm"
+                    align="center"
+                    style={{
+                      marginTop: 'auto',
+                      fontSize: '0.875rem',
+                      color: 'inherit',
+                      opacity: 0.7,
+                    }}
+                  >
                     <Icon name="clock" size={16} />
                     <span>
                       {post.readingTime} {t('blog.minRead')}
                     </span>
                   </Stack>
-                  <LinkButton href={`/blog/${post.slug}`} variant="secondary" style={{ marginTop: '8px' }}>
+                  <LinkButton
+                    href={`/blog/${post.slug}`}
+                    variant="secondary"
+                    style={{ marginTop: '8px' }}
+                  >
                     {t('blog.readMore')}
                   </LinkButton>
                 </Stack>

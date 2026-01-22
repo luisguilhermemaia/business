@@ -5,10 +5,9 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import { BlogMeta, BlogPost } from '../utils/blog';
 import { useI18n } from '../i18n/I18nProvider';
-import { Container, Section, Stack } from '../design-system/primitives';
+import { Container, Section } from '../design-system/primitives';
 import { Icon } from '../icons/Icon';
 import { formatDate } from '../utils/format';
-import { LinkButton } from '../design-system/components/Button';
 
 const BackLink = styled(Link)`
   display: inline-flex;
@@ -18,8 +17,9 @@ const BackLink = styled(Link)`
   text-decoration: none;
   font-size: ${({ theme }) => theme.typography.sizes.sm};
   margin-bottom: ${({ theme }) => theme.spacing.xl}px;
-  transition: color ${({ theme }) => theme.motion?.duration.fast || '150ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
-  
+  transition: color ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
   }
@@ -104,7 +104,7 @@ const Article = styled.article`
   line-height: 1.8;
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.md};
-  
+
   h2 {
     font-size: clamp(1.75rem, 3vw, 2.25rem);
     margin-top: ${({ theme }) => theme.spacing.xxl * 1.5}px;
@@ -115,7 +115,7 @@ const Article = styled.article`
     font-weight: ${({ theme }) => theme.typography.weights.bold};
     letter-spacing: -0.01em;
   }
-  
+
   h3 {
     font-size: clamp(1.375rem, 2.5vw, 1.75rem);
     margin-top: ${({ theme }) => theme.spacing.xxl}px;
@@ -125,7 +125,7 @@ const Article = styled.article`
     font-family: ${({ theme }) => theme.typography.fonts.heading};
     font-weight: ${({ theme }) => theme.typography.weights.semi};
   }
-  
+
   h4 {
     font-size: ${({ theme }) => theme.typography.sizes.lg};
     margin-top: ${({ theme }) => theme.spacing.xl}px;
@@ -133,28 +133,29 @@ const Article = styled.article`
     color: ${({ theme }) => theme.colors.text};
     font-weight: ${({ theme }) => theme.typography.weights.semi};
   }
-  
+
   p {
     margin-bottom: ${({ theme }) => theme.spacing.lg}px;
     line-height: 1.8;
     color: ${({ theme }) => theme.colors.text};
   }
-  
-  ul, ol {
+
+  ul,
+  ol {
     padding-left: ${({ theme }) => theme.spacing.xl}px;
     margin-bottom: ${({ theme }) => theme.spacing.lg}px;
     color: ${({ theme }) => theme.colors.text};
     line-height: 1.8;
   }
-  
+
   li {
     margin-bottom: ${({ theme }) => theme.spacing.sm}px;
-    
+
     &::marker {
       color: ${({ theme }) => theme.colors.primary};
     }
   }
-  
+
   blockquote {
     border-left: 4px solid ${({ theme }) => theme.colors.primary};
     padding-left: ${({ theme }) => theme.spacing.lg}px;
@@ -165,7 +166,7 @@ const Article = styled.article`
     padding: ${({ theme }) => theme.spacing.lg}px;
     border-radius: ${({ theme }) => theme.radii.md};
   }
-  
+
   code {
     background: ${({ theme }) => theme.colors.surfaceMuted};
     padding: 3px 8px;
@@ -174,7 +175,7 @@ const Article = styled.article`
     font-family: 'Monaco', 'Courier New', monospace;
     color: ${({ theme }) => theme.colors.primary};
   }
-  
+
   pre {
     background: ${({ theme }) => theme.colors.surfaceMuted};
     padding: ${({ theme }) => theme.spacing.lg}px;
@@ -182,32 +183,33 @@ const Article = styled.article`
     overflow-x: auto;
     margin: ${({ theme }) => theme.spacing.xl}px 0;
     border: 1px solid ${({ theme }) => theme.colors.border};
-    
+
     code {
       background: transparent;
       padding: 0;
       color: ${({ theme }) => theme.colors.text};
     }
   }
-  
+
   a {
     color: ${({ theme }) => theme.colors.primary};
     text-decoration: underline;
     text-underline-offset: 3px;
-    transition: color ${({ theme }) => theme.motion?.duration.fast || '150ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
-    
+    transition: color ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+      ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+
     &:hover {
       color: ${({ theme }) => theme.colors.primaryStrong};
     }
   }
-  
+
   img {
     width: 100%;
     height: auto;
     border-radius: ${({ theme }) => theme.radii.md};
     margin: ${({ theme }) => theme.spacing.xl}px 0;
   }
-  
+
   hr {
     border: none;
     border-top: 1px solid ${({ theme }) => theme.colors.border};
@@ -222,7 +224,7 @@ const AdjacentSection = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: ${({ theme }) => theme.spacing.xl}px;
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     grid-template-columns: 1fr;
   }
@@ -237,8 +239,9 @@ const AdjacentCard = styled(Link)`
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
   text-decoration: none;
-  transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'} ${({ theme }) => theme.motion?.easing.ease || 'ease'};
-  
+  transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'}
+    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: ${({ theme }) => theme.shadows.md || theme.shadows.medium};
@@ -277,7 +280,7 @@ export const BlogPostPage = ({ post, previous, next }: Props) => {
           <Icon name="arrow-right" size={16} style={{ transform: 'rotate(180deg)' }} />
           {t('actions.back') || 'Voltar ao blog'}
         </BackLink>
-        
+
         <PostHeader>
           <Title>{post.title}</Title>
           <Excerpt>{post.excerpt}</Excerpt>
@@ -325,7 +328,9 @@ export const BlogPostPage = ({ post, previous, next }: Props) => {
             )}
             {next ? (
               <AdjacentCard href={`/blog/${next.slug}`} style={{ textAlign: 'right' }}>
-                <AdjacentLabel style={{ textAlign: 'right' }}>{t('actions.next') || 'Próximo'} →</AdjacentLabel>
+                <AdjacentLabel style={{ textAlign: 'right' }}>
+                  {t('actions.next') || 'Próximo'} →
+                </AdjacentLabel>
                 <AdjacentTitle>{next.title}</AdjacentTitle>
               </AdjacentCard>
             ) : (
