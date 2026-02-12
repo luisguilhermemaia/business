@@ -136,7 +136,9 @@ const FollowCTA = styled.a`
   font-size: ${({ theme }) => theme.typography.sizes.md};
   border-radius: ${({ theme }) => theme.radii.pill};
   text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   box-shadow: 0 4px 14px rgba(188, 24, 136, 0.35);
 
   &:hover {
@@ -186,12 +188,11 @@ export const InstagramSection = () => {
   const [loadedIndices, setLoadedIndices] = useState<Set<number>>(new Set());
 
   const instagram = content.instagram;
-  if (!instagram?.profileUrl) return null;
-
-  const rawUrls = instagram.postUrls?.filter(Boolean) ?? [];
+  const rawUrls = instagram?.postUrls?.filter(Boolean) ?? [];
   const normalized = rawUrls.map(normalizeInstagramUrl).filter(Boolean);
   const postUrls = [...new Set(normalized)];
-  const username = instagram.profileUrl.match(/instagram\.com\/([^/?#]+)/)?.[1] ?? 'instagram';
+  const postUrlsKey = postUrls.join(',');
+  const username = instagram?.profileUrl?.match(/instagram\.com\/([^/?#]+)/)?.[1] ?? 'instagram';
 
   const processEmbeds = () => {
     if (window.instgrm?.Embeds?.process) {
@@ -209,14 +210,14 @@ export const InstagramSection = () => {
     if (postUrls.length === 0) return;
     const id = setTimeout(processEmbeds, 300);
     return () => clearTimeout(id);
-  }, [postUrls.length, postUrls.join(',')]);
+  }, [postUrls.length, postUrlsKey]);
 
-  // Detect when each embed iframe appears and hide skeleton
   useEffect(() => {
-    if (postUrls.length === 0 || !gridRef.current) return;
+    if (postUrls.length === 0) return;
 
     const checkEmbeds = () => {
-      const wrappers = gridRef.current?.querySelectorAll('[data-embed-wrapper]');
+      if (!gridRef.current) return;
+      const wrappers = gridRef.current.querySelectorAll('[data-embed-wrapper]');
       if (!wrappers?.length) return;
       setLoadedIndices((prev) => {
         const next = new Set(prev);
@@ -235,7 +236,11 @@ export const InstagramSection = () => {
       clearInterval(interval);
       clearTimeout(timeout);
     };
-  }, [postUrls.length]);
+    // postUrlsKey is stable when URLs don't change; postUrls would change ref every render
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [postUrls.length, postUrlsKey]);
+
+  if (!instagram?.profileUrl) return null;
 
   return (
     <Section background="muted">

@@ -26,10 +26,8 @@ const SectionBadge = styled.div`
   gap: ${({ theme }) => theme.spacing.sm}px;
   padding: ${({ theme }) => theme.spacing.sm + 2}px ${({ theme }) => theme.spacing.lg}px;
   border-radius: ${({ theme }) => theme.radii.pill};
-  background: ${({ theme }) =>
-    theme.colors.tealDark ?? theme.colors.surface};
-  border: 1px solid
-    ${({ theme }) => (theme.colors.tealDark ? 'transparent' : theme.colors.border)};
+  background: ${({ theme }) => theme.colors.tealDark ?? theme.colors.surface};
+  border: 1px solid ${({ theme }) => (theme.colors.tealDark ? 'transparent' : theme.colors.border)};
   color: ${({ theme }) =>
     theme.colors.tealDark ? theme.colors.tealDarkContrast : theme.colors.primary};
   font-size: ${({ theme }) => theme.typography.sizes.xs};
@@ -137,13 +135,12 @@ const PersonIcon = styled.div`
   width: 48px;
   height: 48px;
   border-radius: ${({ theme }) => theme.radii.round};
-  background: ${({ theme }) =>
-    theme.colors.tealDark ?? theme.colors.surfaceMuted};
+  background: ${({ theme }) => theme.colors.tealDark ?? theme.colors.surfaceMuted};
   color: ${({ theme }) => theme.colors.tealDarkContrast ?? '#FFFFFF'};
   display: grid;
   place-items: center;
-  box-shadow: 0 2px 6px ${({ theme }) =>
-    hexToRgba(theme.colors.tealDark || theme.colors.text, 0.15)};
+  box-shadow: 0 2px 6px
+    ${({ theme }) => hexToRgba(theme.colors.tealDark || theme.colors.text, 0.15)};
 `;
 
 const PersonName = styled.div`

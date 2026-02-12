@@ -65,12 +65,14 @@ export const AboutPage = () => {
                 {content.doctor.bio}
               </p>
               <Stack gap="sm">
-                {(Array.isArray(pillars) ? pillars : content.doctor.highlights || []).map((pillar: string) => (
-                  <Pillar key={pillar}>
-                    <Icon name="check" size={16} />
-                    {pillar}
-                  </Pillar>
-                ))}
+                {(Array.isArray(pillars) ? pillars : content.doctor.highlights || []).map(
+                  (pillar: string) => (
+                    <Pillar key={pillar}>
+                      <Icon name="check" size={16} />
+                      {pillar}
+                    </Pillar>
+                  )
+                )}
               </Stack>
               <LinkButton href="/booking" style={{ marginTop: '8px' }}>
                 {t('actions.book')}

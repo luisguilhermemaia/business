@@ -2,7 +2,6 @@
 
 import styled from 'styled-components';
 import { hexToRgba } from '../utils/colors';
-import { useBrand } from '../brand/BrandProvider';
 import { useI18n } from '../i18n/I18nProvider';
 import { LinkButton } from '../design-system/components/Button';
 import { Card, Container, Section, Stack } from '../design-system/primitives';
@@ -162,7 +161,6 @@ const CTAWrap = styled(Card)`
 `;
 
 export const CTASection = () => {
-  const { content } = useBrand();
   const { t } = useI18n();
   return (
     <Section>

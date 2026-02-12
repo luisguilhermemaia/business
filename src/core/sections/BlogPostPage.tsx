@@ -317,9 +317,7 @@ export const BlogPostPage = ({ post, previous, next, children }: Props) => {
           </CoverImage>
         )}
 
-        <Article>
-          {children}
-        </Article>
+        <Article>{children}</Article>
 
         {(previous || next) && (
           <AdjacentSection>
@@ -333,9 +331,7 @@ export const BlogPostPage = ({ post, previous, next, children }: Props) => {
             )}
             {next ? (
               <AdjacentCard href={`/blog/${next.slug}`} style={{ textAlign: 'right' }}>
-                <AdjacentLabel style={{ textAlign: 'right' }}>
-                  {t('actions.next')} →
-                </AdjacentLabel>
+                <AdjacentLabel style={{ textAlign: 'right' }}>{t('actions.next')} →</AdjacentLabel>
                 <AdjacentTitle>{next.title}</AdjacentTitle>
               </AdjacentCard>
             ) : (

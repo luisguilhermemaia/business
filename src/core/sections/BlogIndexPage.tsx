@@ -167,9 +167,7 @@ export const BlogIndexPage = ({ posts, introTitle, introDescription }: Props) =>
             </Reveal>
           ))}
         </Grid>
-        {filtered.length === 0 && (
-          <NoResults>{t('blog.noResults')}</NoResults>
-        )}
+        {filtered.length === 0 && <NoResults>{t('blog.noResults')}</NoResults>}
       </Container>
     </Section>
   );

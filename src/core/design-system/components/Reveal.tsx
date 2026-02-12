@@ -32,7 +32,8 @@ const RevealWrapper = styled.div<{
     height: 100%;
   `}
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
-  transition: opacity ${({ $duration }) => $duration}ms ${({ $easing }) => $easing},
+  transition:
+    opacity ${({ $duration }) => $duration}ms ${({ $easing }) => $easing},
     transform ${({ $duration }) => $duration}ms ${({ $easing }) => $easing};
   transition-delay: ${({ $delay }) => $delay}ms;
   will-change: opacity, transform;

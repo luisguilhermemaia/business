@@ -35,9 +35,7 @@ const Trigger = styled.button`
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
     background: ${({ theme }) =>
-      theme.colors.tealDark
-        ? 'rgba(42, 66, 66, 0.08)'
-        : 'rgba(0, 0, 0, 0.06)'};
+      theme.colors.tealDark ? 'rgba(42, 66, 66, 0.08)' : 'rgba(0, 0, 0, 0.06)'};
   }
 
   &:focus-visible {
@@ -99,9 +97,7 @@ const Option = styled.button<{ $active: boolean }>`
 
   &:hover {
     background: ${({ $active, theme }) =>
-      $active && theme.colors.tealDark
-        ? theme.colors.tealDark
-        : theme.colors.surfaceMuted};
+      $active && theme.colors.tealDark ? theme.colors.tealDark : theme.colors.surfaceMuted};
   }
 
   &:not(:first-child) {

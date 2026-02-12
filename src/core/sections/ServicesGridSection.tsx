@@ -255,12 +255,7 @@ export const ServicesGridSection = () => {
         </Reveal>
         <Grid min="220px" gap="lg">
           {content.services.map((service, idx) => (
-            <Reveal
-              key={service.title}
-              delay={0.08 + idx * 0.06}
-              direction="up"
-              duration={750}
-            >
+            <Reveal key={service.title} delay={0.08 + idx * 0.06} direction="up" duration={750}>
               <ServiceCard>
                 <ServiceIcon>
                   <Icon name={(service.iconKey as IconName) || 'stethoscope'} size={24} />
@@ -274,7 +269,11 @@ export const ServicesGridSection = () => {
         <CTASection>
           <Reveal direction="fade" duration={700} delay={0.15}>
             <CTAText>{t('services.ctaBlurb')}</CTAText>
-            <CTAButtonStack direction="row" gap="md" style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
+            <CTAButtonStack
+              direction="row"
+              gap="md"
+              style={{ justifyContent: 'center', flexWrap: 'wrap' }}
+            >
               <PrimaryCTAButton href="/booking" size="md">
                 Agendar Consulta Agora
               </PrimaryCTAButton>

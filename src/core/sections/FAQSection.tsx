@@ -2,8 +2,7 @@
 
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useI18n } from '../i18n/I18nProvider';
-import { Container, Section, Stack } from '../design-system/primitives';
+import { Container, Section } from '../design-system/primitives';
 import { Badge } from '../design-system/components/Badge';
 import { Icon } from '../icons/Icon';
 import { Reveal } from '../design-system/components/Reveal';
@@ -164,7 +163,6 @@ const faqData: FAQItem[] = [
 ];
 
 export const FAQSection = () => {
-  const { t } = useI18n();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {

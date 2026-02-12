@@ -212,9 +212,7 @@ const ImageSlide = styled.div`
 `;
 
 const ImageStack = styled(ImageInner)`
-  ${KenBurnsKeyframes}
-
-  /* Carousel: stacks ImageSlide children with gradient from ImageInner */
+  ${KenBurnsKeyframes}/* Carousel: stacks ImageSlide children with gradient from ImageInner */
 `;
 
 const DotsWrapper = styled.div`
@@ -248,7 +246,9 @@ const Dot = styled.button<{ $active: boolean }>`
     opacity 0.2s ease,
     background-color 0.3s ease;
   background: ${({ theme, $active }) =>
-    $active ? (theme.colors.brownDark || theme.colors.text) : hexToRgba(theme.colors.brownDark || theme.colors.text, 0.35)};
+    $active
+      ? theme.colors.brownDark || theme.colors.text
+      : hexToRgba(theme.colors.brownDark || theme.colors.text, 0.35)};
 
   &:hover {
     opacity: 0.9;
@@ -296,7 +296,11 @@ const ContentCol = styled.div`
     order: 2;
     padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.xl}px
       ${({ theme }) => theme.spacing.xxl}px;
-    padding-left: clamp(${({ theme }) => theme.spacing.xl}px, 4vw, ${({ theme }) => theme.spacing.xxl}px);
+    padding-left: clamp(
+      ${({ theme }) => theme.spacing.xl}px,
+      4vw,
+      ${({ theme }) => theme.spacing.xxl}px
+    );
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
@@ -467,7 +471,8 @@ const CtaSecondary = styled(LinkButton)`
   && {
     background: transparent;
     color: ${({ theme }) => theme.colors.brownDark || theme.colors.text};
-    border: 1.5px solid ${({ theme }) => hexToRgba(theme.colors.brownDark || theme.colors.text, 0.4)};
+    border: 1.5px solid
+      ${({ theme }) => hexToRgba(theme.colors.brownDark || theme.colors.text, 0.4)};
     font-weight: ${({ theme }) => theme.typography.weights.medium};
   }
   &&:hover:not(:disabled) {
