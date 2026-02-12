@@ -9,6 +9,7 @@ import { LinkButton } from '../design-system/components/Button';
 import { Section } from '../design-system/primitives';
 import { Reveal } from '../design-system/components/Reveal';
 import { hexToRgba } from '../utils/colors';
+import { BLUR_DATA_URL } from '../utils/image';
 
 const CAROUSEL_INTERVAL_MS = 5500;
 
@@ -507,6 +508,8 @@ export const HeroSection = () => {
               priority={i === 0}
               quality={90}
               sizes="(max-width: 1023px) 100vw, 60vw"
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
             />
           </ImageSlide>
         ))}
@@ -530,6 +533,8 @@ export const HeroSection = () => {
         fill
         priority
         sizes="(max-width: 1023px) 100vw, 50vw"
+        placeholder="blur"
+        blurDataURL={BLUR_DATA_URL}
       />
     </ImageInner>
   );

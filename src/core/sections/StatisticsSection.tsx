@@ -6,10 +6,6 @@ import { Container, Grid, Section } from '../design-system/primitives';
 import { LinkButton } from '../design-system/components/Button';
 import { Reveal } from '../design-system/components/Reveal';
 
-const HighlightSection = styled(Section)`
-  background: ${({ theme }) => theme.colors.backgroundAlt};
-`;
-
 const Card = styled.div`
   background: ${({ theme }) => theme.colors.surface};
   border-radius: ${({ theme }) => theme.radii.xl || theme.radii.lg};
@@ -90,7 +86,7 @@ const CTAButton = styled(LinkButton)`
 export const StatisticsSection = () => {
   const { t } = useI18n();
   return (
-    <HighlightSection>
+    <Section background="muted">
       <Container width="wide">
         <Reveal direction="up" duration={900}>
           <Grid columns={2} min="280px" gap="xl">
@@ -120,6 +116,6 @@ export const StatisticsSection = () => {
           </Grid>
         </Reveal>
       </Container>
-    </HighlightSection>
+    </Section>
   );
 };

@@ -10,6 +10,7 @@ export type SectionKey =
   | 'services'
   | 'steps'
   | 'testimonials'
+  | 'instagram'
   | 'location'
   | 'blog'
   | 'cta';
@@ -81,6 +82,11 @@ export interface BrandContent {
   booking: BookingConfig;
   social?: { label: string; url: string; platform?: SocialPlatform }[];
   doctoralia?: { url: string; reviewCount?: number };
+  instagram?: {
+    profileUrl: string;
+    /** Post URLs to display (e.g. https://www.instagram.com/p/ABC123/) */
+    postUrls: string[];
+  };
   pagesMeta: Record<
     string,
     {

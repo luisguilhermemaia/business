@@ -95,13 +95,15 @@ const BrandMark = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { hre
   img {
     height: 60px;
     width: auto;
+    max-width: 360px;
     display: block;
+    object-fit: contain;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     img {
       height: 52px;
-      max-width: 200px;
+      max-width: 280px;
       object-fit: contain;
     }
   }
@@ -109,7 +111,7 @@ const BrandMark = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { hre
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
     img {
       height: 46px;
-      max-width: 180px;
+      max-width: 240px;
     }
   }
 `;
@@ -401,6 +403,7 @@ export const Header = () => {
     { href: '/services', label: t('nav.services') },
     { href: '/location', label: t('nav.location') },
     { href: '/blog', label: t('nav.blog') },
+    ...(content.instagram?.profileUrl ? [{ href: '/instagram', label: t('nav.instagram') }] : []),
     { href: '/contact', label: t('nav.contact') },
   ];
 
@@ -420,7 +423,7 @@ export const Header = () => {
         <Inner>
           <BrandMark href="/">
             {logo ? (
-              <Image src={logo} alt={content.doctor.name} width={240} height={60} priority />
+              <Image src={logo} alt={content.doctor.name} width={360} height={60} priority />
             ) : (
               <span>{content.doctor.name}</span>
             )}
@@ -454,7 +457,7 @@ export const Header = () => {
         <MobileMenuHeader>
           <BrandMark href="/" onClick={() => setOpen(false)}>
             {logo ? (
-              <Image src={logo} alt={content.doctor.name} width={200} height={52} />
+              <Image src={logo} alt={content.doctor.name} width={280} height={52} />
             ) : (
               <span>{content.doctor.name}</span>
             )}

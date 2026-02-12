@@ -5,6 +5,7 @@
     "services": "Especialidades",
     "location": "Localização",
     "blog": "Artigos",
+    "instagram": "Instagram",
     "contact": "Contato"
   },
   "actions": {
@@ -49,6 +50,13 @@
   "testimonials": {
     "title": "Depoimentos",
     "headline": "Histórias reais de quem se sentiu acolhida"
+  },
+  "instagram": {
+    "title": "Instagram",
+    "subtitle": "Dicas, conteúdos e novidades sobre saúde da mulher.",
+    "followText": "Siga no Instagram para acompanhar conteúdos sobre ginecologia e bem-estar.",
+    "followButton": "Seguir {username}",
+    "viewPost": "Ver publicação no Instagram"
   },
   "location": {
     "title": "Onde estamos",

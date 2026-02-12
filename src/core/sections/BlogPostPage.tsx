@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ComponentProps } from 'react';
 import styled from 'styled-components';
 import { BlogMeta, BlogPost } from '../utils/blog';
+import { BLUR_DATA_URL } from '../utils/image';
 import { useI18n } from '../i18n/I18nProvider';
 import { Container, Section } from '../design-system/primitives';
 import { Icon } from '../icons/Icon';
@@ -310,6 +311,8 @@ export const BlogPostPage = ({ post, previous, next, children }: Props) => {
               fill
               sizes="(max-width: 768px) 100vw, 1200px"
               style={{ objectFit: 'cover' }}
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
             />
           </CoverImage>
         )}

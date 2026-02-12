@@ -187,6 +187,7 @@ export const Footer = () => {
     { href: '/about', label: t('nav.about') },
     { href: '/services', label: t('nav.services') },
     { href: '/blog', label: t('nav.blog') },
+    ...(content.instagram?.profileUrl ? [{ href: '/instagram', label: t('nav.instagram') }] : []),
   ];
 
   return (

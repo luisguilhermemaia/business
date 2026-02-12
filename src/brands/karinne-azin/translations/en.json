@@ -5,6 +5,7 @@
     "services": "Services",
     "location": "Location",
     "blog": "Articles",
+    "instagram": "Instagram",
     "contact": "Contact"
   },
   "actions": {
@@ -49,6 +50,13 @@
   "testimonials": {
     "title": "Testimonials",
     "headline": "Real stories from women who felt cared for"
+  },
+  "instagram": {
+    "title": "Instagram",
+    "subtitle": "Tips, content, and updates on women's health.",
+    "followText": "Follow on Instagram for gynecology and wellness content.",
+    "followButton": "Follow {username}",
+    "viewPost": "View post on Instagram"
   },
   "location": {
     "title": "Where to find us",

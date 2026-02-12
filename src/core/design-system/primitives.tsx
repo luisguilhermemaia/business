@@ -25,7 +25,7 @@ export const Container = styled.div<{ width?: 'narrow' | 'regular' | 'wide' }>`
 `;
 
 export const Section = styled.section<{
-  background?: 'default' | 'muted' | 'card';
+  background?: 'default' | 'muted' | 'alt' | 'card';
   padding?: 'sm' | 'md' | 'lg' | 'xl';
 }>`
   padding: ${({ theme, padding = 'lg' }) => {
@@ -39,6 +39,7 @@ export const Section = styled.section<{
   }};
   background: ${({ background, theme }) => {
     if (background === 'muted') return theme.colors.surfaceMuted;
+    if (background === 'alt') return theme.colors.backgroundAlt;
     if (background === 'card') return theme.colors.gradientCard;
     return 'transparent';
   }};

@@ -244,7 +244,7 @@ export const ServicesGridSection = () => {
   const { t } = useI18n();
 
   return (
-    <Section background="muted">
+    <Section>
       <Container width="wide">
         <Reveal direction="up" duration={800}>
           <SectionHeader>

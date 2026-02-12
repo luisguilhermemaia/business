@@ -143,6 +143,14 @@ export const karinneContent: BrandContent = {
     url: 'https://www.doctoralia.com.br/karinne-azin/ginecologista/fortaleza',
     reviewCount: 35,
   },
+  instagram: {
+    profileUrl: 'https://www.instagram.com/dra.karinneazin/',
+    postUrls: [
+      'https://www.instagram.com/p/DMDg4JKR0k0/',
+      'https://www.instagram.com/p/DLEYuHsMrPR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+      'https://www.instagram.com/p/DPzH0GhETaA/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+    ],
+  },
   pagesMeta: {
     default: {
       title: 'Ginecologia - Dra. Karinne Azin',
@@ -188,9 +196,14 @@ export const karinneContent: BrandContent = {
       title: 'Artigo sobre Saúde da Mulher',
       description: 'Leitura aprofundada sobre ginecologia, saúde da mulher e bem-estar.',
     },
+    instagram: {
+      title: 'Instagram',
+      description:
+        'Acompanhe no Instagram: dicas, conteúdos e novidades sobre saúde da mulher e ginecologia.',
+    },
   },
   home: {
-    sections: ['hero', 'services', 'steps', 'testimonials', 'location', 'blog', 'cta'],
+    sections: ['hero', 'instagram', 'services', 'steps', 'testimonials', 'location', 'blog', 'cta'],
   },
   blog: {
     intro: {

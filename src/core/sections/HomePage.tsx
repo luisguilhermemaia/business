@@ -7,6 +7,7 @@ import { ServicesGridSection } from './ServicesGridSection';
 import { StepsSection } from './StepsSection';
 import { StatisticsSection } from './StatisticsSection';
 import { TestimonialsSection } from './TestimonialsSection';
+import { InstagramSection } from './InstagramSection';
 import { LocationSection } from './LocationSection';
 import { BlogPreviewSection } from './BlogPreviewSection';
 import { CTASection } from './CTASection';
@@ -32,6 +33,8 @@ export const HomePage = ({ sections, posts }: Props) => {
         return <StepsSection key={key} />;
       case 'testimonials':
         return <TestimonialsSection key={key} />;
+      case 'instagram':
+        return <InstagramSection key={key} />;
       case 'location':
         return <LocationSection key={key} />;
       case 'blog':

@@ -3,13 +3,10 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 import { useBrand } from '../brand/BrandProvider';
+import { BLUR_DATA_URL } from '../utils/image';
 import { Container, Grid, Section, Stack } from '../design-system/primitives';
 import { Reveal } from '../design-system/components/Reveal';
 import { Icon } from '../icons/Icon';
-
-const AboutShell = styled(Section)`
-  background: ${({ theme }) => theme.colors.backgroundAlt};
-`;
 
 const TextBlock = styled.div`
   display: flex;
@@ -105,7 +102,7 @@ export const StepsSection = () => {
     'https://images.unsplash.com/photo-1544717305-2782549b5136?w=1200&h=900&fit=crop&q=80';
 
   return (
-    <AboutShell>
+    <Section background="alt">
       <Container width="wide">
         <Grid columns={2} min="300px" gap="xl" style={{ alignItems: 'start' }}>
           <Reveal direction="right" duration={850}>
@@ -132,11 +129,13 @@ export const StepsSection = () => {
                 alt={content.doctor.name}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
+                placeholder="blur"
+                blurDataURL={BLUR_DATA_URL}
               />
             </Media>
           </Reveal>
         </Grid>
       </Container>
-    </AboutShell>
+    </Section>
   );
 };
