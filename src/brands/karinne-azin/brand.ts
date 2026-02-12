@@ -7,7 +7,7 @@ import en from './translations/en.json';
 export const brandConfig: BrandConfig = {
   id: 'karinne-azin',
   name: 'Dra. Karinne Azin',
-  logo: '/brands/karinne-azin/logo-temp.svg', // temp center-style placeholder; replace with final SVGs when provided
+  logo: '/brands/karinne-azin/LOGO/logo-fundo-claro.png',
   theme: karinneTheme,
   content: karinneContent,
   translations: {

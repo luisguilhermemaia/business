@@ -59,7 +59,7 @@ const HeroImageSection = styled.div`
     );
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    width: 50%;
+    width: 55%;
     height: auto;
     min-height: 600px;
     max-height: 85vh;
@@ -80,6 +80,10 @@ const HeroImageSection = styled.div`
         ${({ theme }) => hexToRgba(theme.colors.backgroundAlt || '#F5F0E0', 0.8)} 50%,
         ${({ theme }) => theme.colors.backgroundAlt || '#F5F0E0'} 100%
       );
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
+    width: 50%;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
@@ -149,7 +153,7 @@ const ContentOverlay = styled.div`
   align-items: center;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    width: 50%;
+    width: 45%;
     margin-top: 0;
     padding: ${({ theme }) => theme.spacing.xxl * 1.5}px ${({ theme }) => theme.spacing.xxl * 2}px
       ${({ theme }) => theme.spacing.xxl * 1.5}px;
@@ -166,6 +170,10 @@ const ContentOverlay = styled.div`
     max-height: 85vh;
   }
 
+  @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
+    width: 50%;
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     padding: ${({ theme }) => theme.spacing.xl * 1.5}px ${({ theme }) => theme.spacing.lg}px
       ${({ theme }) => theme.spacing.xl}px;
@@ -180,7 +188,7 @@ const ContentWrapper = styled.div`
   max-width: 100%;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    max-width: 580px;
+    max-width: 100%;
     margin: 0;
     padding: 0;
     display: flex;
@@ -188,6 +196,10 @@ const ContentWrapper = styled.div`
     justify-content: flex-start;
     min-height: auto;
     padding-top: ${({ theme }) => theme.spacing.xl}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
+    max-width: 580px;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {

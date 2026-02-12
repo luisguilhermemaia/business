@@ -33,7 +33,7 @@ const TopBar = styled.div`
   border-bottom: 1px solid
     ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.12)};
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: none;
   }
 `;
@@ -65,7 +65,7 @@ const Inner = styled.div`
   height: 72px;
   min-height: 72px;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     height: 64px;
     min-height: 64px;
     gap: ${({ theme }) => theme.spacing.md}px;
@@ -100,8 +100,9 @@ const Nav = styled.nav`
   gap: ${({ theme }) => theme.spacing.xs}px;
   flex: 1;
   justify-content: center;
+  min-width: 0;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: none;
   }
 `;
@@ -140,7 +141,7 @@ const NavLink = styled(Link)<
     outline-offset: 2px;
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
     font-size: ${({ theme }) => theme.typography.sizes.lg};
     border-radius: ${({ theme }) => theme.radii.lg};
@@ -188,7 +189,7 @@ const MobileToggle = styled.button`
     outline-offset: 2px;
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: inline-flex;
   }
 `;
@@ -197,14 +198,14 @@ const DesktopOnly = styled.div`
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.md}px;
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: none;
   }
 `;
 
 const MobileOnly = styled.div`
   display: none;
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: block;
     position: relative;
     z-index: ${({ theme }) => theme.zIndex.overlay + 1};
@@ -223,7 +224,7 @@ const MobileMenuOverlay = styled.div<{ $open: boolean }>`
   transition: opacity ${({ theme }) => theme.motion?.duration.normal || '250ms'}
     ${({ theme }) => theme.motion?.easing.ease || 'ease'};
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: block;
   }
 `;
@@ -231,7 +232,7 @@ const MobileMenuOverlay = styled.div<{ $open: boolean }>`
 const MobileMenuPanel = styled.aside<{ $open: boolean }>`
   display: none;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: flex;
     position: fixed;
     inset: 0;
@@ -311,7 +312,7 @@ const MainCTA = styled(LinkButton)`
     transform: translateY(0);
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: none;
   }
 `;
