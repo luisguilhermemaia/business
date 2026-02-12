@@ -59,6 +59,7 @@ export interface BrandContent {
     ctaLabel: string;
     secondaryCtaLabel: string;
     backgroundImage?: string;
+    images?: string[];
   };
   services: Service[];
   steps: {

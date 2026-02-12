@@ -16,7 +16,12 @@ export const karinneContent: BrandContent = {
       'O cuidado ginecológico pode ser o seu espaço seguro para entender o que está acontecendo e receber um plano claro de tratamento. Atendo presencialmente e online para todo o Brasil — com acolhimento, escuta ativa e condutas baseadas em evidências científicas.',
     ctaLabel: 'Agendar consulta',
     secondaryCtaLabel: 'Conhecer especialidades',
-    backgroundImage: undefined, // Optional: URL for blurred background image
+    backgroundImage: undefined,
+    images: [
+      'https://lh3.googleusercontent.com/p/AF1QipOPE9kpgW32teVgXxzxFvygPIP24-S72zgbHKLL=s1200',
+      'https://lh3.googleusercontent.com/p/AF1QipPNP-E0ddT2qKMYwmR5ue5ucalwIuoxd5bcWFiD=s1200',
+      'https://lh3.googleusercontent.com/p/AF1QipOR69F8XTmC6FQdII2WeG1AxF5a37VsUmdu-d5J=s1200',
+    ],
   },
   services: [
     {

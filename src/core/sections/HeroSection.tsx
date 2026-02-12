@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 import { useBrand } from '../brand/BrandProvider';
@@ -8,6 +9,8 @@ import { LinkButton } from '../design-system/components/Button';
 import { Section } from '../design-system/primitives';
 import { Reveal } from '../design-system/components/Reveal';
 import { hexToRgba } from '../utils/colors';
+
+const CAROUSEL_INTERVAL_MS = 5500;
 
 const Wrapper = styled(Section)`
   padding: 0;
@@ -142,6 +145,119 @@ const ImageInner = styled.div`
       );
     }
   }
+`;
+
+const KenBurnsKeyframes = `
+  @keyframes heroKenBurns {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.06);
+    }
+  }
+`;
+
+const ImageSlide = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+
+  &[data-active='true'] {
+    opacity: 1;
+    z-index: 1;
+
+    img {
+      animation: heroKenBurns ${CAROUSEL_INTERVAL_MS}ms ease-out forwards;
+    }
+  }
+
+  &[data-active='false'] {
+    opacity: 0;
+
+    img {
+      animation: none;
+    }
+  }
+
+  img {
+    object-fit: cover;
+    object-position: center 28%;
+    width: 100%;
+    height: 100%;
+    transform-origin: center center;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+    img {
+      object-position: center 30%;
+    }
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    img {
+      object-position: center 28%;
+    }
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    img {
+      object-position: center center;
+    }
+  }
+`;
+
+const ImageStack = styled(ImageInner)`
+  ${KenBurnsKeyframes}
+
+  /* Carousel: stacks ImageSlide children with gradient from ImageInner */
+`;
+
+const DotsWrapper = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: ${({ theme }) => theme.spacing.md}px;
+  z-index: 2;
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  pointer-events: none;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    left: auto;
+    right: ${({ theme }) => theme.spacing.lg}px;
+    transform: none;
+    bottom: ${({ theme }) => theme.spacing.lg}px;
+  }
+`;
+
+const Dot = styled.button<{ $active: boolean }>`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  pointer-events: auto;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    background-color 0.3s ease;
+  background: ${({ theme, $active }) =>
+    $active ? (theme.colors.brownDark || theme.colors.text) : hexToRgba(theme.colors.brownDark || theme.colors.text, 0.35)};
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  ${({ $active }) =>
+    $active &&
+    `
+    transform: scale(1.2);
+  `}
 `;
 
 /* ---- Content column ---- */
@@ -365,22 +481,65 @@ const DEFAULT_HEADSHOT =
 export const HeroSection = () => {
   const { content } = useBrand();
   const { t } = useI18n();
+  const images = content.hero.images?.filter(Boolean) ?? [];
   const headshot = content.doctor.headshot || DEFAULT_HEADSHOT;
+  const useCarousel = images.length > 0;
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (!useCarousel || images.length <= 1) return;
+    const id = setInterval(() => {
+      setCurrentIndex((i) => (i + 1) % images.length);
+    }, CAROUSEL_INTERVAL_MS);
+    return () => clearInterval(id);
+  }, [useCarousel, images.length]);
+
+  const imageContent = useCarousel ? (
+    <>
+      <ImageStack>
+        {images.map((src, i) => (
+          <ImageSlide key={src} data-active={i === currentIndex}>
+            <Image
+              src={src}
+              alt={content.doctor.name}
+              fill
+              priority={i === 0}
+              quality={90}
+              sizes="(max-width: 1023px) 100vw, 60vw"
+            />
+          </ImageSlide>
+        ))}
+      </ImageStack>
+      <DotsWrapper>
+        {images.map((_, i) => (
+          <Dot
+            key={i}
+            $active={i === currentIndex}
+            onClick={() => setCurrentIndex(i)}
+            aria-label={`Ver imagem ${i + 1} de ${images.length}`}
+          />
+        ))}
+      </DotsWrapper>
+    </>
+  ) : (
+    <ImageInner>
+      <Image
+        src={headshot}
+        alt={content.doctor.name}
+        fill
+        priority
+        sizes="(max-width: 1023px) 100vw, 50vw"
+      />
+    </ImageInner>
+  );
 
   return (
     <Wrapper>
       <Grid>
         <ImageCol>
           <Reveal immediate fill direction="fade" duration={1000} delay={0}>
-            <ImageInner>
-              <Image
-                src={headshot}
-                alt={content.doctor.name}
-                fill
-                priority
-                sizes="(max-width: 1023px) 100vw, 50vw"
-              />
-            </ImageInner>
+            {imageContent}
           </Reveal>
         </ImageCol>
         <ContentCol>

@@ -19,6 +19,11 @@ const nextConfig = {
         hostname: 's3-sa-east-1.amazonaws.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        pathname: '/**',
+      },
     ],
   },
   webpack: (config) => {
