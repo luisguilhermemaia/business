@@ -15,6 +15,14 @@ const SectionHeader = styled.div`
   max-width: 720px;
   margin-left: auto;
   margin-right: auto;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    margin-bottom: ${({ theme }) => theme.spacing.xl}px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  }
 `;
 
 const SectionBadge = styled.div`
@@ -42,12 +50,21 @@ const Title = styled.h2`
   font-family: ${({ theme }) => theme.typography.fonts.heading};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   letter-spacing: -0.02em;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    margin-bottom: ${({ theme }) => theme.spacing.sm}px;
+  }
 `;
 
 const Description = styled.p`
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.sizes.lg};
   line-height: 1.75;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: ${({ theme }) => theme.typography.sizes.md};
+  }
 `;
 
 const ServiceIcon = styled.div`
@@ -69,7 +86,11 @@ const ServiceCard = styled.div`
   background: ${({ theme }) => theme.colors.surface};
   border-radius: ${({ theme }) => theme.radii.xl || theme.radii.lg};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  padding: ${({ theme }) => theme.spacing.lg}px ${({ theme }) => theme.spacing.lg}px;
+  padding: ${({ theme }) => theme.spacing.lg}px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: ${({ theme }) => theme.spacing.lg}px;
+  }
   box-shadow: ${({ theme }) => theme.shadows.sm || theme.shadows.soft};
   transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'}
     ${({ theme }) => theme.motion?.easing.easeOut || 'cubic-bezier(0.4, 0, 0.2, 1)'};
@@ -140,6 +161,11 @@ const CTASection = styled.div`
   margin-top: ${({ theme }) => theme.spacing.xl * 2}px;
   padding-top: ${({ theme }) => theme.spacing.xl * 2}px;
   border-top: 1px solid ${({ theme }) => theme.colors.border};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    margin-top: ${({ theme }) => theme.spacing.xl}px;
+    padding-top: ${({ theme }) => theme.spacing.xl}px;
+  }
 `;
 
 const CTAText = styled.p`
@@ -147,6 +173,26 @@ const CTAText = styled.p`
   font-size: ${({ theme }) => theme.typography.sizes.lg};
   font-weight: ${({ theme }) => theme.typography.weights.medium};
   margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: ${({ theme }) => theme.typography.sizes.md};
+    margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  }
+`;
+
+const CTAButtonStack = styled(Stack)`
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    flex-direction: column !important;
+    width: 100%;
+    gap: ${({ theme }) => theme.spacing.sm}px !important;
+
+    a {
+      width: 100%;
+      min-height: 44px;
+      justify-content: center;
+      font-size: ${({ theme }) => theme.typography.sizes.sm};
+    }
+  }
 `;
 
 const PrimaryCTAButton = styled(LinkButton)`
@@ -200,18 +246,20 @@ export const ServicesGridSection = () => {
   return (
     <Section background="muted">
       <Container width="wide">
-        <SectionHeader>
-          <SectionBadge>{t('services.title')}</SectionBadge>
-          <Title>{t('services.headline')}</Title>
-          <Description>{t('services.subtitle')}</Description>
-        </SectionHeader>
+        <Reveal direction="up" duration={800}>
+          <SectionHeader>
+            <SectionBadge>{t('services.title')}</SectionBadge>
+            <Title>{t('services.headline')}</Title>
+            <Description>{t('services.subtitle')}</Description>
+          </SectionHeader>
+        </Reveal>
         <Grid min="220px" gap="lg">
           {content.services.map((service, idx) => (
             <Reveal
               key={service.title}
-              delay={0.05 + idx * 0.04}
+              delay={0.08 + idx * 0.06}
               direction="up"
-              duration={700}
+              duration={750}
             >
               <ServiceCard>
                 <ServiceIcon>
@@ -224,15 +272,17 @@ export const ServicesGridSection = () => {
           ))}
         </Grid>
         <CTASection>
-          <CTAText>{t('services.ctaBlurb')}</CTAText>
-          <Stack direction="row" gap="md" style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
-            <PrimaryCTAButton href="/booking" size="md">
-              Agendar Consulta Agora
-            </PrimaryCTAButton>
-            <SecondaryCTAButton href="/contact" size="md">
-              Falar com a Clínica
-            </SecondaryCTAButton>
-          </Stack>
+          <Reveal direction="fade" duration={700} delay={0.15}>
+            <CTAText>{t('services.ctaBlurb')}</CTAText>
+            <CTAButtonStack direction="row" gap="md" style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
+              <PrimaryCTAButton href="/booking" size="md">
+                Agendar Consulta Agora
+              </PrimaryCTAButton>
+              <SecondaryCTAButton href="/contact" size="md">
+                Falar com a Clínica
+              </SecondaryCTAButton>
+            </CTAButtonStack>
+          </Reveal>
           <CTAText
             style={{
               fontSize: '0.875rem',

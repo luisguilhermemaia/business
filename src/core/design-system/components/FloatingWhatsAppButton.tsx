@@ -15,8 +15,10 @@ const FloatingButton = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & 
   z-index: ${({ theme }) => theme.zIndex.floating};
   background: linear-gradient(135deg, #25d366, #128c7e);
   color: #fff;
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
+  min-width: 48px;
+  min-height: 48px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -37,6 +39,15 @@ const FloatingButton = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & 
 
   &:active {
     transform: translateY(0) scale(1);
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    bottom: max(20px, env(safe-area-inset-bottom));
+    right: max(20px, env(safe-area-inset-right));
+    width: 52px;
+    height: 52px;
+    min-width: 48px;
+    min-height: 48px;
   }
 `;
 

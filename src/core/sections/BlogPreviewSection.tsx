@@ -16,12 +16,43 @@ const Title = styled.h2`
   font-size: ${({ theme }) => theme.typography.sizes.xxl};
   line-height: ${({ theme }) => theme.typography.lineHeights?.tight || 1.2};
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
 `;
 
 const Excerpt = styled.p`
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.sizes.sm};
   line-height: ${({ theme }) => theme.typography.lineHeights?.relaxed || 1.75};
+`;
+
+const ReadMoreButton = styled(LinkButton)`
+  margin-top: 8px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    min-height: 44px;
+    font-size: ${({ theme }) => theme.typography.sizes.sm};
+    width: 100%;
+    justify-content: center;
+  }
+`;
+
+const ViewAllWrap = styled.div`
+  margin-top: 48px;
+  text-align: center;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    margin-top: ${({ theme }) => theme.spacing.xl}px;
+
+    a {
+      min-height: 44px;
+      width: 100%;
+      max-width: 280px;
+      justify-content: center;
+    }
+  }
 `;
 
 const Tag = styled.span`
@@ -106,23 +137,19 @@ export const BlogPreviewSection = ({ posts }: Props) => {
                       {post.readingTime} {t('blog.minRead')}
                     </span>
                   </ReadingMeta>
-                  <LinkButton
-                    href={`/blog/${post.slug}`}
-                    variant="secondary"
-                    style={{ marginTop: '8px' }}
-                  >
+                  <ReadMoreButton href={`/blog/${post.slug}`} variant="secondary">
                     {t('blog.readMore')}
-                  </LinkButton>
+                  </ReadMoreButton>
                 </Stack>
               </Card>
             </Reveal>
           ))}
         </Grid>
-        <div style={{ marginTop: '48px', textAlign: 'center' }}>
+        <ViewAllWrap>
           <LinkButton href="/blog" variant="secondary" size="md">
             {t('blog.viewAll')}
           </LinkButton>
-        </div>
+        </ViewAllWrap>
       </Container>
     </Section>
   );

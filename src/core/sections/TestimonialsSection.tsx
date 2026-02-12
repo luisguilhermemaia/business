@@ -14,6 +14,10 @@ const SectionHeader = styled.div`
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  }
 `;
 
 const SectionBadge = styled.div`
@@ -43,6 +47,10 @@ const Title = styled.h2`
   font-family: ${({ theme }) => theme.typography.fonts.heading};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   letter-spacing: -0.02em;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
 `;
 
 const TestimonialCard = styled.div`
@@ -81,6 +89,11 @@ const TestimonialCard = styled.div`
       transform: scaleY(1);
     }
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: ${({ theme }) => theme.spacing.lg}px;
+    gap: ${({ theme }) => theme.spacing.md}px;
+  }
 `;
 
 const Quote = styled.p`
@@ -90,6 +103,15 @@ const Quote = styled.p`
   margin: 0;
   position: relative;
   padding-left: ${({ theme }) => theme.spacing.lg}px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: ${({ theme }) => theme.typography.sizes.sm};
+    padding-left: ${({ theme }) => theme.spacing.md}px;
+
+    &::before {
+      font-size: 2rem;
+    }
+  }
 
   &::before {
     content: '“';

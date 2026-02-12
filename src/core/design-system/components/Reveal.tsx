@@ -1,11 +1,18 @@
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
+const EASING_OUT = 'cubic-bezier(0.22, 1, 0.36, 1)';
+const EASING_SPRING = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
+
 interface Props {
   children: ReactNode;
   delay?: number;
   direction?: 'up' | 'down' | 'left' | 'right' | 'fade' | 'scale';
   duration?: number;
+  /** When true, animates immediately on mount (for above-the-fold content like hero) */
+  immediate?: boolean;
+  /** When true, fills parent (position absolute, inset 0) - for image containers */
+  fill?: boolean;
 }
 
 const RevealWrapper = styled.div<{
@@ -13,12 +20,20 @@ const RevealWrapper = styled.div<{
   $duration: number;
   $isVisible: boolean;
   $delay: number;
+  $easing: string;
+  $fill?: boolean;
 }>`
+  ${({ $fill }) =>
+    $fill &&
+    `
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  `}
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
-  transition: opacity ${({ $duration }) => $duration}ms
-      ${({ theme }) => theme.motion?.easing.easeOut || 'cubic-bezier(0.4, 0, 0.2, 1)'},
-    transform ${({ $duration }) => $duration}ms
-      ${({ theme }) => theme.motion?.easing.easeOut || 'cubic-bezier(0.4, 0, 0.2, 1)'};
+  transition: opacity ${({ $duration }) => $duration}ms ${({ $easing }) => $easing},
+    transform ${({ $duration }) => $duration}ms ${({ $easing }) => $easing};
   transition-delay: ${({ $delay }) => $delay}ms;
   will-change: opacity, transform;
 
@@ -28,15 +43,15 @@ const RevealWrapper = styled.div<{
     }
     switch ($direction) {
       case 'up':
-        return 'transform: translateY(50px) scale(0.96);';
+        return 'transform: translateY(36px) scale(0.98);';
       case 'down':
-        return 'transform: translateY(-50px) scale(0.96);';
+        return 'transform: translateY(-36px) scale(0.98);';
       case 'left':
-        return 'transform: translateX(-50px) scale(0.96);';
+        return 'transform: translateX(-36px) scale(0.98);';
       case 'right':
-        return 'transform: translateX(50px) scale(0.96);';
+        return 'transform: translateX(36px) scale(0.98);';
       case 'scale':
-        return 'transform: scale(0.85);';
+        return 'transform: scale(0.92);';
       case 'fade':
       default:
         return 'transform: scale(1);';
@@ -55,11 +70,18 @@ export const Reveal = ({
   delay = 0,
   direction = 'up',
   duration = 800,
+  immediate = false,
+  fill = false,
 }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    if (immediate) {
+      const t = setTimeout(() => setIsVisible(true), 120);
+      return () => clearTimeout(t);
+    }
+
     const node = ref.current;
     if (!node) return;
 
@@ -72,15 +94,14 @@ export const Reveal = ({
           }
         });
       },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -80px 0px',
-      }
+      { threshold: 0.08, rootMargin: '0px 0px -50px 0px' }
     );
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [immediate]);
+
+  const easing = direction === 'scale' ? EASING_SPRING : EASING_OUT;
 
   return (
     <RevealWrapper
@@ -88,7 +109,9 @@ export const Reveal = ({
       $direction={direction}
       $duration={duration}
       $isVisible={isVisible}
-      $delay={delay * 1000}
+      $delay={Math.round(delay * 1000)}
+      $easing={easing}
+      $fill={fill}
     >
       {children}
     </RevealWrapper>

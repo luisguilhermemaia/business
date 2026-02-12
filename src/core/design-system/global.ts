@@ -9,8 +9,16 @@ export const GlobalStyle = createGlobalStyle`
     scroll-behavior: smooth;
     background: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.text};
-    font-size: 16px;
+    font-size: clamp(15px, 2.2vw + 14px, 16px);
     -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 80px;
+  }
+
+  @media (min-width: 1024px) {
+    html {
+      font-size: 16px;
+      scroll-padding-top: 96px;
+    }
   }
 
   body {
@@ -185,6 +193,26 @@ export const GlobalStyle = createGlobalStyle`
     100% { background-position: 1000px 0; }
   }
 
+  @keyframes pageEntrance {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeUpIn {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .animate-fade-up {
     opacity: 0;
     animation: fadeUp 0.6s ${({ theme }) => theme.motion?.easing.easeOut || 'ease-out'} forwards;
@@ -202,8 +230,11 @@ export const GlobalStyle = createGlobalStyle`
     transform: translateY(0);
   }
 
-  /* Smooth scrolling for anchor links */
-  html {
-    scroll-padding-top: 100px;
+  /* Safe area for notched devices */
+  @supports (padding: env(safe-area-inset-top)) {
+    body {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
   }
 `;

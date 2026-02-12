@@ -61,36 +61,56 @@ const Inner = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: ${({ theme }) => theme.spacing.lg}px;
-  height: 72px;
-  min-height: 72px;
+  gap: ${({ theme }) => theme.spacing.md}px;
+  min-height: 80px;
+  padding: ${({ theme }) => theme.spacing.md}px 0;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
-    height: 64px;
-    min-height: 64px;
-    gap: ${({ theme }) => theme.spacing.md}px;
+    min-height: 72px;
+    padding: ${({ theme }) => theme.spacing.sm}px 0;
+    gap: ${({ theme }) => theme.spacing.sm}px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
   }
 `;
 
 const BrandMark = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href: string }>`
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  flex-shrink: 0;
   font-size: ${({ theme }) => theme.typography.sizes.xl};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   color: ${({ theme }) => theme.colors.text};
   text-decoration: none;
   transition: opacity ${({ theme }) => theme.motion?.duration.fast || '150ms'}
     ${({ theme }) => theme.motion?.easing.ease || 'ease'};
-  flex-shrink: 0;
 
   &:hover {
-    opacity: 0.75;
+    opacity: 0.85;
   }
 
   img {
-    height: 42px;
+    height: 60px;
     width: auto;
+    display: block;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
+    img {
+      height: 52px;
+      max-width: 200px;
+      object-fit: contain;
+    }
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    img {
+      height: 46px;
+      max-width: 180px;
+    }
   }
 `;
 
@@ -170,8 +190,10 @@ const MobileToggle = styled.button`
   cursor: pointer;
   transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
     ${({ theme }) => theme.motion?.easing.ease || 'ease'};
-  width: 42px;
-  height: 42px;
+  min-width: 44px;
+  min-height: 44px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
 
@@ -235,21 +257,30 @@ const MobileMenuPanel = styled.aside<{ $open: boolean }>`
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: flex;
     position: fixed;
-    inset: 0;
-    width: 100vw;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: min(100vw, 360px);
+    margin-left: auto;
     height: 100vh;
+    height: 100dvh;
+    padding: max(env(safe-area-inset-top), ${({ theme }) => theme.spacing.lg}px)
+      max(env(safe-area-inset-right), ${({ theme }) => theme.spacing.lg}px)
+      max(env(safe-area-inset-bottom), ${({ theme }) => theme.spacing.xl}px)
+      max(env(safe-area-inset-left), ${({ theme }) => theme.spacing.xl}px);
     background: ${({ theme }) => theme.colors.surface};
     z-index: ${({ theme }) => theme.zIndex.overlay + 1};
-    padding: ${({ theme }) => theme.spacing.xl}px;
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
+    box-shadow: -8px 0 32px rgba(42, 66, 66, 0.15);
     transform: translateX(${({ $open }) => ($open ? '0' : '100%')});
-    transition: transform ${({ theme }) => theme.motion?.duration.normal || '250ms'}
-      ${({ theme }) => theme.motion?.easing.easeOut || 'ease-out'};
+    transition: transform ${({ theme }) => theme.motion?.duration.slow || '350ms'}
+      ${({ theme }) => theme.motion?.easing.easeOut || 'cubic-bezier(0, 0, 0.2, 1)'};
     flex-direction: column;
-    gap: ${({ theme }) => theme.spacing.lg}px;
+    gap: ${({ theme }) => theme.spacing.md}px;
     overflow-y: auto;
     overflow-x: hidden;
     pointer-events: ${({ $open }) => ($open ? 'auto' : 'none')};
+    -webkit-overflow-scrolling: touch;
   }
 `;
 
@@ -284,12 +315,18 @@ const MobileNavLink = styled(NavLink)`
   justify-content: space-between;
   width: 100%;
   font-size: ${({ theme }) => theme.typography.sizes.md};
+  min-height: 48px;
   padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
   border-radius: ${({ theme }) => theme.radii.lg};
   background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.04)};
 
   &:hover {
     background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.1)};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    min-height: 52px;
+    padding: ${({ theme }) => theme.spacing.lg}px ${({ theme }) => theme.spacing.xl}px;
   }
 `;
 
@@ -383,7 +420,7 @@ export const Header = () => {
         <Inner>
           <BrandMark href="/">
             {logo ? (
-              <Image src={logo} alt={content.doctor.name} width={140} height={42} priority />
+              <Image src={logo} alt={content.doctor.name} width={240} height={60} priority />
             ) : (
               <span>{content.doctor.name}</span>
             )}
@@ -417,7 +454,7 @@ export const Header = () => {
         <MobileMenuHeader>
           <BrandMark href="/" onClick={() => setOpen(false)}>
             {logo ? (
-              <Image src={logo} alt={content.doctor.name} width={120} height={36} />
+              <Image src={logo} alt={content.doctor.name} width={200} height={52} />
             ) : (
               <span>{content.doctor.name}</span>
             )}

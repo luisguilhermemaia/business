@@ -15,6 +15,10 @@ const SectionHeader = styled.div`
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  }
 `;
 
 const Title = styled.h2`
@@ -25,6 +29,10 @@ const Title = styled.h2`
   font-family: ${({ theme }) => theme.typography.fonts.heading};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   letter-spacing: -0.02em;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
 `;
 
 const FAQList = styled.div`
@@ -33,6 +41,10 @@ const FAQList = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.md}px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    gap: ${({ theme }) => theme.spacing.sm}px;
+  }
 `;
 
 const FAQItem = styled.div<{ $open: boolean }>`
@@ -69,6 +81,12 @@ const FAQQuestion = styled.button`
   font-family: ${({ theme }) => theme.typography.fonts.heading};
   transition: color ${({ theme }) => theme.motion?.duration.fast || '150ms'}
     ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+  min-height: 48px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: ${({ theme }) => theme.spacing.md}px;
+    font-size: ${({ theme }) => theme.typography.sizes.md};
+  }
 
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
@@ -92,6 +110,11 @@ const FAQAnswerInner = styled.div`
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.sizes.md};
   line-height: 1.75;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: 0 ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.md}px;
+    font-size: ${({ theme }) => theme.typography.sizes.sm};
+  }
 `;
 
 const IconWrapper = styled.div<{ $open: boolean }>`

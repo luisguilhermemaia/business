@@ -13,6 +13,14 @@ const SectionHeader = styled.div`
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    margin-bottom: ${({ theme }) => theme.spacing.xl}px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  }
 `;
 
 const Title = styled.h2`
@@ -23,6 +31,10 @@ const Title = styled.h2`
   font-family: ${({ theme }) => theme.typography.fonts.heading};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   letter-spacing: -0.02em;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
 `;
 
 const FeatureIcon = styled.div`
@@ -49,6 +61,10 @@ const FeatureCard = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.md}px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: ${({ theme }) => theme.spacing.lg}px;
+  }
   transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'}
     ${({ theme }) => theme.motion?.easing.easeOut || 'cubic-bezier(0.4, 0, 0.2, 1)'};
   position: relative;
@@ -96,6 +112,10 @@ const FeatureDescription = styled.p`
   line-height: 1.7;
   margin: 0;
   opacity: 0.85;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: ${({ theme }) => theme.typography.sizes.sm};
+  }
 `;
 
 const features = [
@@ -129,13 +149,15 @@ export const WhyChooseSection = () => {
   return (
     <Section>
       <Container width="wide">
-        <SectionHeader>
-          <Badge tone="teal">Por que Escolher</Badge>
-          <Title>O que torna nosso cuidado especial</Title>
-        </SectionHeader>
+        <Reveal direction="up" duration={800}>
+          <SectionHeader>
+            <Badge tone="teal">Por que Escolher</Badge>
+            <Title>O que torna nosso cuidado especial</Title>
+          </SectionHeader>
+        </Reveal>
         <Grid min="260px" gap="lg">
           {features.map((feature, idx) => (
-            <Reveal key={feature.title} delay={idx * 0.1} direction="up" duration={700}>
+            <Reveal key={feature.title} delay={0.1 + idx * 0.08} direction="up" duration={750}>
               <FeatureCard>
                 <FeatureIcon>
                   <Icon name={feature.icon} size={24} />

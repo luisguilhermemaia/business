@@ -2,6 +2,8 @@ import { AppTheme } from './theme';
 
 export type Locale = 'pt-BR' | 'en' | string;
 
+export type SocialPlatform = 'instagram' | 'facebook' | 'linkedin' | 'threads' | 'x' | 'youtube';
+
 export type SectionKey =
   | 'hero'
   | 'trust'
@@ -76,7 +78,7 @@ export interface BrandContent {
     whatsappMessage?: string;
   };
   booking: BookingConfig;
-  social?: { label: string; url: string }[];
+  social?: { label: string; url: string; platform?: SocialPlatform }[];
   pagesMeta: Record<
     string,
     {

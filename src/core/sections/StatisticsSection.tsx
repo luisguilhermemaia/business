@@ -19,6 +19,10 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.md}px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: ${({ theme }) => theme.spacing.lg}px;
+  }
 `;
 
 const Title = styled.h2`
@@ -28,6 +32,10 @@ const Title = styled.h2`
   font-family: ${({ theme }) => theme.typography.fonts.heading};
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   margin: 0;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: clamp(1.4rem, 4.5vw, 1.9rem);
+  }
 `;
 
 const Text = styled.p`
@@ -45,6 +53,10 @@ const BenefitList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.sm}px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    margin: ${({ theme }) => theme.spacing.md}px 0 0 0;
+  }
 `;
 
 const BenefitItem = styled.li`
@@ -54,6 +66,10 @@ const BenefitItem = styled.li`
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.md};
   line-height: 1.6;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: ${({ theme }) => theme.typography.sizes.sm};
+  }
 
   &::before {
     content: '✓';
@@ -67,6 +83,8 @@ const BenefitItem = styled.li`
 const CTAButton = styled(LinkButton)`
   margin-top: ${({ theme }) => theme.spacing.md}px;
   width: 100%;
+  min-height: 44px;
+  font-size: ${({ theme }) => theme.typography.sizes.sm};
 `;
 
 export const StatisticsSection = () => {
@@ -74,7 +92,7 @@ export const StatisticsSection = () => {
   return (
     <HighlightSection>
       <Container width="wide">
-        <Reveal direction="fade" duration={900}>
+        <Reveal direction="up" duration={900}>
           <Grid columns={2} min="280px" gap="xl">
             <Card>
               <Title>{t('stats.card1Title')}</Title>

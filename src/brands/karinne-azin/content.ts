@@ -127,8 +127,12 @@ export const karinneContent: BrandContent = {
     },
   },
   social: [
-    { label: 'Instagram', url: 'https://instagram.com' },
-    { label: 'LinkedIn', url: 'https://linkedin.com' },
+    {
+      label: 'Instagram',
+      url: 'https://www.instagram.com/dra.karinneazin/',
+      platform: 'instagram',
+    },
+    { label: 'Facebook', url: 'https://pt-br.facebook.com/drakarinneazin', platform: 'facebook' },
   ],
   pagesMeta: {
     default: {

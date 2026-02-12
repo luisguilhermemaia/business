@@ -9,416 +9,401 @@ import { Section } from '../design-system/primitives';
 import { Reveal } from '../design-system/components/Reveal';
 import { hexToRgba } from '../utils/colors';
 
-const HeroShell = styled(Section)`
+const Wrapper = styled(Section)`
   padding: 0;
-  background: linear-gradient(
-    180deg,
-    ${({ theme }) => theme.colors.background} 0%,
-    ${({ theme }) => theme.colors.backgroundAlt || theme.colors.background} 100%
-  );
-  position: relative;
-  overflow: hidden;
-  min-height: calc(100vh - 120px);
-  display: flex;
-  flex-direction: column;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    flex-direction: row;
-    min-height: auto;
-    height: auto;
-    max-height: 85vh;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    min-height: auto;
-  }
+  background: ${({ theme }) => theme.colors.background};
 `;
 
-const HeroImageSection = styled.div`
-  position: relative;
-  width: 100%;
-  height: 65vh;
-  min-height: 500px;
-  overflow: hidden;
-  z-index: 1;
-  background:
-    radial-gradient(
-      ellipse at 20% 30%,
-      ${({ theme }) => hexToRgba(theme.colors.background || '#FBF8ED', 0.4)} 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse at 80% 70%,
-      ${({ theme }) => hexToRgba(theme.colors.backgroundAlt || '#F5F0E0', 0.3)} 0%,
-      transparent 60%
-    ),
-    linear-gradient(
-      135deg,
-      ${({ theme }) => theme.colors.background || '#FBF8ED'} 0%,
-      ${({ theme }) => theme.colors.backgroundAlt || '#F5F0E0'} 100%
-    );
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: auto;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+    min-height: 68vh;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    min-height: 72vh;
+  }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    width: 55%;
-    height: auto;
-    min-height: 600px;
-    max-height: 85vh;
-    background:
-      radial-gradient(
-        ellipse at 15% 25%,
-        ${({ theme }) => hexToRgba(theme.colors.background || '#FBF8ED', 0.5)} 0%,
-        transparent 45%
-      ),
-      radial-gradient(
-        ellipse at 85% 75%,
-        ${({ theme }) => hexToRgba(theme.colors.backgroundAlt || '#F5F0E0', 0.4)} 0%,
-        transparent 55%
-      ),
-      linear-gradient(
-        135deg,
-        ${({ theme }) => theme.colors.background || '#FBF8ED'} 0%,
-        ${({ theme }) => hexToRgba(theme.colors.backgroundAlt || '#F5F0E0', 0.8)} 50%,
-        ${({ theme }) => theme.colors.backgroundAlt || '#F5F0E0'} 100%
-      );
+    grid-template-columns: 1.1fr 0.9fr;
+    min-height: 0;
+    align-items: stretch;
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
-    width: 50%;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    height: 50vh;
-    min-height: 400px;
+    grid-template-columns: 1fr 1fr;
   }
 `;
 
-const HeroImageContainer = styled.div`
+/* ---- Image column: photo + fade into content ---- */
+const ImageCol = styled.div`
   position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  order: 1;
+  min-height: 44vh;
+  background: ${({ theme }) => theme.colors.backgroundAlt || theme.colors.background};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+    min-height: 42vh;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    min-height: 48vh;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    order: 1;
+    min-height: 0;
+  }
+`;
+
+const ImageInner = styled.div`
+  position: absolute;
+  inset: 0;
 
   img {
     object-fit: cover;
-    object-position: center top;
+    object-position: center 28%;
     width: 100%;
     height: 100%;
   }
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    padding: ${({ theme }) => theme.spacing.xxl}px;
-    padding-right: ${({ theme }) => theme.spacing.xxl * 2}px;
+  /* Fade: image blends into content (mobile: bottom, desktop: right) */
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 50%;
+    background: linear-gradient(
+      to top,
+      ${({ theme }) => theme.colors.background} 0%,
+      ${({ theme }) => hexToRgba(theme.colors.background, 0.3)} 60%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
 
+  @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
     img {
-      object-fit: contain;
+      object-position: center 30%;
+    }
+    &::after {
+      height: 38%;
+      background: linear-gradient(
+        to top,
+        ${({ theme }) => theme.colors.background} 0%,
+        transparent 100%
+      );
+    }
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    img {
+      object-position: center 28%;
+    }
+    &::after {
+      height: 42%;
+    }
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    img {
       object-position: center center;
-      width: auto;
-      max-width: 100%;
-      height: 100%;
     }
 
     &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
+      left: auto;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 45%;
+      height: 100%;
       background: linear-gradient(
-        90deg,
+        to right,
         transparent 0%,
-        transparent 50%,
-        ${({ theme }) => hexToRgba(theme.colors.background || '#FBF8ED', 0.3)} 70%,
-        ${({ theme }) => hexToRgba(theme.colors.background || '#FBF8ED', 0.6)} 85%,
-        ${({ theme }) => theme.colors.background || '#FBF8ED'} 100%
+        ${({ theme }) => hexToRgba(theme.colors.background, 0.35)} 45%,
+        ${({ theme }) => theme.colors.background} 100%
       );
-      pointer-events: none;
-      z-index: 1;
+    }
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
+    &::after {
+      width: 48%;
+      background: linear-gradient(
+        to right,
+        transparent 0%,
+        ${({ theme }) => hexToRgba(theme.colors.background, 0.3)} 50%,
+        ${({ theme }) => theme.colors.background} 100%
+      );
     }
   }
 `;
 
-const ContentOverlay = styled.div`
+/* ---- Content column ---- */
+const ContentCol = styled.div`
   position: relative;
-  width: 100%;
-  padding: ${({ theme }) => theme.spacing.xxl * 1.5}px 0 ${({ theme }) => theme.spacing.xxl}px;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    ${({ theme }) => hexToRgba(theme.colors.backgroundAlt || theme.colors.background, 0.3)} 20%,
-    ${({ theme }) => theme.colors.backgroundAlt || theme.colors.background} 40%
-  );
-  z-index: 3;
-  margin-top: -120px;
+  order: 2;
   display: flex;
   align-items: center;
+  padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px
+    ${({ theme }) => theme.spacing.xxl}px;
+  background: ${({ theme }) => theme.colors.background};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: ${({ theme }) => theme.spacing.xl}px
+      max(${({ theme }) => theme.spacing.lg}px, env(safe-area-inset-left))
+      ${({ theme }) => theme.spacing.xxl}px
+      max(${({ theme }) => theme.spacing.lg}px, env(safe-area-inset-right));
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.lg}px
+      ${({ theme }) => theme.spacing.xxl}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    padding: ${({ theme }) => theme.spacing.xxl}px ${({ theme }) => theme.spacing.xl}px;
+  }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    width: 45%;
-    margin-top: 0;
-    padding: ${({ theme }) => theme.spacing.xxl * 1.5}px ${({ theme }) => theme.spacing.xxl * 2}px
-      ${({ theme }) => theme.spacing.xxl * 1.5}px;
-    background: linear-gradient(
-      90deg,
-      ${({ theme }) => hexToRgba(theme.colors.background || '#FBF8ED', 0.95)} 0%,
-      ${({ theme }) => theme.colors.background || '#FBF8ED'} 15%,
-      ${({ theme }) => theme.colors.backgroundAlt || '#F5F0E0'} 100%
-    );
-    position: relative;
-    align-items: flex-start;
-    justify-content: flex-start;
-    height: auto;
-    max-height: 85vh;
+    order: 2;
+    padding: ${({ theme }) => theme.spacing.xl}px ${({ theme }) => theme.spacing.xl}px
+      ${({ theme }) => theme.spacing.xxl}px;
+    padding-left: clamp(${({ theme }) => theme.spacing.xl}px, 4vw, ${({ theme }) => theme.spacing.xxl}px);
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
-    width: 50%;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    padding: ${({ theme }) => theme.spacing.xl * 1.5}px ${({ theme }) => theme.spacing.lg}px
-      ${({ theme }) => theme.spacing.xl}px;
-    margin-top: -80px;
+    padding-left: clamp(${({ theme }) => theme.spacing.xxl}px, 5vw, 80px);
+    padding-right: clamp(${({ theme }) => theme.spacing.xxl}px, 5vw, 80px);
   }
 `;
 
-const ContentWrapper = styled.div`
-  position: relative;
-  z-index: 4;
+const ContentInner = styled.div`
   width: 100%;
-  max-width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  text-align: center;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    max-width: 100%;
     margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    min-height: auto;
-    padding-top: ${({ theme }) => theme.spacing.xl}px;
+    text-align: left;
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
-    max-width: 580px;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    padding: 0 ${({ theme }) => theme.spacing.lg}px;
+    max-width: 560px;
   }
 `;
 
-const Heading = styled.h1`
-  font-size: clamp(2rem, 5vw + 0.5rem, 3.5rem);
-  line-height: 1.2;
-  margin: 0 0 ${({ theme }) => theme.spacing.lg}px 0;
+const Title = styled.h1`
+  font-size: clamp(1.4rem, 6vw + 0.75rem, 2.25rem);
+  line-height: 1.3;
+  margin: 0 0 ${({ theme }) => theme.spacing.md}px;
   color: ${({ theme }) => theme.colors.brownDark || theme.colors.text};
-  letter-spacing: -0.02em;
-  font-weight: ${({ theme }) => theme.typography.weights.bold};
   font-family: ${({ theme }) => theme.typography.fonts.heading};
-  max-width: 100%;
-  text-align: left;
+  font-weight: ${({ theme }) => theme.typography.weights.bold};
+  letter-spacing: -0.02em;
 
-  strong {
-    font-weight: ${({ theme }) => theme.typography.weights.bold};
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: clamp(1.35rem, 5.5vw + 0.75rem, 2rem);
+    line-height: 1.35;
+    margin-bottom: ${({ theme }) => theme.spacing.lg}px;
   }
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    font-size: clamp(2.5rem, 3.5vw + 0.5rem, 3.25rem);
-    margin-bottom: ${({ theme }) => theme.spacing.xl}px;
-    margin-top: 0;
-    line-height: 1.2;
-    letter-spacing: -0.03em;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    font-size: clamp(1.75rem, 6vw, 2.5rem);
+  @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: clamp(1.65rem, 4.5vw + 0.5rem, 2.35rem);
     margin-bottom: ${({ theme }) => theme.spacing.md}px;
   }
-`;
 
-const Subheading = styled.p`
-  font-size: ${({ theme }) => theme.typography.sizes.lg};
-  color: ${({ theme }) => theme.colors.brownMedium || theme.colors.text};
-  line-height: 1.7;
-  margin: 0 0 ${({ theme }) => theme.spacing.xl * 1.5}px 0;
-  font-weight: ${({ theme }) => theme.typography.weights.regular};
-  max-width: 100%;
-  text-align: left;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    font-size: ${({ theme }) => theme.typography.sizes.lg};
-    margin-bottom: ${({ theme }) => theme.spacing.xxl}px;
-    line-height: 1.75;
-    max-width: 100%;
-    color: ${({ theme }) => theme.colors.textMuted || theme.colors.brownMedium};
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    font-size: clamp(1.85rem, 3.5vw + 0.5rem, 2.5rem);
+    margin-bottom: ${({ theme }) => theme.spacing.md}px;
+    letter-spacing: -0.025em;
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    font-size: ${({ theme }) => theme.typography.sizes.md};
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    font-size: clamp(1.9rem, 2.8vw + 0.5rem, 2.5rem);
+    margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
+    font-size: clamp(2rem, 2.2vw + 0.5rem, 2.6rem);
     margin-bottom: ${({ theme }) => theme.spacing.lg}px;
   }
 `;
 
-const CTAs = styled.div`
+const Lead = styled.p`
+  font-size: ${({ theme }) => theme.typography.sizes.md};
+  line-height: 1.7;
+  margin: 0 0 ${({ theme }) => theme.spacing.lg}px;
+  color: ${({ theme }) => theme.colors.textMuted || theme.colors.brownMedium};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: ${({ theme }) => theme.typography.sizes.sm};
+    line-height: 1.75;
+    margin-bottom: ${({ theme }) => theme.spacing.xl}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: ${({ theme }) => theme.typography.sizes.md};
+    line-height: 1.7;
+    margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    margin-bottom: ${({ theme }) => theme.spacing.lg}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    line-height: 1.75;
+    margin-bottom: ${({ theme }) => theme.spacing.xl}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
+    font-size: ${({ theme }) => theme.typography.sizes.lg};
+    margin-bottom: ${({ theme }) => theme.spacing.xl}px;
+  }
+`;
+
+const CtaRow = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md}px;
-  max-width: 400px;
-  align-items: flex-start;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+  width: 100%;
+  align-items: center;
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+  a {
+    font-size: ${({ theme }) => theme.typography.sizes.sm};
+    padding: ${({ theme }) => theme.spacing.sm + 2}px ${({ theme }) => theme.spacing.lg}px;
+    min-height: 44px;
+    border-radius: ${({ theme }) => theme.radii.pill};
+    width: 100%;
+    justify-content: center;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
     flex-direction: row;
-    gap: ${({ theme }) => theme.spacing.lg}px;
-    max-width: 100%;
-    margin-top: 0;
+    flex-wrap: wrap;
+    width: auto;
+    align-items: center;
+    justify-content: center;
+    gap: ${({ theme }) => theme.spacing.md}px;
+
+    a {
+      width: auto;
+      min-height: 40px;
+      padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.lg}px;
+    }
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    justify-content: flex-start;
     align-items: flex-start;
-    & > a {
-      flex: 0 1 auto;
-      min-width: 220px;
-      max-width: 260px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    a {
+      min-height: 42px;
     }
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    max-width: 100%;
-    & > a {
-      width: 100%;
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    a {
+      padding: ${({ theme }) => theme.spacing.sm + 2}px ${({ theme }) => theme.spacing.xl}px;
+      min-height: 44px;
+    }
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
+    gap: ${({ theme }) => theme.spacing.lg}px;
+
+    a {
+      font-size: ${({ theme }) => theme.typography.sizes.md};
+      padding: ${({ theme }) => theme.spacing.sm + 4}px ${({ theme }) => theme.spacing.xl + 4}px;
+      min-height: 46px;
     }
   }
 `;
 
-const PrimaryButton = styled(LinkButton)`
-  background: ${({ theme }) => theme.colors.brownDark || theme.colors.text} !important;
-  color: ${({ theme }) => theme.colors.background || '#fff'} !important;
-  border: none !important;
-  box-shadow: 0 6px 14px rgba(89, 60, 44, 0.18) !important;
-  font-weight: ${({ theme }) => theme.typography.weights.semi} !important;
-  letter-spacing: 0 !important;
-  border-radius: 999px !important;
-  padding: ${({ theme }) => theme.spacing.sm + 2}px ${({ theme }) => theme.spacing.xl + 8}px !important;
-  font-size: ${({ theme }) => theme.typography.sizes.md} !important;
-  min-height: 46px !important;
-  transition:
-    opacity 0.2s ease,
-    box-shadow 0.2s ease !important;
-  white-space: normal !important;
-  text-align: center !important;
-  line-height: 1.35 !important;
-
-  &:hover:not(:disabled) {
-    background: ${({ theme }) => theme.colors.brownDark || theme.colors.text} !important;
-    opacity: 0.9;
-    transform: none !important;
-    box-shadow: 0 8px 18px rgba(89, 60, 44, 0.2) !important;
+const CtaPrimary = styled(LinkButton)`
+  && {
+    background: ${({ theme }) => theme.colors.brownDark || theme.colors.text};
+    color: ${({ theme }) => theme.colors.background};
+    border: none;
+    font-weight: ${({ theme }) => theme.typography.weights.semi};
   }
-
-  &:active:not(:disabled) {
-    opacity: 0.85;
-    transform: none !important;
-  }
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    padding: ${({ theme }) => theme.spacing.sm + 4}px ${({ theme }) => theme.spacing.xxl}px !important;
-    font-size: ${({ theme }) => theme.typography.sizes.md} !important;
-    min-height: 48px !important;
+  &&:hover:not(:disabled) {
+    opacity: 0.92;
   }
 `;
 
-const SecondaryButton = styled(LinkButton)`
-  background: ${({ theme }) => theme.colors.brownMedium || '#a77e5d'} !important;
-  color: ${({ theme }) => theme.colors.background || '#fff'} !important;
-  border: none !important;
-  box-shadow: 0 6px 14px rgba(140, 107, 80, 0.18) !important;
-  font-weight: ${({ theme }) => theme.typography.weights.semi} !important;
-  letter-spacing: 0 !important;
-  border-radius: 999px !important;
-  padding: ${({ theme }) => theme.spacing.sm + 2}px ${({ theme }) => theme.spacing.xl + 8}px !important;
-  font-size: ${({ theme }) => theme.typography.sizes.md} !important;
-  min-height: 46px !important;
-  transition:
-    opacity 0.2s ease,
-    box-shadow 0.2s ease !important;
-  white-space: normal !important;
-  text-align: center !important;
-  line-height: 1.35 !important;
-
-  &:hover:not(:disabled) {
-    background: ${({ theme }) => theme.colors.brownMedium || '#a77e5d'} !important;
-    opacity: 0.9;
-    transform: none !important;
-    box-shadow: 0 8px 18px rgba(140, 107, 80, 0.2) !important;
+const CtaSecondary = styled(LinkButton)`
+  && {
+    background: transparent;
+    color: ${({ theme }) => theme.colors.brownDark || theme.colors.text};
+    border: 1.5px solid ${({ theme }) => hexToRgba(theme.colors.brownDark || theme.colors.text, 0.4)};
+    font-weight: ${({ theme }) => theme.typography.weights.medium};
   }
-
-  &:active:not(:disabled) {
-    opacity: 0.85;
-    transform: none !important;
-  }
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    padding: ${({ theme }) => theme.spacing.sm + 4}px ${({ theme }) => theme.spacing.xxl}px !important;
-    font-size: ${({ theme }) => theme.typography.sizes.md} !important;
-    min-height: 48px !important;
+  &&:hover:not(:disabled) {
+    background: ${({ theme }) => hexToRgba(theme.colors.brownDark || theme.colors.text, 0.08)};
+    border-color: ${({ theme }) => theme.colors.brownDark || theme.colors.text};
   }
 `;
 
-const GradientOverlay = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 200px;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    ${({ theme }) => hexToRgba(theme.colors.backgroundAlt || theme.colors.background, 0.6)} 50%,
-    ${({ theme }) => theme.colors.backgroundAlt || theme.colors.background} 100%
-  );
-  z-index: 2;
-  pointer-events: none;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    display: none;
-  }
-`;
+const DEFAULT_HEADSHOT =
+  'https://images.unsplash.com/photo-1544717305-2782549b5136?w=1200&h=900&fit=crop&q=80';
 
 export const HeroSection = () => {
   const { content } = useBrand();
   const { t } = useI18n();
+  const headshot = content.doctor.headshot || DEFAULT_HEADSHOT;
 
   return (
-    <HeroShell>
-      <HeroImageSection>
-        <HeroImageContainer>
-          <Image
-            src={
-              content.doctor.headshot ||
-              'https://images.unsplash.com/photo-1544717305-2782549b5136?w=1200&h=900&fit=crop&q=80'
-            }
-            alt={content.doctor.name}
-            fill
-            priority
-            sizes="100vw"
-            style={{ objectFit: 'cover', objectPosition: 'center top' }}
-          />
-        </HeroImageContainer>
-        <GradientOverlay />
-      </HeroImageSection>
-      <ContentOverlay>
-        <ContentWrapper>
-          <Reveal direction="up" duration={1000} delay={0.2}>
-            <Heading>{content.hero.headline}</Heading>
-            <Subheading>{content.hero.subheadline}</Subheading>
-            <CTAs>
-              <PrimaryButton href="/booking" size="md" variant="primary">
-                {t('hero.ctaPresencial')}
-              </PrimaryButton>
-              <SecondaryButton href="/booking" size="md" variant="secondary">
-                {t('hero.ctaOnline')}
-              </SecondaryButton>
-            </CTAs>
+    <Wrapper>
+      <Grid>
+        <ImageCol>
+          <Reveal immediate fill direction="fade" duration={1000} delay={0}>
+            <ImageInner>
+              <Image
+                src={headshot}
+                alt={content.doctor.name}
+                fill
+                priority
+                sizes="(max-width: 1023px) 100vw, 50vw"
+              />
+            </ImageInner>
           </Reveal>
-        </ContentWrapper>
-      </ContentOverlay>
-    </HeroShell>
+        </ImageCol>
+        <ContentCol>
+          <ContentInner>
+            <Reveal immediate direction="up" duration={700} delay={0.15}>
+              <Title>{content.hero.headline}</Title>
+            </Reveal>
+            <Reveal immediate direction="up" duration={700} delay={0.3}>
+              <Lead>{content.hero.subheadline}</Lead>
+            </Reveal>
+            <Reveal immediate direction="up" duration={700} delay={0.45}>
+              <CtaRow>
+                <CtaPrimary href="/booking" size="sm">
+                  {t('hero.ctaPresencial')}
+                </CtaPrimary>
+                <CtaSecondary href="/booking" size="sm" variant="secondary">
+                  {t('hero.ctaOnline')}
+                </CtaSecondary>
+              </CtaRow>
+            </Reveal>
+          </ContentInner>
+        </ContentCol>
+      </Grid>
+    </Wrapper>
   );
 };

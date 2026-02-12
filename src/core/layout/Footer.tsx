@@ -6,12 +6,39 @@ import { useBrand } from '../brand/BrandProvider';
 import { useI18n } from '../i18n/I18nProvider';
 import { Container, Grid, Stack } from '../design-system/primitives';
 import { Icon } from '../icons/Icon';
+import { SocialIcon } from '../icons/SocialIcon';
+import type { SocialPlatform } from '../types/brand';
+
+function inferPlatformFromUrl(url: string): SocialPlatform | null {
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    if (host.includes('instagram.com')) return 'instagram';
+    if (host.includes('facebook.com') || host.includes('fb.com')) return 'facebook';
+    if (host.includes('linkedin.com')) return 'linkedin';
+    if (host.includes('threads.net')) return 'threads';
+    if (host.includes('x.com') || host.includes('twitter.com')) return 'x';
+    if (host.includes('youtube.com')) return 'youtube';
+  } catch {
+    /* ignore */
+  }
+  return null;
+}
 
 const FooterShell = styled.footer`
   background: ${({ theme }) => theme.colors.tealDark ?? theme.colors.backgroundAlt};
   color: ${({ theme }) => theme.colors.tealDarkContrast ?? theme.colors.text};
   padding: ${({ theme }) => theme.spacing.xxl * 2}px 0 ${({ theme }) => theme.spacing.xl}px;
   margin-top: ${({ theme }) => theme.spacing.xxl * 2}px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    padding: ${({ theme }) => theme.spacing.xxl}px 0 ${({ theme }) => theme.spacing.xl}px;
+    margin-top: ${({ theme }) => theme.spacing.xxl}px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: ${({ theme }) => theme.spacing.xl * 1.5}px 0 ${({ theme }) => theme.spacing.lg}px;
+    padding-bottom: max(${({ theme }) => theme.spacing.xl}px, env(safe-area-inset-bottom));
+  }
 `;
 
 const Title = styled.h3`
@@ -20,6 +47,11 @@ const Title = styled.h3`
   margin-bottom: ${({ theme }) => theme.spacing.lg}px;
   color: ${({ theme }) => theme.colors.tealDarkContrast ?? theme.colors.text};
   font-family: ${({ theme }) => theme.typography.fonts.heading};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: ${({ theme }) => theme.typography.sizes.lg};
+    margin-bottom: ${({ theme }) => theme.spacing.md}px;
+  }
 `;
 
 const Text = styled.p`
@@ -35,6 +67,7 @@ const LinkRow = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href:
   gap: ${({ theme }) => theme.spacing.sm}px;
   color: ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.75)};
   padding: ${({ theme }) => theme.spacing.sm}px 0;
+  min-height: 44px;
   font-size: ${({ theme }) => theme.typography.sizes.md};
   transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
     ${({ theme }) => theme.motion?.easing.ease || 'ease'};
@@ -67,6 +100,10 @@ const LinkRow = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href:
     &:hover svg {
       transform: none;
     }
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: ${({ theme }) => theme.spacing.md}px 0;
   }
 `;
 
@@ -119,11 +156,22 @@ const FooterBottom = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     flex-direction: column;
     text-align: center;
+    margin-top: ${({ theme }) => theme.spacing.xl}px;
+    padding-top: ${({ theme }) => theme.spacing.lg}px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    gap: ${({ theme }) => theme.spacing.sm}px;
+    font-size: ${({ theme }) => theme.typography.sizes.xs};
   }
 `;
 
 const BrandSection = styled(Stack)`
   max-width: 350px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    max-width: 100%;
+  }
 `;
 
 const SocialLinks = styled(Stack)`
@@ -150,17 +198,25 @@ export const Footer = () => {
             <Text>{content.doctor.bio}</Text>
             {content.social && content.social.length > 0 && (
               <SocialLinks direction="row" gap="sm">
-                {content.social.map((s) => (
-                  <SocialLink
-                    key={s.url}
-                    href={s.url}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    aria-label={s.label}
-                  >
-                    <Icon name="arrow-right" size={18} />
-                  </SocialLink>
-                ))}
+                {content.social.map((s) => {
+                  const platform =
+                    s.platform ?? inferPlatformFromUrl(s.url);
+                  return (
+                    <SocialLink
+                      key={s.url}
+                      href={s.url}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      aria-label={s.label}
+                    >
+                      {platform ? (
+                        <SocialIcon platform={platform} size={20} />
+                      ) : (
+                        <Icon name="arrow-right" size={18} />
+                      )}
+                    </SocialLink>
+                  );
+                })}
               </SocialLinks>
             )}
           </BrandSection>

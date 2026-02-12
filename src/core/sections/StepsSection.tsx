@@ -33,11 +33,19 @@ const Description = styled.p`
   font-size: ${({ theme }) => theme.typography.sizes.lg};
   line-height: 1.75;
   margin: 0;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: ${({ theme }) => theme.typography.sizes.md};
+  }
 `;
 
 const BulletList = styled.div`
   display: grid;
   gap: ${({ theme }) => theme.spacing.md}px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    gap: ${({ theme }) => theme.spacing.sm}px;
+  }
 `;
 
 const BulletItem = styled.div`
@@ -48,6 +56,10 @@ const BulletItem = styled.div`
   border-radius: ${({ theme }) => theme.radii.lg};
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
+  }
 `;
 
 const BulletTitle = styled.div`
@@ -64,7 +76,8 @@ const BulletText = styled.div`
 const Media = styled.div`
   position: relative;
   width: 100%;
-  height: 420px;
+  aspect-ratio: 4 / 5;
+  max-height: 480px;
   border-radius: ${({ theme }) => theme.radii['2xl'] || theme.radii.xl || theme.radii.lg};
   overflow: hidden;
   background: ${({ theme }) => theme.colors.surfaceMuted};
@@ -72,10 +85,16 @@ const Media = styled.div`
 
   img {
     object-fit: cover;
+    object-position: center 25%;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    height: 320px;
+    max-height: 380px;
+    aspect-ratio: 3 / 4;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    max-height: 320px;
   }
 `;
 
@@ -88,8 +107,8 @@ export const StepsSection = () => {
   return (
     <AboutShell>
       <Container width="wide">
-        <Grid columns={2} min="300px" gap="xl">
-          <Reveal>
+        <Grid columns={2} min="300px" gap="xl" style={{ alignItems: 'start' }}>
+          <Reveal direction="right" duration={850}>
             <TextBlock>
               <Title>{content.steps.title}</Title>
               <Description>{content.steps.description}</Description>
@@ -106,7 +125,7 @@ export const StepsSection = () => {
               </BulletList>
             </TextBlock>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.12} direction="left" duration={850}>
             <Media>
               <Image
                 src={imageUrl}

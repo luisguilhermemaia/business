@@ -17,6 +17,10 @@ const Title = styled.h2`
   font-weight: ${({ theme }) => theme.typography.weights.bold};
   letter-spacing: -0.02em;
   color: ${({ theme }) => theme.colors.text};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
 `;
 
 const Text = styled.p`
@@ -27,6 +31,10 @@ const Text = styled.p`
   margin: 0 auto;
   opacity: 0.9;
   font-weight: ${({ theme }) => theme.typography.weights.medium};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: ${({ theme }) => theme.typography.sizes.md};
+  }
 `;
 
 const BenefitsList = styled.div`
@@ -39,6 +47,12 @@ const BenefitsList = styled.div`
   background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.05)};
   border-radius: ${({ theme }) => theme.radii.lg};
   border: 1px solid ${({ theme }) => hexToRgba(theme.colors.primary, 0.15)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    margin: ${({ theme }) => theme.spacing.md}px 0;
+    padding: ${({ theme }) => theme.spacing.md}px;
+    gap: ${({ theme }) => theme.spacing.sm}px;
+  }
 `;
 
 const Benefit = styled.div`
@@ -63,6 +77,26 @@ const UrgencyText = styled.p`
   opacity: 0.85;
   font-style: italic;
   color: ${({ theme }) => theme.colors.textMuted};
+`;
+
+const CTAButtonsWrap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing.md}px;
+  justify-content: center;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    flex-direction: column;
+    width: 100%;
+    gap: ${({ theme }) => theme.spacing.sm}px;
+
+    a {
+      width: 100%;
+      min-height: 44px;
+      justify-content: center;
+      font-size: ${({ theme }) => theme.typography.sizes.sm};
+    }
+  }
 `;
 
 const PrimaryCTAButton = styled(LinkButton)`
@@ -121,6 +155,10 @@ const CTAWrap = styled(Card)`
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     padding: ${({ theme }) => theme.spacing.xl * 1.5}px;
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: ${({ theme }) => theme.spacing.lg}px;
+  }
 `;
 
 export const CTASection = () => {
@@ -129,7 +167,7 @@ export const CTASection = () => {
   return (
     <Section>
       <Container>
-        <Reveal delay={0.1} direction="scale" duration={900}>
+        <Reveal delay={0.08} direction="scale" duration={950}>
           <CTAWrap>
             <Stack gap="lg" align="center">
               <Title>{t('cta.title')}</Title>
@@ -140,12 +178,7 @@ export const CTASection = () => {
                 <Benefit>Atendimento presencial e online</Benefit>
                 <Benefit>Plano de tratamento personalizado</Benefit>
               </BenefitsList>
-              <Stack
-                direction="row"
-                gap="md"
-                align="center"
-                style={{ flexWrap: 'wrap', justifyContent: 'center' }}
-              >
+              <CTAButtonsWrap>
                 <PrimaryCTAButton href="/booking" size="md">
                   <Icon name="calendar" size={18} />
                   Agendar Consulta Agora
@@ -154,7 +187,7 @@ export const CTASection = () => {
                   <Icon name="phone" size={18} />
                   Falar com a Clínica
                 </SecondaryCTAButton>
-              </Stack>
+              </CTAButtonsWrap>
               <UrgencyText>
                 ⚡ Resposta rápida via WhatsApp • Horários disponíveis esta semana • Primeira
                 consulta com acolhimento especial

@@ -135,23 +135,11 @@ const buttonStyles = css<BaseProps>`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     min-height: 48px;
+    min-width: 44px;
     padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.xl}px;
     font-size: ${({ theme }) => theme.typography.sizes.md};
-    ${({ variant, theme }) =>
-      variant === 'primary' &&
-      css`
-        color: #fff;
-        font-weight: ${theme.typography.weights.bold};
-      `}
-    ${({ variant, theme }) =>
-      variant === 'secondary' &&
-      css`
-        color: ${theme.colors.text};
-        border-color: ${theme.colors.text};
-        background: ${hexToRgba(theme.colors.text, 0.06)};
-      `}
   }
 `;
 

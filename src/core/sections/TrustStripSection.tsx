@@ -14,6 +14,10 @@ const Strip = styled(Section)`
     ${({ theme }) => (theme.colors.tealDark ? 'transparent' : theme.colors.border)};
   border-bottom: 1px solid
     ${({ theme }) => (theme.colors.tealDark ? 'transparent' : theme.colors.border)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: ${({ theme }) => theme.spacing.md}px 0;
+  }
 `;
 
 const Pill = styled.div`
@@ -42,6 +46,11 @@ const StatPill = styled.div`
   color: ${({ theme }) => theme.colors.text};
   text-align: center;
   min-width: 140px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    min-width: 120px;
+    padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
+  }
 `;
 
 const StatNumber = styled.div`
@@ -50,6 +59,10 @@ const StatNumber = styled.div`
   color: ${({ theme }) => theme.colors.primary};
   line-height: 1;
   font-family: ${({ theme }) => theme.typography.fonts.heading};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: ${({ theme }) => theme.typography.sizes.xl};
+  }
 `;
 
 const StatLabel = styled.div`
@@ -73,20 +86,20 @@ export const TrustStripSection = () => {
       <Container width="wide">
         <Grid min="200px" gap="md">
           {[inPerson, online].map((item, idx) => (
-            <Reveal key={item} delay={idx * 0.1} direction="fade" duration={600}>
+            <Reveal key={item} delay={idx * 0.12} direction="up" duration={650}>
               <Pill>
                 <Icon name={idx === 0 ? 'location' : 'calendar'} size={16} />
                 {item}
               </Pill>
             </Reveal>
           ))}
-          <Reveal delay={0.2} direction="scale" duration={700}>
+          <Reveal delay={0.15} direction="scale" duration={750}>
             <StatPill>
               <StatNumber>15+</StatNumber>
               <StatLabel>Anos de Experiência</StatLabel>
             </StatPill>
           </Reveal>
-          <Reveal delay={0.3} direction="scale" duration={700}>
+          <Reveal delay={0.25} direction="scale" duration={750}>
             <StatPill>
               <StatNumber>500+</StatNumber>
               <StatLabel>Pacientes Atendidas</StatLabel>

@@ -5,18 +5,22 @@ export const Container = styled.div<{ width?: 'narrow' | 'regular' | 'wide' }>`
   width: 100%;
   margin: 0 auto;
   max-width: ${({ theme, width = 'regular' }) => theme.containerWidth[width]};
-  padding: 0 ${({ theme }) => theme.spacing.md}px;
+  padding: 0 ${({ theme }) => theme.spacing.lg}px;
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
-    padding: 0 ${({ theme }) => theme.spacing.lg}px;
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: 0 ${({ theme }) => theme.spacing.md}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    padding: 0 ${({ theme }) => theme.spacing.xl}px;
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     padding: 0 ${({ theme }) => theme.spacing.xl}px;
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    padding: 0 ${({ theme }) => theme.spacing.md}px;
+  @media (min-width: ${({ theme }) => theme.breakpoints.xl}) {
+    padding: 0 ${({ theme }) => theme.spacing.xxl}px;
   }
 `;
 
@@ -39,12 +43,24 @@ export const Section = styled.section<{
     return 'transparent';
   }};
 
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: ${({ theme, padding = 'lg' }) => {
+      const paddingMap = {
+        sm: theme.spacing.lg,
+        md: theme.spacing.xl,
+        lg: theme.spacing.xl,
+        xl: theme.spacing.xxl,
+      };
+      return `${paddingMap[padding]}px 0`;
+    }};
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     padding: ${({ theme, padding = 'lg' }) => {
       const paddingMap = {
-        sm: theme.spacing.md,
-        md: theme.spacing.lg,
-        lg: theme.spacing.xl,
+        sm: theme.spacing.lg,
+        md: theme.spacing.xl,
+        lg: theme.spacing.xxl,
         xl: theme.spacing.xxl,
       };
       return `${paddingMap[padding]}px 0`;
@@ -98,12 +114,20 @@ export const Grid = styled.div.withConfig({
   }};
   grid-template-columns: repeat(auto-fit, minmax(${({ min = '280px' }) => min}, 1fr));
 
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    gap: ${({ theme }) => theme.spacing.lg}px;
+  }
+
   ${({ columns }) =>
     columns &&
     css`
       grid-template-columns: repeat(${columns}, minmax(0, 1fr));
       @media (max-width: ${(props) => props.theme.breakpoints.md}) {
         grid-template-columns: 1fr;
+        gap: ${(props) => props.theme.spacing.lg}px;
+      }
+      @media (max-width: ${(props) => props.theme.breakpoints.sm}) {
+        gap: ${(props) => props.theme.spacing.md}px;
       }
     `}
 `;
@@ -117,6 +141,10 @@ export const Card = styled.div<{
   border: 1px solid ${({ theme }) => hexToRgba(theme.colors.primary, 0.2)};
   border-radius: ${({ theme }) => theme.radii.xl || theme.radii.lg};
   padding: ${({ theme }) => theme.spacing.xl}px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: ${({ theme }) => theme.spacing.lg}px;
+  }
   box-shadow: ${({ theme, elevation = 'sm' }) => {
     const shadowMap = {
       sm: `0 2px 12px ${hexToRgba(theme.colors.text, 0.08)}, 0 0 0 1px ${hexToRgba(theme.colors.border, 0.6)}`,

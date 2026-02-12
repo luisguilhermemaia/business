@@ -20,24 +20,24 @@ const Trigger = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   padding: 0;
   border: none;
   border-radius: ${({ theme }) => theme.radii.round};
   background: transparent;
-  color: ${({ theme }) => theme.colors.textMuted};
-  opacity: 0.85;
+  color: ${({ theme }) => theme.colors.text};
   cursor: pointer;
   transition:
     color ${({ theme }) => theme.motion?.duration.fast || '150ms'} ease,
-    background ${({ theme }) => theme.motion?.duration.fast || '150ms'} ease,
-    opacity ${({ theme }) => theme.motion?.duration.fast || '150ms'} ease;
+    background ${({ theme }) => theme.motion?.duration.fast || '150ms'} ease;
 
   &:hover {
-    color: ${({ theme }) => theme.colors.text};
-    background: ${({ theme }) => theme.colors.surfaceMuted};
-    opacity: 1;
+    color: ${({ theme }) => theme.colors.primary};
+    background: ${({ theme }) =>
+      theme.colors.tealDark
+        ? 'rgba(42, 66, 66, 0.08)'
+        : 'rgba(0, 0, 0, 0.06)'};
   }
 
   &:focus-visible {
@@ -50,12 +50,12 @@ const Dropdown = styled.div<{ $open: boolean }>`
   position: absolute;
   top: calc(100% + 6px);
   right: 0;
-  min-width: 140px;
+  min-width: 152px;
   padding: ${({ theme }) => theme.spacing.xs}px;
   border-radius: ${({ theme }) => theme.radii.lg};
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 24px rgba(42, 66, 66, 0.14);
   opacity: ${({ $open }) => ($open ? 1 : 0)};
   visibility: ${({ $open }) => ($open ? 'visible' : 'hidden')};
   transform: translateY(${({ $open }) => ($open ? 0 : -4)}px);
@@ -75,23 +75,42 @@ const Dropdown = styled.div<{ $open: boolean }>`
 const Option = styled.button<{ $active: boolean }>`
   display: block;
   width: 100%;
-  padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.sm + 2}px ${({ theme }) => theme.spacing.md}px;
   border: none;
   border-radius: ${({ theme }) => theme.radii.md};
-  background: ${({ $active, theme }) => ($active ? theme.colors.surfaceMuted : 'transparent')};
-  color: ${({ $active, theme }) => ($active ? theme.colors.primary : theme.colors.text)};
+  background: ${({ $active, theme }) =>
+    $active && theme.colors.tealDark
+      ? theme.colors.tealDark
+      : $active
+        ? theme.colors.primary
+        : 'transparent'};
+  color: ${({ $active, theme }) =>
+    $active
+      ? (theme.colors.tealDarkContrast ?? theme.colors.primaryContrast ?? theme.colors.surface)
+      : theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizes.sm};
-  font-weight: ${({ $active, theme }) => ($active ? theme.typography.weights.semi : theme.typography.weights.regular)};
+  font-weight: ${({ $active, theme }) =>
+    $active ? theme.typography.weights.semi : theme.typography.weights.regular};
   text-align: left;
   cursor: pointer;
-  transition: background ${({ theme }) => theme.motion?.duration.fast || '150ms'} ease;
+  transition:
+    background ${({ theme }) => theme.motion?.duration.fast || '150ms'} ease,
+    color ${({ theme }) => theme.motion?.duration.fast || '150ms'} ease;
 
   &:hover {
-    background: ${({ theme }) => theme.colors.surfaceMuted};
+    background: ${({ $active, theme }) =>
+      $active && theme.colors.tealDark
+        ? theme.colors.tealDark
+        : theme.colors.surfaceMuted};
   }
 
   &:not(:first-child) {
     margin-top: 2px;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.primary};
+    outline-offset: -2px;
   }
 `;
 

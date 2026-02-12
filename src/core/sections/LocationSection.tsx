@@ -13,6 +13,10 @@ const Title = styled.h2`
   font-size: ${({ theme }) => theme.typography.sizes.xxl};
   line-height: ${({ theme }) => theme.typography.lineHeights?.tight || 1.2};
   margin-bottom: ${({ theme }) => theme.spacing.md}px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
 `;
 
 const Info = styled.p`
@@ -32,6 +36,18 @@ const MapFrame = styled.iframe`
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     height: 350px;
     min-height: 300px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    height: 280px;
+    min-height: 240px;
+  }
+`;
+
+const MapsButton = styled(LinkButton)`
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    min-height: 44px;
+    font-size: ${({ theme }) => theme.typography.sizes.sm};
   }
 `;
 
@@ -67,7 +83,7 @@ export const LocationSection = () => {
                   ))}
                 </Stack>
                 {content.location.mapsLink && (
-                  <LinkButton
+                  <MapsButton
                     href={content.location.mapsLink}
                     target="_blank"
                     rel="noreferrer noopener"
@@ -76,7 +92,7 @@ export const LocationSection = () => {
                   >
                     <Icon name="location" size={16} />
                     {t('location.openMaps')}
-                  </LinkButton>
+                  </MapsButton>
                 )}
               </Stack>
             </Card>
