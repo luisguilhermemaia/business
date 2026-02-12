@@ -79,6 +79,7 @@ export interface BrandContent {
   };
   booking: BookingConfig;
   social?: { label: string; url: string; platform?: SocialPlatform }[];
+  doctoralia?: { url: string; reviewCount?: number };
   pagesMeta: Record<
     string,
     {

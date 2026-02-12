@@ -28,7 +28,8 @@
   },
   "trustStrip": {
     "inPerson": "In-person care in {city}/{state}",
-    "online": "Online care across Brazil"
+    "online": "Online care across Brazil",
+    "doctoraliaReviews": "{count} reviews on Doctoralia"
   },
   "stats": {
     "card1Title": "You deserve to feel good about yourself.",
@@ -77,6 +78,7 @@
     "location": "Address",
     "hours": "Hours",
     "map": "View map",
+    "doctoralia": "View reviews on Doctoralia",
     "rights": "All rights reserved to {name}.",
     "madeWithCare": "Care starts here."
   },

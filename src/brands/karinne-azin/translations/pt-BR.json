@@ -28,7 +28,8 @@
   },
   "trustStrip": {
     "inPerson": "Atendimento presencial em {city}/{state}",
-    "online": "Atendimento online para todo o Brasil"
+    "online": "Atendimento online para todo o Brasil",
+    "doctoraliaReviews": "{count} opiniões na Doctoralia"
   },
   "stats": {
     "card1Title": "Você merece se sentir bem com você mesma.",
@@ -77,6 +78,7 @@
     "location": "Endereço",
     "hours": "Horários",
     "map": "Ver mapa",
+    "doctoralia": "Ver avaliações na Doctoralia",
     "rights": "Todos os direitos reservados a {name}.",
     "madeWithCare": "Cuidado que começa aqui."
   },

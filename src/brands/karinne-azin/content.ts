@@ -134,6 +134,10 @@ export const karinneContent: BrandContent = {
     },
     { label: 'Facebook', url: 'https://pt-br.facebook.com/drakarinneazin', platform: 'facebook' },
   ],
+  doctoralia: {
+    url: 'https://www.doctoralia.com.br/karinne-azin/ginecologista/fortaleza',
+    reviewCount: 35,
+  },
   pagesMeta: {
     default: {
       title: 'Ginecologia - Dra. Karinne Azin',

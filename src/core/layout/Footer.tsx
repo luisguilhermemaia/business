@@ -114,8 +114,8 @@ const SocialLink = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { hr
   width: 44px;
   height: 44px;
   border-radius: ${({ theme }) => theme.radii.pill};
-  border: 1px solid ${({ theme }) =>
-    hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.25)};
+  border: 1px solid
+    ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.25)};
   background: ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.08)};
   color: ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.9)};
   transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
@@ -143,8 +143,8 @@ const SocialLink = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { hr
 const FooterBottom = styled.div`
   margin-top: ${({ theme }) => theme.spacing.xl * 2}px;
   padding-top: ${({ theme }) => theme.spacing.xl}px;
-  border-top: 1px solid ${({ theme }) =>
-    hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.2)};
+  border-top: 1px solid
+    ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.2)};
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -199,8 +199,7 @@ export const Footer = () => {
             {content.social && content.social.length > 0 && (
               <SocialLinks direction="row" gap="sm">
                 {content.social.map((s) => {
-                  const platform =
-                    s.platform ?? inferPlatformFromUrl(s.url);
+                  const platform = s.platform ?? inferPlatformFromUrl(s.url);
                   return (
                     <SocialLink
                       key={s.url}
@@ -239,6 +238,12 @@ export const Footer = () => {
               <Icon name="phone" size={16} />
               {content.contact.phone}
             </LinkRow>
+            {content.doctoralia?.url && (
+              <LinkRow href={content.doctoralia.url} target="_blank" rel="noreferrer noopener">
+                <Icon name="arrow-right" size={16} />
+                {t('footer.doctoralia')}
+              </LinkRow>
+            )}
           </Stack>
           <Stack gap="sm">
             <Title>{t('footer.location')}</Title>

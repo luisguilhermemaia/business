@@ -26,13 +26,38 @@ const Pill = styled.div`
   gap: ${({ theme }) => theme.spacing.md}px;
   padding: ${({ theme }) => theme.spacing.sm + 2}px ${({ theme }) => theme.spacing.lg}px;
   border-radius: ${({ theme }) => theme.radii.pill};
-  border: 1px solid ${({ theme }) =>
-    (theme.colors.tealDark ? 'rgba(255, 255, 255, 0.2)' : theme.colors.border)};
+  border: 1px solid
+    ${({ theme }) => (theme.colors.tealDark ? 'rgba(255, 255, 255, 0.2)' : theme.colors.border)};
   background: ${({ theme }) => theme.colors.surface};
   color: ${({ theme }) => theme.colors.text};
   justify-content: center;
   font-size: ${({ theme }) => theme.typography.sizes.sm};
   font-weight: ${({ theme }) => theme.typography.weights.semi};
+`;
+
+const DoctoraliaPill = styled.a`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.md}px;
+  padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
+  border-radius: ${({ theme }) => theme.radii.lg};
+  background: ${({ theme }) => theme.colors.surface};
+  color: ${({ theme }) => theme.colors.text};
+  text-align: center;
+  min-width: 140px;
+  text-decoration: none;
+  transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'} ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: ${({ theme }) => theme.shadows.md || theme.shadows.medium};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    min-width: 120px;
+    padding: ${({ theme }) => theme.spacing.sm}px ${({ theme }) => theme.spacing.md}px;
+    font-size: ${({ theme }) => theme.typography.sizes.sm};
+  }
 `;
 
 const StatPill = styled.div`
@@ -93,6 +118,20 @@ export const TrustStripSection = () => {
               </Pill>
             </Reveal>
           ))}
+          {content.doctoralia?.url && content.doctoralia?.reviewCount && (
+            <Reveal delay={0.1} direction="up" duration={650}>
+              <DoctoraliaPill
+                href={content.doctoralia.url}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <Icon name="quote" size={18} />
+                {t('trustStrip.doctoraliaReviews', {
+                  count: content.doctoralia.reviewCount,
+                })}
+              </DoctoraliaPill>
+            </Reveal>
+          )}
           <Reveal delay={0.15} direction="scale" duration={750}>
             <StatPill>
               <StatNumber>15+</StatNumber>
