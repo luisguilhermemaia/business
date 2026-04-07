@@ -9,7 +9,56 @@ import { BLUR_DATA_URL } from '../utils/image';
 import { useI18n } from '../i18n/I18nProvider';
 import { Container, Section } from '../design-system/primitives';
 import { Icon } from '../icons/Icon';
+import { hexToRgba } from '../utils/colors';
 import { formatDate } from '../utils/format';
+
+const BreadcrumbNav = styled.nav`
+  margin-bottom: ${({ theme }) => theme.spacing.md}px;
+`;
+
+const BreadcrumbList = styled.ol`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+`;
+
+const BreadcrumbItem = styled.li`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const BreadcrumbLink = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href: string }>`
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: ${({ theme }) => theme.typography.sizes.xs};
+  font-weight: ${({ theme }) => theme.typography.weights.bold};
+  color: ${({ theme }) => hexToRgba(theme.colors.text, 0.72)};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primaryStrong};
+  }
+`;
+
+const BreadcrumbCurrent = styled.span`
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: ${({ theme }) => theme.typography.sizes.xs};
+  font-weight: ${({ theme }) => theme.typography.weights.bold};
+  color: ${({ theme }) => hexToRgba(theme.colors.primaryStrong, 0.76)};
+`;
+
+const BreadcrumbSeparator = styled.span`
+  color: ${({ theme }) => hexToRgba(theme.colors.primary, 0.62)};
+  font-size: 0.8rem;
+  line-height: 1;
+  transform: translateY(-1px);
+`;
 
 const BackLink = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href: string }>`
   display: inline-flex;
@@ -276,9 +325,36 @@ interface Props {
 
 export const BlogPostPage = ({ post, previous, next, children }: Props) => {
   const { t, locale } = useI18n();
+
+  const breadcrumbs = [
+    { label: t('nav.home'), href: '/' },
+    { label: t('nav.blog'), href: '/blog' },
+    { label: post.title },
+  ];
+
   return (
     <Section>
       <Container width="wide">
+        <BreadcrumbNav aria-label="Breadcrumb">
+          <BreadcrumbList>
+            {breadcrumbs.map((breadcrumb, index) => {
+              const isLast = index === breadcrumbs.length - 1;
+              return (
+                <BreadcrumbItem key={`${breadcrumb.label}-${index}`}>
+                  {breadcrumb.href && !isLast ? (
+                    <BreadcrumbLink href={breadcrumb.href as never}>
+                      {breadcrumb.label}
+                    </BreadcrumbLink>
+                  ) : (
+                    <BreadcrumbCurrent>{breadcrumb.label}</BreadcrumbCurrent>
+                  )}
+                  {!isLast ? <BreadcrumbSeparator>{'>'}</BreadcrumbSeparator> : null}
+                </BreadcrumbItem>
+              );
+            })}
+          </BreadcrumbList>
+        </BreadcrumbNav>
+
         <BackLink href="/blog">
           <Icon name="arrow-right" size={16} style={{ transform: 'rotate(180deg)' }} />
           {t('blog.backToBlog') || t('actions.back')}
@@ -294,12 +370,20 @@ export const BlogPostPage = ({ post, previous, next, children }: Props) => {
             <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               <Icon name="clock" size={14} /> {post.readingTime} {t('blog.minRead')}
             </span>
-            {post.tags?.map((tag) => (
-              <TagBadge key={tag}>
-                <Icon name="tag" size={12} />
-                {tag}
+            <Link href={`/blog/categoria/${post.categorySlug}`} style={{ textDecoration: 'none' }}>
+              <TagBadge>
+                <Icon name="globe" size={12} />
+                {post.category}
               </TagBadge>
-            ))}
+            </Link>
+            {post.tags
+              .filter((tag) => tag !== post.category)
+              .map((tag) => (
+                <TagBadge key={tag}>
+                  <Icon name="tag" size={12} />
+                  {tag}
+                </TagBadge>
+              ))}
           </MetaRow>
         </PostHeader>
 

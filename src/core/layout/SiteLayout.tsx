@@ -6,6 +6,7 @@ import { useBrand } from '../brand/BrandProvider';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { FloatingWhatsAppButton } from '../design-system/components/FloatingWhatsAppButton';
+import { CookieConsentBanner } from './CookieConsentBanner';
 
 const Main = styled.main`
   min-height: 70vh;
@@ -18,6 +19,7 @@ export const SiteLayout = ({ children }: { children: ReactNode }) => {
       <Header />
       <Main>{children}</Main>
       <Footer />
+      <CookieConsentBanner />
       <FloatingWhatsAppButton
         phone={content.contact.whatsapp}
         message={content.contact.whatsappMessage || content.hero.ctaLabel}

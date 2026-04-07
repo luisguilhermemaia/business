@@ -13,9 +13,23 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const brand = await getBrandConfig();
   const post = await getPostBySlug(params.slug);
   if (!post) return buildMetadata(brand, 'blog/[slug]');
+  const seoTitle = post.seoTitle || post.title;
+  const seoDescription = post.seoDescription || post.excerpt;
   return {
-    title: `${post.title} | ${brand.name}`,
-    description: post.excerpt,
+    title: `${seoTitle} | ${brand.name}`,
+    description: seoDescription,
+    alternates: {
+      canonical: `/blog/${post.slug}`,
+    },
+    openGraph: {
+      type: 'article',
+      title: seoTitle,
+      description: seoDescription,
+      url: `/blog/${post.slug}`,
+      publishedTime: post.date,
+      tags: [post.category, ...post.tags],
+      images: post.cover ? [post.cover] : undefined,
+    },
   };
 }
 

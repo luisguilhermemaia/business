@@ -12,7 +12,7 @@ Next.js (App Router) + TypeScript + styled-components starter focused on premium
 
 - `src/core`: design system, layout, sections, i18n, seo, utils — brand-agnostic.
 - `src/brands/<brand>`: theme, content, translations, assets for each brand.
-- `content/blog`: MDX posts with frontmatter (`title`, `excerpt`, `date`, `tags`, `slug`).
+- `content/blog`: MDX posts with frontmatter (`title`, `excerpt`, `date`, `category`, `tags`, `slug`, optional `seoTitle`/`seoDescription`).
 - `app`: routes composed from core sections + brand content.
 
 ## Add a new brand
@@ -34,7 +34,8 @@ Next.js (App Router) + TypeScript + styled-components starter focused on premium
 ## Blog
 
 - Create MDX files in `content/blog/` with frontmatter and body content.
-- Blog index supports search + tag filtering; post pages show reading time plus prev/next links.
+- Blog index supports URL-based search, category pages (`/blog/categoria/<slug>`), and pagination.
+- Post pages show reading time, category links, and prev/next article navigation.
 - Sitemap/robots are generated automatically (`/sitemap.xml`, `/robots.txt`).
 
 ## Booking flow

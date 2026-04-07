@@ -10,7 +10,7 @@ interface Props {
 
 const FloatingButton = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href: string }>`
   position: fixed;
-  bottom: 24px;
+  bottom: calc(24px + var(--cookie-banner-offset, 0px));
   right: 24px;
   z-index: ${({ theme }) => theme.zIndex.floating};
   background: linear-gradient(135deg, #25d366, #128c7e);
@@ -42,7 +42,7 @@ const FloatingButton = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & 
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    bottom: max(20px, env(safe-area-inset-bottom));
+    bottom: calc(max(20px, env(safe-area-inset-bottom)) + var(--cookie-banner-offset, 0px));
     right: max(20px, env(safe-area-inset-right));
     width: 52px;
     height: 52px;

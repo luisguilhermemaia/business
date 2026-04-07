@@ -2,489 +2,768 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ComponentProps } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { ComponentProps, useEffect, useMemo, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
 import { useBrand } from '../brand/BrandProvider';
-import { useI18n } from '../i18n/I18nProvider';
 import { Icon } from '../icons/Icon';
-import { LinkButton } from '../design-system/components/Button';
-import { LanguageSwitcher } from './LanguageSwitcher';
-import { Container } from '../design-system/primitives';
-import { usePathname } from 'next/navigation';
+import { SocialIcon } from '../icons/SocialIcon';
+import type { SocialPlatform } from '../types/brand';
 import { hexToRgba } from '../utils/colors';
+import { toSeoSlug } from '../utils/slug';
+import { useRecentPosts } from '../blog/RecentPostsProvider';
+import { siteRoutes } from './siteRoutes';
 
-const HeaderShell = styled.header<{ $scrolled: boolean }>`
+interface HeaderNavItem {
+  label: string;
+  href?: string;
+  children?: { label: string; href: string }[];
+  dropdownTitle?: string;
+}
+
+interface MobileNavSection {
+  title: string;
+  links: { label: string; href: string }[];
+}
+
+const specialtyChildren = [
+  { label: 'Menopausa & Climatério', href: siteRoutes.specialty.menopause },
+  { label: 'Implantes Hormonais', href: siteRoutes.specialty.hormonalImplants },
+] as const;
+
+const advancedGynecologyChildren = [
+  { label: 'Laser Íntimo', href: siteRoutes.advancedGynecology.laserIntimo },
+  { label: 'Endometriose', href: siteRoutes.advancedGynecology.endometriosis },
+  { label: 'Cirurgia Ginecológica', href: siteRoutes.advancedGynecology.gynecologicalSurgery },
+  { label: 'Cirurgia Íntima', href: siteRoutes.advancedGynecology.intimateSurgery },
+  { label: 'DIUs', href: siteRoutes.advancedGynecology.iuds },
+] as const;
+
+function inferPlatformFromUrl(url: string): SocialPlatform | null {
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    if (host.includes('instagram.com')) return 'instagram';
+    if (host.includes('facebook.com') || host.includes('fb.com')) return 'facebook';
+    if (host.includes('linkedin.com')) return 'linkedin';
+    if (host.includes('threads.net')) return 'threads';
+    if (host.includes('x.com') || host.includes('twitter.com')) return 'x';
+    if (host.includes('youtube.com')) return 'youtube';
+  } catch {
+    return null;
+  }
+  return null;
+}
+
+const normalizeHrefPath = (href: string) => href.split('?')[0].split('#')[0];
+
+const matchesPath = (pathname: string, href: string) => {
+  const baseHref = normalizeHrefPath(href);
+  return baseHref === '/' ? pathname === '/' : pathname.startsWith(baseHref);
+};
+
+const HeaderShell = styled.header`
   position: sticky;
   top: 0;
   z-index: ${({ theme }) => theme.zIndex.header};
-  background: ${({ theme }) => theme.colors.background};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-  transition: all ${({ theme }) => theme.motion?.duration.normal || '250ms'}
-    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
-  box-shadow: ${({ $scrolled }) => ($scrolled ? `0 1px 3px rgba(0, 0, 0, 0.04)` : 'none')};
+  border-top: 6px solid ${({ theme }) => hexToRgba(theme.colors.text, 0.85)};
+  border-bottom: 1px solid ${({ theme }) => hexToRgba(theme.colors.text, 0.14)};
+  background: ${({ theme }) => theme.colors.surface};
 `;
 
-const TopBar = styled.div`
-  background: ${({ theme }) => theme.colors.tealDark ?? theme.colors.backgroundAlt};
-  color: ${({ theme }) => theme.colors.tealDarkContrast ?? theme.colors.text};
-  padding: ${({ theme }) => theme.spacing.sm}px 0;
-  font-size: ${({ theme }) => theme.typography.sizes.sm};
-  border-bottom: 1px solid
-    ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.12)};
+const Wrapper = styled.div`
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 18px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    padding: 0 12px;
+  }
+`;
+
+const DesktopBar = styled.div`
+  min-height: 126px;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: ${({ theme }) => theme.spacing.lg}px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: none;
-  }
-`;
-
-const TopBarInner = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: ${({ theme }) => theme.spacing.sm}px;
-`;
-
-const TopBarItem = styled.div`
-  display: inline-flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm}px;
-  color: ${({ theme }) => theme.colors.tealDarkContrast ?? theme.colors.text};
-  font-size: ${({ theme }) => theme.typography.sizes.sm};
-
-  svg {
-    flex-shrink: 0;
-  }
-`;
-
-const Inner = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: ${({ theme }) => theme.spacing.md}px;
-  min-height: 80px;
-  padding: ${({ theme }) => theme.spacing.md}px 0;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
-    min-height: 72px;
-    padding: ${({ theme }) => theme.spacing.sm}px 0;
-    gap: ${({ theme }) => theme.spacing.sm}px;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    padding-left: env(safe-area-inset-left, 0);
-    padding-right: env(safe-area-inset-right, 0);
   }
 `;
 
 const BrandMark = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href: string }>`
   display: inline-flex;
   align-items: center;
+  align-self: center;
   flex-shrink: 0;
-  font-size: ${({ theme }) => theme.typography.sizes.xl};
-  font-weight: ${({ theme }) => theme.typography.weights.bold};
-  color: ${({ theme }) => theme.colors.text};
+  position: relative;
   text-decoration: none;
   transition: opacity ${({ theme }) => theme.motion?.duration.fast || '150ms'}
     ${({ theme }) => theme.motion?.easing.ease || 'ease'};
 
-  &:hover {
-    opacity: 0.85;
+  /* Disable generic global link underline animation for the logo */
+  &::before,
+  &::after {
+    content: none !important;
+    display: none !important;
   }
 
   img {
-    height: 60px;
     width: auto;
-    max-width: 360px;
-    display: block;
+    height: 92px;
+    max-width: min(560px, 66vw);
     object-fit: contain;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
-    img {
-      height: 52px;
-      max-width: 280px;
-      object-fit: contain;
-    }
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    img {
-      height: 46px;
-      max-width: 240px;
-    }
+    object-position: left center;
   }
 `;
 
-const Nav = styled.nav`
+const RightBlock = styled.div`
+  align-self: stretch;
   display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.xs}px;
-  flex: 1;
-  justify-content: center;
-  min-width: 0;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
-    display: none;
-  }
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 14px 0 0;
 `;
 
-const NavLink = styled(Link)<
-  Omit<ComponentProps<typeof Link>, 'href'> & { href: string; $active?: boolean }
+const SocialRow = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const SocialLink = styled(Link)<
+  Omit<ComponentProps<typeof Link>, 'href'> & {
+    href: string;
+    $accent?: boolean;
+  }
 >`
-  color: ${({ theme, $active }) => ($active ? theme.colors.primary : theme.colors.text)};
-  font-weight: ${({ theme, $active }) =>
-    $active ? theme.typography.weights.semi : theme.typography.weights.regular};
-  font-size: ${({ theme }) => theme.typography.sizes.md};
-  padding: ${({ theme }) => theme.spacing.sm + 2}px ${({ theme }) => theme.spacing.lg}px;
-  border-radius: ${({ theme }) => theme.radii.lg};
+  width: 38px;
+  height: 38px;
+  border-radius: ${({ theme }) => theme.radii.round};
+  border: 2px solid
+    ${({ theme, $accent }) =>
+      $accent ? hexToRgba(theme.colors.danger, 0.8) : hexToRgba(theme.colors.primary, 0.8)};
+  color: ${({ theme, $accent }) =>
+    $accent ? hexToRgba(theme.colors.danger, 0.9) : hexToRgba(theme.colors.primary, 0.9)};
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  background: ${({ theme }) => hexToRgba(theme.colors.surface, 0.8)};
   transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
     ${({ theme }) => theme.motion?.easing.ease || 'ease'};
-  position: relative;
-  text-decoration: none;
-  white-space: nowrap;
-
-  ${({ $active, theme }) =>
-    $active &&
-    `
-    background: ${hexToRgba(theme.colors.primary, 0.1)};
-    color: ${theme.colors.text};
-    border: 1px solid ${hexToRgba(theme.colors.primary, 0.3)};
-  `}
 
   &:hover {
-    color: ${({ $active, theme }) => ($active ? theme.colors.text : theme.colors.primary)};
-    background: ${({ $active, theme }) =>
-      $active ? hexToRgba(theme.colors.primary, 0.12) : hexToRgba(theme.colors.primary, 0.06)};
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.primary};
-    outline-offset: 2px;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
-    padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
-    font-size: ${({ theme }) => theme.typography.sizes.lg};
-    border-radius: ${({ theme }) => theme.radii.lg};
-    background: ${({ $active, theme }) =>
-      $active ? hexToRgba(theme.colors.primary, 0.1) : 'transparent'};
-    color: ${({ $active, theme }) => ($active ? theme.colors.text : theme.colors.text)};
-    border: ${({ $active, theme }) =>
-      $active ? `1px solid ${hexToRgba(theme.colors.primary, 0.3)}` : '1px solid transparent'};
+    transform: translateY(-1px);
+    background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.08)};
   }
 `;
 
-const Actions = styled.div`
+const MenuList = styled.ul`
+  margin: 0 0 -1px;
+  padding: 0;
+  list-style: none;
   display: flex;
+  align-items: flex-end;
+  gap: 30px;
+`;
+
+const MenuItem = styled.li<{ $hasDropdown?: boolean }>`
+  position: relative;
+  list-style: none;
+
+  &:hover > a,
+  &:hover > button,
+  &:focus-within > a,
+  &:focus-within > button {
+    color: ${({ theme }) => theme.colors.primaryStrong};
+  }
+
+  &:hover ul,
+  &:focus-within ul {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, 0) scale(1);
+  }
+`;
+
+const MenuLink = styled(Link)<
+  Omit<ComponentProps<typeof Link>, 'href'> & { href: string; $active?: boolean }
+>`
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.md}px;
-  flex-shrink: 0;
+  gap: 5px;
+  min-height: 40px;
+  padding: 0 0 12px;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 0.94rem;
+  line-height: 1.2;
+  font-weight: ${({ theme }) => theme.typography.weights.medium};
+  color: ${({ theme, $active }) =>
+    $active ? theme.colors.primaryStrong : hexToRgba(theme.colors.text, 0.72)};
+  transition:
+    color ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+      ${({ theme }) => theme.motion?.easing.ease || 'ease'},
+    opacity ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+      ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+
+  &::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    width: 100%;
+    height: 2px;
+    border-radius: 999px;
+    background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.7)};
+    transform: scaleX(${({ $active }) => ($active ? 1 : 0)});
+    transform-origin: left center;
+    transition: transform ${({ theme }) => theme.motion?.duration.normal || '250ms'}
+      ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+  }
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primaryStrong};
+    opacity: 0.95;
+  }
+
+  &:hover::before,
+  &:focus-visible::before {
+    transform: scaleX(1);
+  }
+`;
+
+const MenuButton = styled.button<{ $active?: boolean }>`
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 40px;
+  padding: 0 0 12px;
+  border: 0;
+  background: transparent;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 0.94rem;
+  line-height: 1.2;
+  font-weight: ${({ theme }) => theme.typography.weights.medium};
+  color: ${({ theme, $active }) =>
+    $active ? theme.colors.primaryStrong : hexToRgba(theme.colors.text, 0.72)};
+  transition:
+    color ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+      ${({ theme }) => theme.motion?.easing.ease || 'ease'},
+    opacity ${({ theme }) => theme.motion?.duration.fast || '150ms'}
+      ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+  cursor: default;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    width: 100%;
+    height: 2px;
+    border-radius: 999px;
+    background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.7)};
+    transform: scaleX(${({ $active }) => ($active ? 1 : 0)});
+    transform-origin: left center;
+    transition: transform ${({ theme }) => theme.motion?.duration.normal || '250ms'}
+      ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+  }
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primaryStrong};
+    opacity: 0.95;
+  }
+
+  &:hover::before,
+  &:focus-visible::before {
+    transform: scaleX(1);
+  }
+`;
+
+const Caret = styled.span`
+  font-size: 10px;
+  line-height: 1;
+  opacity: 0.75;
+`;
+
+const Dropdown = styled.ul`
+  margin: 0;
+  list-style: none;
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 50%;
+  right: auto;
+  min-width: 330px;
+  border: 1px solid ${({ theme }) => hexToRgba(theme.colors.text, 0.12)};
+  border-top: 2px solid ${({ theme }) => hexToRgba(theme.colors.primary, 0.35)};
+  background: ${({ theme }) => hexToRgba(theme.colors.surface, 0.98)};
+  box-shadow: 0 18px 36px ${({ theme }) => hexToRgba(theme.colors.text, 0.14)};
+  padding: 16px 12px 10px;
+  min-height: 0;
+  border-radius: 0 0 12px 12px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 10px) scale(0.985);
+  transition:
+    opacity 170ms ease,
+    transform 170ms ease;
+`;
+
+const DropdownTitle = styled.p`
+  margin: 0 10px 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  color: ${({ theme }) => hexToRgba(theme.colors.text, 0.58)};
+  font-size: 0.72rem;
+  font-weight: ${({ theme }) => theme.typography.weights.bold};
+`;
+
+const DropdownLink = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href: string }>`
+  display: block;
+  text-decoration: none;
+  font-size: 0.92rem;
+  color: ${({ theme }) => hexToRgba(theme.colors.text, 0.78)};
+  padding: 10px;
+  border-radius: 8px;
+  line-height: 1.35;
+  font-weight: ${({ theme }) => theme.typography.weights.medium};
+  transition:
+    color 140ms ease,
+    background 140ms ease,
+    transform 140ms ease;
+
+  &::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: ${({ theme }) => theme.colors.primaryStrong};
+    background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.08)};
+    transform: translateX(2px);
+    outline: none;
+  }
+`;
+
+const MobileBar = styled.div`
+  display: none;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
+    min-height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: ${({ theme }) => theme.spacing.sm}px;
+  }
 `;
 
 const MobileToggle = styled.button`
-  display: none;
-  border: none;
-  background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.08)};
-  color: ${({ theme }) => theme.colors.primary};
-  padding: ${({ theme }) => theme.spacing.sm}px;
-  border-radius: ${({ theme }) => theme.radii.pill};
-  cursor: pointer;
-  transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
-    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
-  min-width: 44px;
-  min-height: 44px;
-  width: 44px;
-  height: 44px;
-  align-items: center;
-  justify-content: center;
-
-  &:hover {
-    background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.16)};
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.primary};
-    outline-offset: 2px;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
-    display: inline-flex;
-  }
-`;
-
-const DesktopOnly = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: ${({ theme }) => theme.radii.round};
+  border: 1px solid ${({ theme }) => hexToRgba(theme.colors.text, 0.2)};
+  background: transparent;
+  color: ${({ theme }) => theme.colors.text};
   display: inline-flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.md}px;
-  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
-    display: none;
+  justify-content: center;
+  cursor: pointer;
+`;
+
+const MobileLogo = styled(BrandMark)`
+  img {
+    height: 68px;
+    max-width: min(380px, 70vw);
   }
 `;
 
-const MobileOnly = styled.div`
+const MobileOverlay = styled.div<{ $open: boolean }>`
   display: none;
-  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
-    display: block;
-    position: relative;
-    z-index: ${({ theme }) => theme.zIndex.overlay + 1};
-  }
-`;
-
-const MobileMenuOverlay = styled.div<{ $open: boolean }>`
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: ${({ theme }) => theme.colors.overlay};
-  backdrop-filter: blur(3px);
-  z-index: ${({ theme }) => theme.zIndex.overlay};
-  opacity: ${({ $open }) => ($open ? 1 : 0)};
-  pointer-events: ${({ $open }) => ($open ? 'auto' : 'none')};
-  transition: opacity ${({ theme }) => theme.motion?.duration.normal || '250ms'}
-    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: block;
+    position: fixed;
+    inset: 0;
+    z-index: ${({ theme }) => theme.zIndex.overlay};
+    background: ${({ theme }) => hexToRgba(theme.colors.text, 0.42)};
+    opacity: ${({ $open }) => ($open ? 1 : 0)};
+    pointer-events: ${({ $open }) => ($open ? 'auto' : 'none')};
+    transition: opacity ${({ theme }) => theme.motion?.duration.normal || '250ms'}
+      ${({ theme }) => theme.motion?.easing.ease || 'ease'};
   }
 `;
 
-const MobileMenuPanel = styled.aside<{ $open: boolean }>`
+const MobilePanel = styled.aside<{ $open: boolean }>`
   display: none;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     display: flex;
+    flex-direction: column;
     position: fixed;
     top: 0;
-    right: 0;
-    bottom: 0;
     left: 0;
-    width: min(100vw, 360px);
-    margin-left: auto;
-    height: 100vh;
-    height: 100dvh;
-    padding: max(env(safe-area-inset-top), ${({ theme }) => theme.spacing.lg}px)
-      max(env(safe-area-inset-right), ${({ theme }) => theme.spacing.lg}px)
-      max(env(safe-area-inset-bottom), ${({ theme }) => theme.spacing.xl}px)
-      max(env(safe-area-inset-left), ${({ theme }) => theme.spacing.xl}px);
-    background: ${({ theme }) => theme.colors.surface};
+    bottom: 0;
+    width: min(82vw, 320px);
+    background: ${({ theme }) => hexToRgba(theme.colors.surfaceMuted, 0.96)};
+    border-right: none;
     z-index: ${({ theme }) => theme.zIndex.overlay + 1};
-    box-shadow: -8px 0 32px rgba(42, 66, 66, 0.15);
-    transform: translateX(${({ $open }) => ($open ? '0' : '100%')});
-    transition: transform ${({ theme }) => theme.motion?.duration.slow || '350ms'}
-      ${({ theme }) => theme.motion?.easing.easeOut || 'cubic-bezier(0, 0, 0.2, 1)'};
-    flex-direction: column;
-    gap: ${({ theme }) => theme.spacing.md}px;
+    transform: translateX(${({ $open }) => ($open ? '0' : '-100%')});
+    transition: transform ${({ theme }) => theme.motion?.duration.normal || '250ms'}
+      ${({ theme }) => theme.motion?.easing.ease || 'ease'};
     overflow-y: auto;
-    overflow-x: hidden;
-    pointer-events: ${({ $open }) => ($open ? 'auto' : 'none')};
-    -webkit-overflow-scrolling: touch;
+    box-shadow: 14px 0 24px ${({ theme }) => hexToRgba(theme.colors.text, 0.24)};
   }
 `;
 
-const MobileMenuHeader = styled.div`
+const MobileHead = styled.div`
+  min-height: 68px;
+  padding: 10px ${({ theme }) => theme.spacing.md}px 6px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: ${({ theme }) => theme.spacing.md}px;
-  padding-bottom: ${({ theme }) => theme.spacing.md}px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
-const MobileMenuBody = styled.div`
-  display: flex;
-  flex-direction: column;
+const MobileTitle = styled.p`
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.88rem;
+  color: ${({ theme }) => hexToRgba(theme.colors.surface, 0.88)};
+  font-weight: ${({ theme }) => theme.typography.weights.bold};
+`;
+
+const MobileNav = styled.div`
+  padding: 4px 24px 24px;
+  display: grid;
+  gap: 15px;
+`;
+
+const MobileHomeLink = styled(Link)<
+  Omit<ComponentProps<typeof Link>, 'href'> & { href: string; $active?: boolean }
+>`
+  display: inline-flex;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: clamp(1.44rem, 4vw, 1.68rem);
+  font-weight: ${({ theme }) => theme.typography.weights.bold};
+  color: ${({ theme, $active }) =>
+    $active ? hexToRgba(theme.colors.surface, 0.98) : hexToRgba(theme.colors.surface, 0.92)};
+
+  &::after {
+    content: none !important;
+    display: none !important;
+  }
+`;
+
+const MobileSection = styled.section`
+  display: grid;
+  gap: 10px;
+`;
+
+const MobileSectionTitle = styled.p`
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: clamp(1.32rem, 3.6vw, 1.56rem);
+  font-weight: ${({ theme }) => theme.typography.weights.bold};
+  color: ${({ theme }) => hexToRgba(theme.colors.surface, 0.95)};
+`;
+
+const MobileSectionLinks = styled.div`
+  display: grid;
+  gap: 9px;
+`;
+
+const MobileSectionLink = styled(Link)<
+  Omit<ComponentProps<typeof Link>, 'href'> & { href: string; $active?: boolean }
+>`
+  display: block;
+  text-decoration: none;
+  font-size: 1rem;
+  line-height: 1.3;
+  letter-spacing: 0.05em;
+  color: ${({ theme, $active }) =>
+    $active ? hexToRgba(theme.colors.surface, 0.96) : hexToRgba(theme.colors.text, 0.85)};
+
+  &::after {
+    content: none !important;
+    display: none !important;
+  }
+`;
+
+const MobileSocials = styled.div`
+  margin-top: ${({ theme }) => theme.spacing.md}px;
+  display: inline-flex;
+  align-items: center;
   gap: ${({ theme }) => theme.spacing.sm}px;
-  flex: 1;
-`;
-
-const MobileMenuFooter = styled.div`
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md}px;
-  padding-top: ${({ theme }) => theme.spacing.lg}px;
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
-`;
-
-const MobileNavLink = styled(NavLink)`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  font-size: ${({ theme }) => theme.typography.sizes.md};
-  min-height: 48px;
-  padding: ${({ theme }) => theme.spacing.md}px ${({ theme }) => theme.spacing.lg}px;
-  border-radius: ${({ theme }) => theme.radii.lg};
-  background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.04)};
-
-  &:hover {
-    background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.1)};
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    min-height: 52px;
-    padding: ${({ theme }) => theme.spacing.lg}px ${({ theme }) => theme.spacing.xl}px;
-  }
-`;
-
-const MainCTA = styled(LinkButton)`
-  background: transparent !important;
-  color: ${({ theme }) => theme.colors.text} !important;
-  border: 1.5px solid ${({ theme }) => hexToRgba(theme.colors.primary, 0.4)} !important;
-  box-shadow: none !important;
-  font-weight: ${({ theme }) => theme.typography.weights.medium} !important;
-
-  &:hover:not(:disabled) {
-    background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.08)} !important;
-    color: ${({ theme }) => theme.colors.text} !important;
-    border-color: ${({ theme }) => hexToRgba(theme.colors.primary, 0.6)} !important;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
-  }
-
-  &:active:not(:disabled) {
-    transform: translateY(0);
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
-    display: none;
-  }
 `;
 
 export const Header = () => {
   const { content, logo } = useBrand();
-  const { t } = useI18n();
+  const recentPosts = useRecentPosts();
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const navRef = useRef<HTMLElement>(null);
-  const ctaHref = '/booking';
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    setOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden';
-      const firstFocusable = navRef.current?.querySelector<HTMLElement>(
-        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      );
-      firstFocusable?.focus();
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = open ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
   }, [open]);
 
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && open) {
-        setOpen(false);
-      }
-    };
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, [open]);
+  const socialItems = useMemo(() => content.social || [], [content.social]);
+  const configuredBlogCategories = useMemo(
+    () =>
+      content.blog.menu?.categories
+        ?.map((category) => category.trim())
+        .filter((category) => category.length > 0) || [],
+    [content.blog.menu?.categories]
+  );
 
-  const navItems = [
-    { href: '/', label: t('nav.home') },
-    { href: '/about', label: t('nav.about') },
-    { href: '/services', label: t('nav.services') },
-    { href: '/location', label: t('nav.location') },
-    { href: '/blog', label: t('nav.blog') },
-    ...(content.instagram?.profileUrl ? [{ href: '/instagram', label: t('nav.instagram') }] : []),
-    { href: '/contact', label: t('nav.contact') },
-  ];
+  const blogChildren = useMemo(
+    () =>
+      configuredBlogCategories.length
+        ? configuredBlogCategories.map((category) => ({
+            label: category,
+            href: `/blog/categoria/${toSeoSlug(category)}`,
+          }))
+        : recentPosts.slice(0, 5).map((post) => ({
+            label: post.title,
+            href: `/blog/${post.slug}`,
+          })),
+    [configuredBlogCategories, recentPosts]
+  );
+
+  const desktopMenu = useMemo<HeaderNavItem[]>(() => {
+    const blogDropdownTitle = configuredBlogCategories.length
+      ? content.blog.menu?.title || 'Todas as categorias'
+      : blogChildren.length
+        ? 'Últimos artigos'
+        : undefined;
+
+    return [
+      { label: 'Home', href: siteRoutes.home },
+      { label: 'Sobre a médica', href: siteRoutes.about },
+      {
+        label: 'Especialidade',
+        href: siteRoutes.specialty.overview,
+        children: [...specialtyChildren],
+        dropdownTitle: 'Especialidade',
+      },
+      {
+        label: 'Ginecologia Avançada',
+        href: siteRoutes.advancedGynecology.overview,
+        children: [...advancedGynecologyChildren],
+        dropdownTitle: 'Ginecologia avançada',
+      },
+      {
+        label: 'Blog',
+        href: siteRoutes.blog,
+        children: blogChildren.length ? blogChildren : undefined,
+        dropdownTitle: blogDropdownTitle,
+      },
+      { label: 'Contato', href: siteRoutes.attendance },
+    ];
+  }, [blogChildren, configuredBlogCategories.length, content.blog.menu?.title]);
+
+  const mobileSections = useMemo<MobileNavSection[]>(
+    () => [
+      {
+        title: 'Sobre a médica',
+        links: [{ label: content.doctor.name, href: siteRoutes.about }],
+      },
+      {
+        title: 'Especialidade',
+        links: [...specialtyChildren],
+      },
+      {
+        title: 'Ginecologia Avançada',
+        links: [...advancedGynecologyChildren],
+      },
+      {
+        title: 'Blog',
+        links: blogChildren.length ? blogChildren : [{ label: 'Blog', href: siteRoutes.blog }],
+      },
+      {
+        title: 'Contato',
+        links: [{ label: 'Atendimento', href: siteRoutes.attendance }],
+      },
+    ],
+    [blogChildren, content.doctor.name]
+  );
 
   return (
-    <HeaderShell $scrolled={scrolled}>
-      <TopBar>
-        <Container width="wide">
-          <TopBarInner>
-            <TopBarItem>
-              <Icon name="location" size={16} />
-              {t('hero.topBar')}
-            </TopBarItem>
-          </TopBarInner>
-        </Container>
-      </TopBar>
-      <Container width="wide">
-        <Inner>
+    <HeaderShell>
+      <Wrapper>
+        <DesktopBar>
           <BrandMark href="/">
             {logo ? (
-              <Image src={logo} alt={content.doctor.name} width={360} height={60} priority />
+              <Image src={logo} alt={content.doctor.name} width={380} height={62} priority />
             ) : (
               <span>{content.doctor.name}</span>
             )}
           </BrandMark>
-          <DesktopOnly>
-            <Nav>
-              {navItems.map((item) => (
-                <NavLink key={item.href} href={item.href} $active={pathname === item.href}>
-                  {item.label}
-                </NavLink>
-              ))}
-            </Nav>
-          </DesktopOnly>
-          <Actions>
-            <DesktopOnly>
-              <LanguageSwitcher />
-              <MainCTA href={ctaHref} size="sm" variant="primary">
-                {t('actions.book')}
-              </MainCTA>
-            </DesktopOnly>
-            <MobileOnly>
-              <MobileToggle onClick={() => setOpen((prev) => !prev)} aria-label="Toggle navigation">
-                <Icon name={open ? 'close' : 'menu'} size={22} />
-              </MobileToggle>
-            </MobileOnly>
-          </Actions>
-        </Inner>
-      </Container>
-      <MobileMenuOverlay $open={open} onClick={() => setOpen(false)} aria-hidden="true" />
-      <MobileMenuPanel ref={navRef} $open={open} aria-label="Mobile navigation">
-        <MobileMenuHeader>
-          <BrandMark href="/" onClick={() => setOpen(false)}>
-            {logo ? (
-              <Image src={logo} alt={content.doctor.name} width={280} height={52} />
-            ) : (
-              <span>{content.doctor.name}</span>
-            )}
-          </BrandMark>
-          <MobileToggle onClick={() => setOpen(false)} aria-label="Close navigation">
-            <Icon name="close" size={22} />
+
+          <RightBlock>
+            <SocialRow>
+              {socialItems.map((social, index) => {
+                const platform = social.platform ?? inferPlatformFromUrl(social.url);
+                return (
+                  <SocialLink
+                    key={social.url}
+                    href={social.url}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label={social.label}
+                    $accent={index % 2 === 1}
+                  >
+                    {platform ? (
+                      <SocialIcon platform={platform} size={16} />
+                    ) : (
+                      <Icon name="arrow-right" size={14} />
+                    )}
+                  </SocialLink>
+                );
+              })}
+            </SocialRow>
+
+            <MenuList>
+              {desktopMenu.map((item) => {
+                const active =
+                  (item.href ? matchesPath(pathname, item.href) : false) ||
+                  item.children?.some((child) => matchesPath(pathname, child.href));
+
+                return (
+                  <MenuItem key={item.label} $hasDropdown={!!item.children?.length}>
+                    {item.href ? (
+                      <MenuLink href={item.href} $active={active}>
+                        {item.label}
+                        {item.children?.length ? <Caret>▾</Caret> : null}
+                      </MenuLink>
+                    ) : (
+                      <MenuButton
+                        type="button"
+                        $active={active}
+                        aria-haspopup={item.children?.length ? 'menu' : undefined}
+                      >
+                        {item.label}
+                        {item.children?.length ? <Caret>▾</Caret> : null}
+                      </MenuButton>
+                    )}
+
+                    {item.children?.length ? (
+                      <Dropdown>
+                        {item.dropdownTitle ? (
+                          <DropdownTitle>{item.dropdownTitle}</DropdownTitle>
+                        ) : null}
+                        {item.children.map((child) => (
+                          <li key={child.href}>
+                            <DropdownLink href={child.href}>{child.label}</DropdownLink>
+                          </li>
+                        ))}
+                      </Dropdown>
+                    ) : null}
+                  </MenuItem>
+                );
+              })}
+            </MenuList>
+          </RightBlock>
+        </DesktopBar>
+
+        <MobileBar>
+          <MobileToggle onClick={() => setOpen(true)} aria-label="Abrir menu">
+            <Icon name="menu" size={20} />
           </MobileToggle>
-        </MobileMenuHeader>
-        <MobileMenuBody>
-          {navItems.map((item) => (
-            <MobileNavLink
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              $active={pathname === item.href}
-            >
-              {item.label}
-            </MobileNavLink>
+
+          <MobileLogo href="/">
+            {logo ? (
+              <Image src={logo} alt={content.doctor.name} width={280} height={50} priority />
+            ) : (
+              <span>{content.doctor.name}</span>
+            )}
+          </MobileLogo>
+
+          <div style={{ width: 40 }} />
+        </MobileBar>
+      </Wrapper>
+
+      <MobileOverlay $open={open} onClick={() => setOpen(false)} />
+      <MobilePanel $open={open}>
+        <MobileHead>
+          <MobileTitle>Menu</MobileTitle>
+          <MobileToggle onClick={() => setOpen(false)} aria-label="Fechar menu">
+            <Icon name="close" size={20} />
+          </MobileToggle>
+        </MobileHead>
+
+        <MobileNav>
+          <MobileHomeLink href="/" $active={pathname === '/'} onClick={() => setOpen(false)}>
+            Home
+          </MobileHomeLink>
+
+          {mobileSections.map((section) => (
+            <MobileSection key={section.title}>
+              <MobileSectionTitle>{section.title}</MobileSectionTitle>
+              <MobileSectionLinks>
+                {section.links.map((link) => (
+                  <MobileSectionLink
+                    key={`${section.title}-${link.href}`}
+                    href={link.href}
+                    $active={matchesPath(pathname, link.href)}
+                    onClick={() => setOpen(false)}
+                  >
+                    {link.label}
+                  </MobileSectionLink>
+                ))}
+              </MobileSectionLinks>
+            </MobileSection>
           ))}
-        </MobileMenuBody>
-        <MobileMenuFooter>
-          <LanguageSwitcher />
-          <LinkButton href={ctaHref} fullWidth onClick={() => setOpen(false)}>
-            {t('actions.book')}
-          </LinkButton>
-        </MobileMenuFooter>
-      </MobileMenuPanel>
+
+          {socialItems.length > 0 ? (
+            <MobileSocials>
+              {socialItems.map((social, index) => {
+                const platform = social.platform ?? inferPlatformFromUrl(social.url);
+                return (
+                  <SocialLink
+                    key={`mobile-${social.url}`}
+                    href={social.url}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label={social.label}
+                    $accent={index % 2 === 1}
+                  >
+                    {platform ? (
+                      <SocialIcon platform={platform} size={16} />
+                    ) : (
+                      <Icon name="arrow-right" size={14} />
+                    )}
+                  </SocialLink>
+                );
+              })}
+            </MobileSocials>
+          ) : null}
+        </MobileNav>
+      </MobilePanel>
     </HeaderShell>
   );
 };

@@ -1,282 +1,244 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { ComponentProps } from 'react';
 import styled from 'styled-components';
-import { hexToRgba } from '../utils/colors';
 import { useBrand } from '../brand/BrandProvider';
-import { useI18n } from '../i18n/I18nProvider';
-import { Container, Grid, Stack } from '../design-system/primitives';
-import { Icon } from '../icons/Icon';
-import { SocialIcon } from '../icons/SocialIcon';
-import type { SocialPlatform } from '../types/brand';
-
-function inferPlatformFromUrl(url: string): SocialPlatform | null {
-  try {
-    const host = new URL(url).hostname.toLowerCase();
-    if (host.includes('instagram.com')) return 'instagram';
-    if (host.includes('facebook.com') || host.includes('fb.com')) return 'facebook';
-    if (host.includes('linkedin.com')) return 'linkedin';
-    if (host.includes('threads.net')) return 'threads';
-    if (host.includes('x.com') || host.includes('twitter.com')) return 'x';
-    if (host.includes('youtube.com')) return 'youtube';
-  } catch {
-    /* ignore */
-  }
-  return null;
-}
+import { Container } from '../design-system/primitives';
+import { hexToRgba } from '../utils/colors';
+import { footerColumns } from './siteStructure';
+import { OPEN_COOKIE_PREFERENCES_EVENT } from './CookieConsentBanner';
 
 const FooterShell = styled.footer`
-  background: ${({ theme }) => theme.colors.tealDark ?? theme.colors.backgroundAlt};
-  color: ${({ theme }) => theme.colors.tealDarkContrast ?? theme.colors.text};
-  padding: ${({ theme }) => theme.spacing.xxl * 2}px 0 ${({ theme }) => theme.spacing.xl}px;
-  margin-top: ${({ theme }) => theme.spacing.xxl * 2}px;
+  margin-top: ${({ theme }) => theme.spacing.xl}px;
+`;
+
+const EthicsBand = styled.div`
+  border-top: 1px solid ${({ theme }) => hexToRgba(theme.colors.text, 0.12)};
+  border-bottom: 1px solid ${({ theme }) => hexToRgba(theme.colors.text, 0.12)};
+  background: ${({ theme }) => hexToRgba(theme.colors.backgroundAlt, 0.7)};
+
+  p {
+    margin: 0;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    color: ${({ theme }) => theme.colors.text};
+    font-size: ${({ theme }) => theme.typography.sizes.sm};
+  }
+`;
+
+const ContentBand = styled.div`
+  background: ${({ theme }) => theme.colors.backgroundAlt};
+  padding: ${({ theme }) => theme.spacing.xxl}px 0;
+`;
+
+const FooterGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr 1.3fr;
+  gap: ${({ theme }) => theme.spacing.xl}px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.xl}) {
+    grid-template-columns: 1.2fr 1fr 1fr;
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    padding: ${({ theme }) => theme.spacing.xxl}px 0 ${({ theme }) => theme.spacing.xl}px;
-    margin-top: ${({ theme }) => theme.spacing.xxl}px;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    padding: ${({ theme }) => theme.spacing.xl * 1.5}px 0 ${({ theme }) => theme.spacing.lg}px;
-    padding-bottom: max(${({ theme }) => theme.spacing.xl}px, env(safe-area-inset-bottom));
+    grid-template-columns: 1fr;
+    gap: ${({ theme }) => theme.spacing.lg}px;
   }
 `;
 
-const Title = styled.h3`
-  font-size: ${({ theme }) => theme.typography.sizes.xl};
-  font-weight: ${({ theme }) => theme.typography.weights.bold};
-  margin-bottom: ${({ theme }) => theme.spacing.lg}px;
-  color: ${({ theme }) => theme.colors.tealDarkContrast ?? theme.colors.text};
-  font-family: ${({ theme }) => theme.typography.fonts.heading};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    font-size: ${({ theme }) => theme.typography.sizes.lg};
-    margin-bottom: ${({ theme }) => theme.spacing.md}px;
-  }
+const BrandCol = styled.div`
+  display: grid;
+  gap: ${({ theme }) => theme.spacing.md}px;
 `;
 
-const Text = styled.p`
-  color: ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.85)};
-  line-height: 1.75;
-  font-size: ${({ theme }) => theme.typography.sizes.md};
+const BrandTitle = styled.h3`
+  font-size: ${({ theme }) => theme.typography.sizes.lg};
   margin: 0;
 `;
 
-const LinkRow = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href: string }>`
-  display: inline-flex;
-  align-items: center;
+const BrandText = styled.p`
+  margin: 0;
+  color: ${({ theme }) => hexToRgba(theme.colors.text, 0.86)};
+  line-height: ${({ theme }) => theme.typography.lineHeights?.relaxed || 1.75};
+  font-size: ${({ theme }) => theme.typography.sizes.sm};
+`;
+
+const SectionTitle = styled.p`
+  margin: 0 0 ${({ theme }) => theme.spacing.md}px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: ${({ theme }) => theme.typography.sizes.xs};
+  font-weight: ${({ theme }) => theme.typography.weights.bold};
+`;
+
+const LinkList = styled.ul`
+  display: grid;
   gap: ${({ theme }) => theme.spacing.sm}px;
-  color: ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.75)};
-  padding: ${({ theme }) => theme.spacing.sm}px 0;
-  min-height: 44px;
-  font-size: ${({ theme }) => theme.typography.sizes.md};
-  transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
-    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+`;
+
+const FooterLink = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href: string }>`
+  color: ${({ theme }) => hexToRgba(theme.colors.text, 0.9)};
+  text-decoration: none;
+  font-size: ${({ theme }) => theme.typography.sizes.sm};
 
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
-    transform: translateX(4px);
   }
+`;
 
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.primary};
-    outline-offset: 2px;
-    border-radius: ${({ theme }) => theme.radii.sm};
+const ContactCol = styled.div`
+  display: grid;
+  gap: ${({ theme }) => theme.spacing.sm}px;
+`;
+
+const ContactLine = styled.a`
+  color: ${({ theme }) => hexToRgba(theme.colors.text, 0.9)};
+  text-decoration: none;
+  font-size: ${({ theme }) => theme.typography.sizes.sm};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary};
   }
+`;
 
-  svg {
-    flex-shrink: 0;
-    transition: transform ${({ theme }) => theme.motion?.duration.fast || '150ms'}
-      ${({ theme }) => theme.motion?.easing.ease || 'ease'};
-  }
+const BottomBand = styled.div`
+  background: ${({ theme }) => hexToRgba(theme.colors.text, 0.08)};
+  border-top: 1px solid ${({ theme }) => hexToRgba(theme.colors.text, 0.12)};
+`;
 
-  &:hover svg {
-    transform: translateX(2px);
-  }
+const BottomInner = styled.div`
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${({ theme }) => theme.spacing.lg}px;
 
-  @media (prefers-reduced-motion: reduce) {
-    &:hover {
-      transform: none;
-    }
-    &:hover svg {
-      transform: none;
-    }
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    min-height: 72px;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
     padding: ${({ theme }) => theme.spacing.md}px 0;
   }
 `;
 
-const SocialLink = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href: string }>`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: ${({ theme }) => theme.radii.pill};
-  border: 1px solid
-    ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.25)};
-  background: ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.08)};
-  color: ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.9)};
-  transition: all ${({ theme }) => theme.motion?.duration.fast || '150ms'}
-    ${({ theme }) => theme.motion?.easing.ease || 'ease'};
+const Rights = styled.p`
+  margin: 0;
+  color: ${({ theme }) => hexToRgba(theme.colors.text, 0.78)};
+  font-size: ${({ theme }) => theme.typography.sizes.xs};
+  line-height: 1.7;
+`;
+
+const CookiePreferencesButton = styled.button`
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin-top: 4px;
+  color: ${({ theme }) => hexToRgba(theme.colors.text, 0.86)};
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: ${({ theme }) => theme.typography.sizes.xs};
+  line-height: 1.5;
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.primary};
     color: ${({ theme }) => theme.colors.primary};
-    background: ${({ theme }) => hexToRgba(theme.colors.primary, 0.2)};
-    transform: translateY(-3px);
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.primary};
-    outline-offset: 2px;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    &:hover {
-      transform: none;
-    }
   }
 `;
 
-const FooterBottom = styled.div`
-  margin-top: ${({ theme }) => theme.spacing.xl * 2}px;
-  padding-top: ${({ theme }) => theme.spacing.xl}px;
-  border-top: 1px solid
-    ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.2)};
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: ${({ theme }) => theme.spacing.md}px;
-  flex-wrap: wrap;
-  color: ${({ theme }) => hexToRgba(theme.colors.tealDarkContrast ?? theme.colors.text, 0.65)};
-  font-size: ${({ theme }) => theme.typography.sizes.sm};
+const FooterLogo = styled(Link)<Omit<ComponentProps<typeof Link>, 'href'> & { href: string }>`
+  display: inline-flex;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    flex-direction: column;
-    text-align: center;
-    margin-top: ${({ theme }) => theme.spacing.xl}px;
-    padding-top: ${({ theme }) => theme.spacing.lg}px;
+  img {
+    width: auto;
+    height: 38px;
+    object-fit: contain;
   }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    gap: ${({ theme }) => theme.spacing.sm}px;
-    font-size: ${({ theme }) => theme.typography.sizes.xs};
-  }
-`;
-
-const BrandSection = styled(Stack)`
-  max-width: 350px;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
-    max-width: 100%;
-  }
-`;
-
-const SocialLinks = styled(Stack)`
-  margin-top: ${({ theme }) => theme.spacing.md}px;
 `;
 
 export const Footer = () => {
-  const { content, name } = useBrand();
-  const { t } = useI18n();
-
-  const quickLinks = [
-    { href: '/', label: t('nav.home') },
-    { href: '/about', label: t('nav.about') },
-    { href: '/services', label: t('nav.services') },
-    { href: '/blog', label: t('nav.blog') },
-    ...(content.instagram?.profileUrl ? [{ href: '/instagram', label: t('nav.instagram') }] : []),
-  ];
+  const { name, logo, content } = useBrand();
+  const phoneHref = `tel:${content.contact.phone.replace(/[^0-9+]/g, '')}`;
+  const whatsappHref = `https://wa.me/${content.contact.whatsapp.replace(/[^0-9]/g, '')}`;
+  const openCookiePreferences = () => {
+    if (typeof window === 'undefined') return;
+    window.dispatchEvent(new Event(OPEN_COOKIE_PREFERENCES_EVENT));
+  };
 
   return (
     <FooterShell>
-      <Container>
-        <Grid min="260px" gap="xl">
-          <BrandSection gap="md">
-            <Title>{name}</Title>
-            <Text>{content.doctor.bio}</Text>
-            {content.social && content.social.length > 0 && (
-              <SocialLinks direction="row" gap="sm">
-                {content.social.map((s) => {
-                  const platform = s.platform ?? inferPlatformFromUrl(s.url);
-                  return (
-                    <SocialLink
-                      key={s.url}
-                      href={s.url}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      aria-label={s.label}
-                    >
-                      {platform ? (
-                        <SocialIcon platform={platform} size={20} />
-                      ) : (
-                        <Icon name="arrow-right" size={18} />
-                      )}
-                    </SocialLink>
-                  );
-                })}
-              </SocialLinks>
-            )}
-          </BrandSection>
-          <Stack gap="sm">
-            <Title>{t('footer.quickLinks')}</Title>
-            {quickLinks.map((item) => (
-              <LinkRow key={item.href} href={item.href}>
-                <Icon name="arrow-right" size={14} />
-                {item.label}
-              </LinkRow>
+      <EthicsBand>
+        <Container width="wide">
+          <p>
+            Este site segue as normas de Ética Médica e de Publicidade Médica do Conselho Federal de
+            Medicina.
+          </p>
+        </Container>
+      </EthicsBand>
+
+      <ContentBand>
+        <Container width="wide">
+          <FooterGrid>
+            <BrandCol>
+              <BrandTitle>{name}</BrandTitle>
+              <BrandText>{content.doctor.bio}</BrandText>
+            </BrandCol>
+
+            {footerColumns.map((column) => (
+              <div key={column.title}>
+                <SectionTitle>{column.title}</SectionTitle>
+                <LinkList>
+                  {column.links.map((link) => (
+                    <li key={link.href}>
+                      <FooterLink href={link.href}>{link.label}</FooterLink>
+                    </li>
+                  ))}
+                </LinkList>
+              </div>
             ))}
-          </Stack>
-          <Stack gap="sm">
-            <Title>{t('footer.contact')}</Title>
-            <LinkRow href={`mailto:${content.contact.email}`}>
-              <Icon name="arrow-right" size={16} />
-              {content.contact.email}
-            </LinkRow>
-            <LinkRow href={`tel:${content.contact.phone}`}>
-              <Icon name="phone" size={16} />
-              {content.contact.phone}
-            </LinkRow>
-            {content.doctoralia?.url && (
-              <LinkRow href={content.doctoralia.url} target="_blank" rel="noreferrer noopener">
-                <Icon name="arrow-right" size={16} />
-                {t('footer.doctoralia')}
-              </LinkRow>
-            )}
-          </Stack>
-          <Stack gap="sm">
-            <Title>{t('footer.location')}</Title>
-            <Text>
-              {content.location.addressLine}
+
+            <ContactCol>
+              <SectionTitle>Atendimento</SectionTitle>
+              <ContactLine href={phoneHref}>{content.contact.phone}</ContactLine>
+              <ContactLine href={whatsappHref} target="_blank" rel="noreferrer noopener">
+                WhatsApp para agendamento
+              </ContactLine>
+              <ContactLine href={`mailto:${content.contact.email}`}>
+                {content.contact.email}
+              </ContactLine>
+              <BrandText>
+                {content.location.addressLine}
+                <br />
+                {content.location.neighborhood} • {content.location.city}/{content.location.state}
+              </BrandText>
+              <BrandText>
+                {content.location.openingHours?.[0] || 'Atendimento com hora marcada.'}
+              </BrandText>
+            </ContactCol>
+          </FooterGrid>
+        </Container>
+      </ContentBand>
+
+      <BottomBand>
+        <Container width="wide">
+          <BottomInner>
+            <Rights>
+              © {new Date().getFullYear()} | Todos os direitos reservados.
               <br />
-              {content.location.neighborhood} • {content.location.city}/{content.location.state}
-            </Text>
-            {content.location.openingHours && content.location.openingHours.length > 0 && (
-              <Text style={{ marginTop: '12px' }}>
-                <strong style={{ color: 'inherit', opacity: 1 }}>{t('footer.hours')}:</strong>{' '}
-                {content.location.openingHours[0]}
-              </Text>
-            )}
-            {content.location.mapsLink && (
-              <LinkRow
-                href={content.location.mapsLink}
-                target="_blank"
-                rel="noreferrer noopener"
-                style={{ marginTop: '8px' }}
-              >
-                <Icon name="location" size={16} />
-                {t('footer.map')}
-              </LinkRow>
-            )}
-          </Stack>
-        </Grid>
-        <FooterBottom>
-          <span>{t('footer.rights', { name })}</span>
-          <span>{t('footer.madeWithCare')}</span>
-        </FooterBottom>
-      </Container>
+              Responsável técnica: {content.doctor.name} • {content.doctor.registrationLabel}
+              <br />
+              <CookiePreferencesButton type="button" onClick={openCookiePreferences}>
+                Preferências de cookies
+              </CookiePreferencesButton>
+            </Rights>
+            {logo ? (
+              <FooterLogo href="/">
+                <Image src={logo} alt={name} width={220} height={38} />
+              </FooterLogo>
+            ) : null}
+          </BottomInner>
+        </Container>
+      </BottomBand>
     </FooterShell>
   );
 };

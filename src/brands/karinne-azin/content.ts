@@ -3,17 +3,17 @@ import { BrandContent } from '../../core/types/brand';
 export const karinneContent: BrandContent = {
   doctor: {
     name: 'Dra. Karinne Azin',
-    specialty: 'Ginecologia',
-    registrationLabel: 'CRM 10236 - CE',
-    bio: 'Ginecologista dedicada ao cuidado integral da mulher, combinando ciência, ética e acolhimento em cada consulta.',
+    specialty: 'Ginecologista',
+    registrationLabel: 'CRM-CE 10.236',
+    secondaryRegistrationLabel: 'RQE 8761 | 8808',
+    bio: 'Ginecologista dedicada ao cuidado integral da mulher, unindo escuta ativa, ciência e planejamento terapêutico personalizado em cada consulta.',
     headshot:
       'https://s3-sa-east-1.amazonaws.com/doctoralia.com.br/doctor/04015c/04015c1b5a5b4bc60398b20d5590c191_large.jpg',
     highlights: ['Ciência e Ética', 'Acolhimento e Escuta', 'Cuidado Personalizado'],
   },
   hero: {
-    headline: 'Vamos conversar sobre Ginecologia Baseada em Evidências?',
-    subheadline:
-      'O cuidado ginecológico pode ser o seu espaço seguro para entender o que está acontecendo e receber um plano claro de tratamento. Atendo presencialmente e online para todo o Brasil — com acolhimento, escuta ativa e condutas baseadas em evidências científicas.',
+    headline: 'Karinne Azin',
+    subheadline: 'Especialista em Menopausa e Reposição Hormonal Individualizada',
     ctaLabel: 'Agendar consulta',
     secondaryCtaLabel: 'Conhecer especialidades',
     backgroundImage: undefined,
@@ -25,40 +25,46 @@ export const karinneContent: BrandContent = {
   },
   services: [
     {
-      title: 'Corrimento',
+      title: 'Menopausa & Climatério',
       shortDescription:
-        'Avaliação e tratamento adequado de corrimentos vaginais, identificando causas e oferecendo soluções efetivas.',
-      iconKey: 'stethoscope',
+        'Diagnóstico e manejo de sintomas físicos, emocionais e metabólicos com condutas individualizadas e seguras.',
+      iconKey: 'clock',
     },
     {
-      title: 'Candidíase',
+      title: 'Implantes Hormonais',
       shortDescription:
-        'Diagnóstico preciso e tratamento individualizado para candidíase, com foco em prevenção de recorrências.',
+        'Indicação criteriosa, planejamento terapêutico e monitoramento periódico com foco em segurança.',
       iconKey: 'shield',
+    },
+    {
+      title: 'Laser Íntimo',
+      shortDescription:
+        'Procedimento para queixas funcionais íntimas com técnica precisa, conforto e recuperação orientada.',
+      iconKey: 'stethoscope',
     },
     {
       title: 'Endometriose',
       shortDescription:
-        'Diagnóstico preciso e plano terapêutico para reduzir dor e preservar qualidade de vida. Abordagem baseada em evidências.',
+        'Plano terapêutico para controle da dor, preservação da funcionalidade e melhora da qualidade de vida.',
       iconKey: 'heart',
-    },
-    {
-      title: 'Menopausa',
-      shortDescription:
-        'Entenda como saber se está entrando nessa fase e o que ajuda no corpo. Ondas de calor, insônia, irritabilidade e alterações podem ser sinais.',
-      iconKey: 'clock',
-    },
-    {
-      title: 'Rejuvenescimento Íntimo',
-      shortDescription:
-        'Procedimentos com técnica precisa para rejuvenescimento íntimo, segurança e acompanhamento pós-operatório.',
-      iconKey: 'shield',
     },
     {
       title: 'Cirurgia Ginecológica',
       shortDescription:
-        'Cirurgias ginecológicas conduzidas com técnica refinada, segurança e cuidado especializado.',
+        'Procedimentos com indicação precisa, planejamento pré-operatório e acompanhamento completo de recuperação.',
       iconKey: 'check',
+    },
+    {
+      title: 'Cirurgia Íntima',
+      shortDescription:
+        'Avaliação funcional e estética com indicação responsável e técnica cuidadosa.',
+      iconKey: 'shield',
+    },
+    {
+      title: 'DIUs',
+      shortDescription:
+        'Planejamento contraceptivo com inserção segura, orientação individual e seguimento ginecológico.',
+      iconKey: 'user',
     },
   ],
   steps: {
@@ -137,7 +143,7 @@ export const karinneContent: BrandContent = {
       url: 'https://www.instagram.com/dra.karinneazin/',
       platform: 'instagram',
     },
-    { label: 'Facebook', url: 'https://pt-br.facebook.com/drakarinneazin', platform: 'facebook' },
+    { label: 'Facebook', url: 'https://www.facebook.com/drakarinneazin', platform: 'facebook' },
   ],
   doctoralia: {
     url: 'https://www.doctoralia.com.br/karinne-azin/ginecologista/fortaleza',
@@ -158,9 +164,79 @@ export const karinneContent: BrandContent = {
         'Cuidado ginecológico especializado com foco em ciência, ética, acolhimento e escuta. Atendimento para menopausa, endometriose, mioma e cirurgia íntima.',
     },
     home: {
-      title: 'Ginecologista - Dra. Karinne Azin',
+      title: 'Ginecologia Avançada - Dra. Karinne Azin',
       description:
-        'Ginecologista especializada em menopausa, endometriose, mioma e cirurgia íntima. Cuidado com ciência, ética e acolhimento.',
+        'Atendimento em menopausa, implantes hormonais e ginecologia avançada com abordagem personalizada e baseada em evidências.',
+    },
+    'sobre-a-medica': {
+      title: 'Sobre a Médica - Dra. Karinne Azin',
+      description:
+        'Conheça a trajetória da Dra. Karinne Azin, sua abordagem clínica e os pilares do atendimento ginecológico personalizado.',
+    },
+    'contato-agendamento': {
+      title: 'Contato',
+      description:
+        'Entre em contato e solicite seu agendamento com a Dra. Karinne Azin pelo WhatsApp ou canais diretos da clínica.',
+    },
+    atendimento: {
+      title: 'Atendimento',
+      description:
+        'Informações de atendimento, agendamento da primeira consulta, localização e mapa do consultório da Dra. Karinne Azin.',
+    },
+    contato: {
+      title: 'Fale Conosco',
+      description:
+        'Entre em contato com a equipe da Dra. Karinne Azin para dúvidas, orientações e agendamento de consultas.',
+    },
+    especialidade: {
+      title: 'Especialidade',
+      description:
+        'Especialidade em menopausa, climatério e implantes hormonais com acompanhamento personalizado e baseado em evidências.',
+    },
+    'politica-de-privacidade': {
+      title: 'Política de Privacidade',
+      description:
+        'Entenda como tratamos dados e cookies para melhorar a navegação no site da Dra. Karinne Azin.',
+    },
+    'especialidade/menopausa-climaterio': {
+      title: 'Menopausa e Climatério',
+      description:
+        'Acompanhamento de menopausa e climatério com diagnóstico completo, terapias personalizadas e monitoramento contínuo.',
+    },
+    'especialidade/implantes-hormonais': {
+      title: 'Implantes Hormonais',
+      description:
+        'Avaliação e indicação de implantes hormonais com segurança, critério clínico e acompanhamento ginecológico especializado.',
+    },
+    'ginecologia-avancada': {
+      title: 'Ginecologia Avançada',
+      description:
+        'Laser íntimo, endometriose, cirurgia ginecológica, cirurgia íntima e DIUs em uma abordagem técnica e personalizada.',
+    },
+    'ginecologia-avancada/laser-intimo': {
+      title: 'Laser Íntimo',
+      description:
+        'Tratamento com laser íntimo para queixas funcionais e conforto ginecológico com acompanhamento especializado.',
+    },
+    'ginecologia-avancada/endometriose': {
+      title: 'Endometriose',
+      description:
+        'Diagnóstico e manejo da endometriose com plano terapêutico individualizado e foco em qualidade de vida.',
+    },
+    'ginecologia-avancada/cirurgia-ginecologica': {
+      title: 'Cirurgia Ginecológica',
+      description:
+        'Cirurgia ginecológica com indicação precisa, técnica segura e acompanhamento completo no pré e pós-operatório.',
+    },
+    'ginecologia-avancada/cirurgia-intima': {
+      title: 'Cirurgia Íntima',
+      description:
+        'Avaliação e cirurgia íntima com abordagem funcional e estética, conduta responsável e recuperação orientada.',
+    },
+    'ginecologia-avancada/dius': {
+      title: 'DIUs',
+      description:
+        'Escolha e inserção de DIUs com orientação personalizada, segurança do procedimento e seguimento clínico.',
     },
     about: {
       title: 'Sobre - Dra. Karinne Azin',
@@ -210,6 +286,18 @@ export const karinneContent: BrandContent = {
       title: 'Conteúdo confiável sobre saúde da mulher',
       description:
         'Artigos e orientações sobre ginecologia, saúde da mulher, prevenção e qualidade de vida para decisões informadas.',
+    },
+    menu: {
+      title: 'Todas as categorias',
+      categories: [
+        'Prevenção e Check-up',
+        'Menopausa e Climatério',
+        'Ciclo Menstrual e Hormônios',
+        'Endometriose e Dor Pélvica',
+        'Saúde Íntima e Autoestima',
+        'Gestação e Pós-Parto',
+        'SOP e Fertilidade',
+      ],
     },
   },
   openGraph: {

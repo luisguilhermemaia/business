@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Icon } from '../icons/Icon';
 import { useI18n } from '../i18n/I18nProvider';
+import { hexToRgba } from '../utils/colors';
 
 const LOCALE_LABELS: Record<string, string> = {
   'pt-BR': 'Português',
@@ -34,8 +35,7 @@ const Trigger = styled.button`
 
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
-    background: ${({ theme }) =>
-      theme.colors.tealDark ? 'rgba(42, 66, 66, 0.08)' : 'rgba(0, 0, 0, 0.06)'};
+    background: ${({ theme }) => hexToRgba(theme.colors.text, 0.08)};
   }
 
   &:focus-visible {
@@ -53,7 +53,7 @@ const Dropdown = styled.div<{ $open: boolean }>`
   border-radius: ${({ theme }) => theme.radii.lg};
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  box-shadow: 0 8px 24px rgba(42, 66, 66, 0.14);
+  box-shadow: 0 8px 24px ${({ theme }) => hexToRgba(theme.colors.text, 0.14)};
   opacity: ${({ $open }) => ($open ? 1 : 0)};
   visibility: ${({ $open }) => ($open ? 'visible' : 'hidden')};
   transform: translateY(${({ $open }) => ($open ? 0 : -4)}px);

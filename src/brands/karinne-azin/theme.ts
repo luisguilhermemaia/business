@@ -1,64 +1,58 @@
 import { createBrandTheme } from '../../core/design-system/theme';
 
-const teal = {
-  dark: '#2A4242',
-  darker: '#1E3636',
-  medium: '#3D5A5A',
-} as const;
-
-const brown = {
-  dark: '#593c2c',
-  medium: '#a77e5d',
-  light: '#c4a082',
-} as const;
-
-const taupe = {
-  main: '#9A816C',
-  light: '#C4B5A5',
-  soft: 'rgba(154, 129, 108, 0.2)',
+const evergreen = {
+  dark: '#29463f',
+  main: '#3e6a5d',
+  soft: 'rgba(62, 106, 93, 0.16)',
 } as const;
 
 const gold = {
-  main: '#D4AF37',
-  strong: '#B8941F',
-  soft: 'rgba(212, 175, 55, 0.15)',
+  main: '#c3a24d',
+  strong: '#a78534',
+  soft: 'rgba(195, 162, 77, 0.2)',
 } as const;
 
-const cream = {
-  main: '#FBF8ED',
-  dark: '#F5F0E0',
-  surface: '#FFFEF9',
+const ivory = {
+  base: '#f9f6ef',
+  alt: '#f2ecdf',
+  surface: '#fffdf7',
+  muted: '#e8dec9',
+} as const;
+
+const neutral = {
+  text: '#2f3b36',
+  textMuted: '#6e756d',
 } as const;
 
 export const karinneTheme = createBrandTheme({
   name: 'karinne-azin',
   colors: {
-    background: cream.main,
-    backgroundAlt: cream.dark,
-    surface: cream.surface,
-    surfaceMuted: taupe.light,
-    surfaceElevated: cream.surface,
+    background: ivory.base,
+    backgroundAlt: ivory.alt,
+    surface: ivory.surface,
+    surfaceMuted: ivory.muted,
+    surfaceElevated: ivory.surface,
     primary: gold.main,
     primaryStrong: gold.strong,
-    primaryContrast: teal.dark,
-    accent: gold.main,
-    accentContrast: teal.dark,
-    muted: taupe.main,
-    border: 'rgba(154, 129, 108, 0.35)',
-    text: teal.dark,
-    textMuted: '#6B5D4F',
-    success: gold.main,
+    primaryContrast: ivory.surface,
+    accent: evergreen.main,
+    accentContrast: ivory.surface,
+    muted: evergreen.main,
+    border: 'rgba(47, 59, 54, 0.18)',
+    text: neutral.text,
+    textMuted: neutral.textMuted,
+    success: evergreen.main,
     warning: gold.main,
-    danger: '#c46d7a',
-    overlay: 'rgba(42, 66, 66, 0.75)',
-    gradientHero: `radial-gradient(ellipse at 30% 20%, ${gold.soft} 0%, transparent 55%),
-      radial-gradient(ellipse at 70% 80%, ${taupe.soft} 0%, transparent 50%),
-      linear-gradient(180deg, ${cream.main} 0%, ${cream.dark} 100%)`,
-    gradientCard: `linear-gradient(180deg, ${cream.surface} 0%, ${cream.dark} 100%)`,
-    tealDark: teal.dark,
-    tealDarkContrast: cream.main,
-    brownDark: brown.dark,
-    brownMedium: brown.medium,
+    danger: '#b86161',
+    overlay: 'rgba(41, 70, 63, 0.72)',
+    gradientHero: `radial-gradient(ellipse at 28% 20%, ${gold.soft} 0%, transparent 55%),
+      radial-gradient(ellipse at 74% 78%, ${evergreen.soft} 0%, transparent 52%),
+      linear-gradient(180deg, ${ivory.base} 0%, ${ivory.alt} 100%)`,
+    gradientCard: `linear-gradient(180deg, ${ivory.surface} 0%, ${ivory.alt} 100%)`,
+    tealDark: evergreen.dark,
+    tealDarkContrast: ivory.surface,
+    brownDark: gold.strong,
+    brownMedium: gold.main,
   },
   typography: {
     fonts: {
@@ -102,11 +96,11 @@ export const karinneTheme = createBrandTheme({
     hero: 140,
   },
   shadows: {
-    sm: '0 2px 8px rgba(42, 66, 66, 0.08), 0 0 0 1px rgba(154, 129, 108, 0.12)',
-    md: '0 6px 20px rgba(42, 66, 66, 0.1), 0 0 0 1px rgba(154, 129, 108, 0.14)',
-    lg: '0 12px 32px rgba(42, 66, 66, 0.12), 0 0 0 1px rgba(154, 129, 108, 0.16)',
-    soft: '0 4px 16px rgba(42, 66, 66, 0.1)',
-    medium: '0 8px 24px rgba(42, 66, 66, 0.12)',
-    strong: '0 16px 40px rgba(42, 66, 66, 0.16)',
+    sm: '0 2px 8px rgba(41, 70, 63, 0.08), 0 0 0 1px rgba(195, 162, 77, 0.12)',
+    md: '0 6px 20px rgba(41, 70, 63, 0.1), 0 0 0 1px rgba(195, 162, 77, 0.14)',
+    lg: '0 12px 32px rgba(41, 70, 63, 0.12), 0 0 0 1px rgba(195, 162, 77, 0.16)',
+    soft: '0 4px 16px rgba(41, 70, 63, 0.1)',
+    medium: '0 8px 24px rgba(41, 70, 63, 0.12)',
+    strong: '0 16px 40px rgba(41, 70, 63, 0.16)',
   },
 });

@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  output: 'export', // Habilita export estático para hospedagem compartilhada
+  trailingSlash: true, // Adiciona barra no final das URLs (compatível com servidores estáticos)
   compiler: {
     styledComponents: true,
   },
@@ -8,6 +10,7 @@ const nextConfig = {
     typedRoutes: true,
   },
   images: {
+    unoptimized: true, // Necessário para export estático
     remotePatterns: [
       {
         protocol: 'https',
@@ -22,6 +25,16 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
         pathname: '/**',
       },
     ],

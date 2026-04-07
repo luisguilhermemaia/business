@@ -74,7 +74,29 @@
     "searchPlaceholder": "Buscar artigos",
     "filterTags": "Filtrar por tema",
     "noResults": "Nenhum artigo encontrado",
-    "backToBlog": "Voltar ao blog"
+    "backToBlog": "Voltar ao blog",
+    "searchAction": "Buscar",
+    "clearFilters": "Limpar filtros",
+    "resultsCount": "{count} artigos encontrados (busca: \"{query}\" · categoria: {category})",
+    "paginationLabel": "Paginação de artigos",
+    "featuredLatestLabel": "Último artigo publicado",
+    "featuredTab": "Em destaque",
+    "searchTab": "Buscar no blog",
+    "moreArticlesTitle": "Mais artigos"
+  },
+  "cookies": {
+    "message": "O nosso site utiliza cookies para melhorar a navegação. Ao continuar navegando você se declara ciente e de acordo com a nossa",
+    "privacyPolicy": "Política de Privacidade.",
+    "manage": "Gerenciar cookies",
+    "hideSettings": "Fechar ajustes",
+    "acceptAndContinue": "Aceitar e continuar",
+    "manageTitle": "Preferências de cookies",
+    "manageDescription": "Cookies necessários ficam sempre ativos. Você pode escolher os opcionais abaixo.",
+    "necessary": "Necessários",
+    "analytics": "Medição e Analytics",
+    "marketing": "Marketing",
+    "rejectOptional": "Recusar opcionais",
+    "savePreferences": "Salvar preferências"
   },
   "cta": {
     "title": "Pronto para cuidar da sua saúde com calma?",

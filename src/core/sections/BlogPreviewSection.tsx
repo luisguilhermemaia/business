@@ -120,12 +120,19 @@ export const BlogPreviewSection = ({ posts }: Props) => {
                       <Icon name="calendar" size={14} />
                       {formatDate(post.date, locale)}
                     </Tag>
-                    {post.tags?.slice(0, 2).map((tag) => (
-                      <Tag key={tag}>
-                        <Icon name="tag" size={12} />
-                        {tag}
-                      </Tag>
-                    ))}
+                    <Tag>
+                      <Icon name="globe" size={12} />
+                      {post.category}
+                    </Tag>
+                    {post.tags
+                      .filter((tag) => tag !== post.category)
+                      .slice(0, 1)
+                      .map((tag) => (
+                        <Tag key={tag}>
+                          <Icon name="tag" size={12} />
+                          {tag}
+                        </Tag>
+                      ))}
                   </Stack>
                   <PostTitle>
                     <Link href={`/blog/${post.slug}`}>{post.title}</Link>

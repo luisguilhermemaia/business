@@ -19,6 +19,7 @@ export interface DoctorProfile {
   name: string;
   specialty: string;
   registrationLabel: string;
+  secondaryRegistrationLabel?: string;
   bio: string;
   headshot?: string;
   highlights: string[];
@@ -101,6 +102,10 @@ export interface BrandContent {
     intro: {
       title: string;
       description: string;
+    };
+    menu?: {
+      title?: string;
+      categories?: string[];
     };
   };
   openGraph?: {

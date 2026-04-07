@@ -74,7 +74,29 @@
     "searchPlaceholder": "Search articles",
     "filterTags": "Filter by topic",
     "noResults": "No articles found",
-    "backToBlog": "Back to blog"
+    "backToBlog": "Back to blog",
+    "searchAction": "Search",
+    "clearFilters": "Clear filters",
+    "resultsCount": "{count} articles found (query: \"{query}\" · category: {category})",
+    "paginationLabel": "Article pagination",
+    "featuredLatestLabel": "Latest published article",
+    "featuredTab": "Featured",
+    "searchTab": "Search in blog",
+    "moreArticlesTitle": "More articles"
+  },
+  "cookies": {
+    "message": "Our website uses cookies to improve navigation. By continuing to browse, you acknowledge and agree with our",
+    "privacyPolicy": "Privacy Policy.",
+    "manage": "Manage cookies",
+    "hideSettings": "Hide settings",
+    "acceptAndContinue": "Accept and continue",
+    "manageTitle": "Cookie preferences",
+    "manageDescription": "Necessary cookies are always enabled. You can choose optional ones below.",
+    "necessary": "Necessary",
+    "analytics": "Analytics",
+    "marketing": "Marketing",
+    "rejectOptional": "Reject optional",
+    "savePreferences": "Save preferences"
   },
   "cta": {
     "title": "Ready for calm, attentive care?",
